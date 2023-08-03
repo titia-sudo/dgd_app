@@ -10,7 +10,11 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
+<<<<<<< HEAD
                                     <p class="text-sm mb-0 text-uppercase font-weight-bold">TOTAL DOSSIERS demandeurs</p>
+=======
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS</p>
+>>>>>>> 8e3abcd43cf57b58c26a962ae0c2b4c982504987
                                     <h2 class="font-weight-bolder">
                                         286
                                     </h2>
@@ -32,7 +36,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">TOTAL DOSSIERS VALIDES</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS VALIDES</p>
                                     <h2 class="font-weight-bolder">
                                         260
                                     </h2>
@@ -54,7 +58,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">TOTAL DOSSIERS REJETES</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS REJETES</p>
                                     <h2 class="font-weight-bolder">
                                         15
                                     </h2>
@@ -75,7 +79,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bold">TOTAL DOSSIERS EN COURS</p>
+                                <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS EN COURS</p>
                                     <h2 class="font-weight-bolder">
                                         11
                                     </h2>
