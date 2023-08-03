@@ -10,7 +10,7 @@
                         <div class="row">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">TOTAL DOSSIERS demandeurs</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bold">TOTAL DOSSIERS validateur</p>
                                     <h2 class="font-weight-bolder">
                                         286
                                     </h2>

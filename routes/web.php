@@ -1,7 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\ResetPassword;
+use App\Http\Controllers\ChangePassword;
+use App\Http\Controllers\UniteTempsTraitementController;
+use App\Http\Controllers\TempsTraitementController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,13 +25,50 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UserProfileController;
-use App\Http\Controllers\ResetPassword;
-use App\Http\Controllers\ChangePassword;            
+ Auth::routes();
+ /*------------------------------------------
+--------------------------------------------
+All Normal Users Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::middleware(['auth', 'user-access:demandeur'])->group(function () {
+  
+    Route::get('/demandeurHome', [HomeController::class, 'index'])->name('demandeurHome');
+});
+
+/*------------------------------------------
+--------------------------------------------
+All Admin Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::middleware(['auth', 'user-access:validateur'])->group(function () {
+  
+    Route::get('/validatorHome', [HomeController::class, 'validatorHome']);
+});
+  
+/*------------------------------------------
+--------------------------------------------
+All Admin Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+  
+    Route::get('/adminHome', [HomeController::class, 'adminHome']);
+});
+  
+/*------------------------------------------
+--------------------------------------------
+All Admin Routes List
+--------------------------------------------
+--------------------------------------------*/
+Route::middleware(['auth', 'user-access:superAdmin'])->group(function () {
+  
+    Route::get('/superAdminHome', [HomeController::class, 'superAdminHome']);
+});
+ 
+
+Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class);
+Route::resource('/tempsTraitements', TempsTraitementController::class);
             
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
