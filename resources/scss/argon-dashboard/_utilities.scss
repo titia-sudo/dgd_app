@@ -106,7 +106,6 @@ $utilities: (
   ),
   "border-top": (
     property: border-top,
-    responsive: true,
     values: (
       null: $border-width solid $border-color,
       0: 0,
@@ -114,7 +113,6 @@ $utilities: (
   ),
   "border-end": (
     property: border-right,
-    responsive: true,
     class: border-end,
     values: (
       null: $border-width solid $border-color,
@@ -123,7 +121,6 @@ $utilities: (
   ),
   "border-bottom": (
     property: border-bottom,
-    responsive: true,
     values: (
       null: $border-width solid $border-color,
       0: 0,
@@ -131,7 +128,6 @@ $utilities: (
   ),
   "border-start": (
     property: border-left,
-    responsive: true,
     class: border-start,
     values: (
       null: $border-width solid $border-color,
@@ -148,6 +144,7 @@ $utilities: (
     class: border,
     values: $border-widths
   ),
+  
   // scss-docs-end utils-borders
   // Sizing utilities
   // scss-docs-start utils-sizing

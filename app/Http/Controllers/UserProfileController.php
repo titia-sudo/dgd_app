@@ -9,7 +9,7 @@ class UserProfileController extends Controller
 {
     public function show()
     {
-        return view('pages.user-profile');
+        return view('pages.dashboard-ls-users');
     }
 
     public function update(Request $request)

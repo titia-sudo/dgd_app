@@ -93,22 +93,48 @@
         </div>
         
     <!-- partie   contenu de l'administation-->
-        <div class="row mt-6 mb-6">
+<div class="container-fluid ">
 
-                <!-- partie  de la courbe des donnees -->
-                <div class="col-xl-7 col-lg-6">
-                    <div class="card shadow-inner mb-4">
-                       <img src="./img/imaget.png" alt="Nature" onclick="myFunction(this);">
-                    </div>
-                </div>
+  <!-- DataTales Example -->
+    <div class="row text-center mt-7">
+        <h4 class="m-0 font-weight-bold text-black">Création de niveau de traitement</h4><br>
+    </div>
+                <form action="">
+                    <div class="container mt-5 shadow-lg  col-9  p-5 bg-body rounded ">
+                        <div class="row mb-3">
+                            <div class="form-group">
+                            <label for="example-text-input" class="form-control-label text-lg">Designation</label>
+                               <input type="text" class="form-control" placeholder="niveau" aria-label="niveau">
+                            </div>
+                            <div class="form-group">
+                                <label for="example-text-input" class="form-control-label text-lg">Affecter des utilisateurs </label>
+                                <select class="form-select" multiple aria-label="multiple select example">
+                                    <option selected>Open this select menu</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                            <ul id="myUL">
+                                <li><a >Adele</a></li>
+                                <li><a >Agnes</a></li>
+                                <li><a >Billy</a></li>
+                                <li><a >Bob</a></li>
+                                
+                                </ul>
+                            </div>
 
-                <!-- partie  du diagramme  circulaire -->
-                <div class="col-xl-5 col-lg-6">
-                    <div class="card shadow mb-4">
-                        <img src="./img/circulaire.png" alt="Snow" onclick="myFunction(this);">
+                        </div> 
+                        <div class="text-end">
+                                <button type="submit" class="btn btn-primary btn-md text-white">Enregistrer</button>
+                         </div> 
+
                     </div>
-                </div>
-        </div>
+                </form>
+     </div>
+
+</div>
        
         @include('layouts.footers.auth.footer')
     </div>

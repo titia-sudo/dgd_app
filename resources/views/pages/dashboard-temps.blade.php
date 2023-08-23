@@ -93,22 +93,40 @@
         </div>
         
     <!-- partie   contenu de l'administation-->
-        <div class="row mt-6 mb-6">
+<div class="container-fluid ">
 
-                <!-- partie  de la courbe des donnees -->
-                <div class="col-xl-7 col-lg-6">
-                    <div class="card shadow-inner mb-4">
-                       <img src="./img/imaget.png" alt="Nature" onclick="myFunction(this);">
-                    </div>
-                </div>
+  <!-- DataTales Example -->
+    <div class="row text-center mt-7">
+        <h4 class="m-0 font-weight-bold text-black">Création des temps de traitements</h4><br>
+    </div>
+                <form action="">
+                    <div class="container mt-6 shadow-lg  col-9  p-5 bg-body rounded ">
+                        <div class="row mb-6">
+                            <div class="form-group">
+                            <label for="example-text-input" class="form-control-label text-lg">Nombre</label>
+                               <input type="text" class="form-control" placeholder="1" aria-label="nombre">
+                            </div>
+                            <div class="form-group">
+                            <label for="example-text-input" class="form-control-label text-lg">Unité de temps </label>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Heure</option>
+                                    <option value="J">Jour</option>
+                                    <option value="S">Semaine</option>
+                                    <option value="M">mois</option>
+                                    <option value="A">Anneé</option>
+                                </select>
+                            </div>
 
-                <!-- partie  du diagramme  circulaire -->
-                <div class="col-xl-5 col-lg-6">
-                    <div class="card shadow mb-4">
-                        <img src="./img/circulaire.png" alt="Snow" onclick="myFunction(this);">
+                        </div> 
+                        <div class="text-end">
+                                <button type="submit" class="btn btn-primary btn-md text-white">Enregistrer</button>
+                         </div> 
+
                     </div>
-                </div>
-        </div>
+                </form>
+     </div>
+
+</div>
        
         @include('layouts.footers.auth.footer')
     </div>

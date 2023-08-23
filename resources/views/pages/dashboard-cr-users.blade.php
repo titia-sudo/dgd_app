@@ -93,22 +93,63 @@
         </div>
         
     <!-- partie   contenu de l'administation-->
-        <div class="row mt-6 mb-6">
+<div class="container-fluid ">
 
-                <!-- partie  de la courbe des donnees -->
-                <div class="col-xl-7 col-lg-6">
-                    <div class="card shadow-inner mb-4">
-                       <img src="./img/imaget.png" alt="Nature" onclick="myFunction(this);">
-                    </div>
-                </div>
+  <!-- DataTales Example -->
+    <div class="row text-center mt-5">
+        <h4 class="m-0 font-weight-bold text-black">Création de compte utilisateur</h4><br>
+    </div>
+                    <form action=""></form>
+                    <div class="container shadow-lg col-9 p-6 ">
+                            <div class="row ">
+                                <div class="">
+                                    <div class="form-group ">
+                                        <label for="example-text-input" class="form-control-label text-lg">Nom</label>
+                                        <input class="form-control " type="text" name="username" value="{{ old('username', auth()->user()->username) }}">
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="form-control-label text-lg">Prénom</label>
+                                        <input class="form-control " type="text" name="firstname"  value="{{ old('firstname', auth()->user()->firstname) }}">
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="form-control-label text-lg"> Addresse Email</label>
+                                        <input class="form-control " type="email" name="email" value="{{ old('email', auth()->user()->email) }}">
+                                    </div>
+                                </div>
+                                
+                                <div class="">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="form-control-label text-lg">Services</label>
+                                        <input class="form-control " type="text" name="lastname" value="{{ old('lastname', auth()->user()->lastname) }}">
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="form-control-label text-lg">Nom d'utilisateur</label>
+                                        <input class="form-control " type="text" name="lastname" value="{{ old('lastname', auth()->user()->lastname) }}">
+                                    </div>
+                                </div>
+                                <div class="">
+                                    <div class="form-group">
+                                        <label for="example-text-input" class="form-control-label text-lg">Rôle</label>
+                                        <input class="form-control shadow" type="text" name="lastname" value="{{ old('lastname', auth()->user()->lastname) }}">
+                                    </div>
+                                </div>
 
-                <!-- partie  du diagramme  circulaire -->
-                <div class="col-xl-5 col-lg-6">
-                    <div class="card shadow mb-4">
-                        <img src="./img/circulaire.png" alt="Snow" onclick="myFunction(this);">
-                    </div>
-                </div>
-        </div>
+                                <div class="text-end ">
+                                <a href="login.html" class="btn btn-danger btn-user btn-block text-white ">abandonner</a>
+                                    <a href="login.html" class="btn shadow btn-user btn-block bg-primary text-white mx-6">Enregistrer</a>
+                                
+                                </div>
+                            </div>
+    </div>
+</div>
+
+</div>
        
         @include('layouts.footers.auth.footer')
     </div>
