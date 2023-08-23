@@ -1,4 +1,4 @@
-@extends('tempsTraitement.layout')
+@extends('user.layout')
  
 @section('content')
     <div class="row">
@@ -7,7 +7,7 @@
                 <h2>DGD APP</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('tempsTraitements.create') }}"> Nouveau</a>
+                <a class="btn btn-success" href="{{ route('services.create') }}">  Nouveau</a>
             </div>
         </div>
     </div>
@@ -21,21 +21,20 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Nombre</th>
-            <th>Unité de temps</th>
+            <th>Designation</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($tempsTraitement as $tempsTraitement)
+        @foreach ($services as $service)
         <tr>
             <td>{{ ++$i }}</td>
-            <td>{{ $tempsTraitement->nombreTempsTraitement }}</td>
-            <td>{{ $tempsTraitement->UniteTempsTraitement->designationUniteTempsTraitement}}</td>
+            <td>{{ $service->nomService }}</td>
+            <td>{{ $service->idDirection }}</td>
             <td>
-                <form action="{{ route('tempsTraitements.destroy',$tempsTraitement->id) }}" method="POST">
+                <form action="{{ route('services.destroy',$service->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('tempsTraitements.show',$tempsTraitement->id) }}">Show</a>
+                    <a class="btn btn-info" href="{{ route('services.show',$service->id) }}">Show</a>
     
-                    <a class="btn btn-primary" href="{{ route('tempsTraitements.edit',$tempsTraitement->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('services.edit',$service->id) }}">Edit</a>
    
                     @csrf
                     @method('DELETE')
@@ -47,6 +46,7 @@
         @endforeach
     </table>
   
+    {!! $services->links() !!}
       
 @endsection
 

@@ -11,6 +11,7 @@ class TempsTraitement extends Model
 {
     use HasFactory;
     protected $table = 'tempsTraitements';
+    protected $guarded = [];
 
     protected $fillable=[
         'id',
@@ -23,4 +24,10 @@ class TempsTraitement extends Model
     {
         return $this->belongsTo(UniteTempsTraitement::class, 'idUniteTempsTraitement');
     }
+
+    public function niveauTraitement(): HasMany 
+    { 
+        return $this->hasMany(NiveauTraitement::class); 
+    }
+    
 }

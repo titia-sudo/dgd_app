@@ -1,13 +1,13 @@
-@extends('tempsTraitement.layout')
+@extends('service.layout')
   
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Ajout de temps de traitement</h2>
+            <h2>Services</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('tempsTraitements.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('services.index') }}"> Back</a>
         </div>
     </div>
 </div>
@@ -23,37 +23,30 @@
     </div>
 @endif
    
-<form action="{{ route('tempsTraitements.store') }}" method="POST">
+<form action="{{ route('services.store') }}" method="POST">
     @csrf
   
      <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Nombre:</strong>
-                <input type="text" name="nombreTempsTraitement" class="form-control" placeholder="Temps de traitement">
+                <strong>Nom Service:</strong>
+                <input type="text" name="username" class="form-control" placeholder="l'unité de temps de traitement">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <option value="" selected>Veuillez choisir...</option>
-                <select name="idUniteTempsTraitement" id="idUniteTempsTraitement" class="form-control">
-                    @foreach($uniteTempsTraitements as $uniteTempsTraitement)
-                        <option value="{{ $uniteTempsTraitement->id }}">{{ $uniteTempsTraitement->designationUniteTempsTraitement }}</option>
+                <select name="idDirection" id="idDirection" class="form-control">
+                    @foreach($directions as $direction)
+                        <option value="{{ $direction->id }}">{{ $direction->nomDirection }} {{ $nomDirection->sigleDirection }}</option>
                     @endforeach
                 </select>
             </div>
         </div>
-
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Enregister</button>
         </div>
     </div>
    
 </form>
-@endsection
-
-@section('scripts')
-<script>
-
-</script>
 @endsection

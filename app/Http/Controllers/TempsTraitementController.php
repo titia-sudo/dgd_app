@@ -35,8 +35,10 @@ class TempsTraitementController extends Controller
     public function create():View
     {
         //creer de temps de traitement
-        $uniteTempsTraitements = UniteTempsTraitement::orderBy('designationUniteTempsTraitement')->get();
+        $tempsTraitements = TempsTraitement::all();
+        $uniteTempsTraitements = UniteTempsTraitement::orderBy('designationUniteTempsTraitement', 'ASC')->get();
         return view('tempsTraitement.create', compact('uniteTempsTraitements'));
+        
     }
 
     /**
@@ -78,12 +80,11 @@ class TempsTraitementController extends Controller
      * @param  \App\Models\tempsTraitement  $tempsTraitement
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(TempsTraitement $tempsTraitement)
     {
-        $tempsTraitement = TempsTraitement::findOrFail($id);
+        $uniteTempsTraitement = UniteTempsTraitement::orderBy('designationUniteTempsTraitement')->get();
+        return view('tempsTraitement.edit',compact('uniteTempsTraitement', 'tempsTraitement'));
 
-        $uniteTempsTraitement = UniteTempsTraitement::with('designationUniteTempsTraitement','id');
-        return view('tempsTraitement.edit',compact('uniteTempsTraitement'));
     }
 
     /**

@@ -1,4 +1,4 @@
-@extends('tempsTraitement.layout')
+@extends('niveauTraitement.layout')
  
 @section('content')
     <div class="row">
@@ -7,7 +7,7 @@
                 <h2>DGD APP</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('tempsTraitements.create') }}"> Nouveau</a>
+                <a class="btn btn-success" href="{{ route('niveauTraitements.create') }}"> Nouveau</a>
             </div>
         </div>
     </div>
@@ -21,21 +21,21 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Nombre</th>
-            <th>Unité de temps</th>
+            <th>Nom Niveau</th>
+            <th>Temps de traitement</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($tempsTraitement as $tempsTraitement)
+        @foreach ($niveauTraitements as $niveauTraitement)
         <tr>
             <td>{{ ++$i }}</td>
-            <td>{{ $tempsTraitement->nombreTempsTraitement }}</td>
-            <td>{{ $tempsTraitement->UniteTempsTraitement->designationUniteTempsTraitement}}</td>
+            <td>{{ $niveauTraitement->nomNiveau }}</td>
+            <td>{{ $niveauTraitement->UniteTempsTraitement->designationUniteTempsTraitement}}</td>
             <td>
-                <form action="{{ route('tempsTraitements.destroy',$tempsTraitement->id) }}" method="POST">
+                <form action="{{ route('niveauTraitements.destroy',$niveauTraitement->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('tempsTraitements.show',$tempsTraitement->id) }}">Show</a>
+                    <a class="btn btn-info" href="{{ route('niveauTraitements.show',$niveauTraitement->id) }}">Show</a>
     
-                    <a class="btn btn-primary" href="{{ route('tempsTraitements.edit',$tempsTraitement->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('niveauTraitements.edit',$niveauTraitement->id) }}">Edit</a>
    
                     @csrf
                     @method('DELETE')
@@ -46,8 +46,7 @@
         </tr>
         @endforeach
     </table>
-  
-      
+       
 @endsection
 
 </body> 

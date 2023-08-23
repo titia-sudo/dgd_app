@@ -66,10 +66,16 @@ Route::middleware(['auth', 'user-access:superAdmin'])->group(function () {
     Route::get('/superAdminHome', [HomeController::class, 'superAdminHome']);
 });
  
-
+//lien vers les CRUD
 Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class);
 Route::resource('/tempsTraitements', TempsTraitementController::class);
-            
+Route::resource('/niveauTraitements', NiveauTraitementController::class);
+//Route::get('user/create', 'UserController@create')->name('niveauTraitements.create');
+Route::resource('/users', UserController::class);    
+Route::resource('/profils', ProfilController::class);
+Route::resource('/directions', DirectionController::class);
+Route::resource('/services', ServiceController::class);
+ 
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 	Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');

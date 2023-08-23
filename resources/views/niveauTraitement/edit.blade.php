@@ -20,8 +20,8 @@
             </ul>
         </div>
     @endif
-    
-    <form action="{{ route('tempsTraitements.update',$tempsTraitement->id) }}" method="POST">
+  
+    <form action="{{ route('niveauTraitements.update',$tempsTraitement->id) }}" method="POST">
         @csrf
         @method('PUT')
    
@@ -33,13 +33,12 @@
                 </div>
             </div>
 
-            <div class="form-group"> 
-                <option value=""></option>
-                <select name="idUniteTempsTraitement" id="idUniteTempsTraitement" class="form-control"> 
-                @foreach($uniteTempsTraitement as $uniteTempsTraitement)
-                    <option {{$uniteTempsTraitement->id==$uniteTempsTraitement->idUniteTempsTraitement?'selected':''}} value="{{ $uniteTempsTraitement->id }}">{{ $uniteTempsTraitement->designationUniteTempsTraitement }}</option>
-                 @endforeach    
-                
+            <div class="form-group">
+                <select name="idUniteTempsTraitement" id="idUniteTempsTraitement" class="form-control">
+                <option value="{{ $current_city }}">{{ $current_city_name }}</option>    
+                @foreach($uniteTempsTraitements as $uniteTempsTraitement)
+                        <option value="{{ $uniteTempsTraitement->id }}">{{ $uniteTempsTraitement->designationUniteTempsTraitement }}</option>
+                    @endforeach                 
                 </select>
             </div>
 
