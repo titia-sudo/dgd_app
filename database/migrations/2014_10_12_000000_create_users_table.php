@@ -26,6 +26,11 @@ return new class extends Migration
             $table->string('country')->nullable();
             $table->string('postal')->nullable();
             $table->text('about')->nullable();
+            $table->tinyInteger('profil')->default(0); // à supprimer afta
+            $table->integer('idProfil')->nullable();
+            $table->integer('idService')->nullable();
+            /* users : 0=>Demandeur, 1=>Valideur, 2=>Admin, 3=>SuperAdmin */
+
             $table->rememberToken();
             $table->timestamps();
         });
