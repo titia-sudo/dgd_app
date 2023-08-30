@@ -92,44 +92,111 @@
                 </div>
             </div>
         </div>
-        <!-- partie   alerte-->
+
         @if ($message = Session::get('success'))
-           <div class="alert alert-success">
-               <p>{{ $message }}</p>
-            </div>
-        @endif
-        <!-- partie   alerte-->
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+   
+        
     <!-- partie   contenu de l'administation-->
 <div class="container-fluid">
 
   <!-- DataTales Example -->
     <div class="row text-center mt-5">
-        <h4 class="m-0 font-weight-bold text-black">Détails temps traitements</h4>
+        <h4 class="m-0 font-weight-bold text-black">Liste des dossiers</h4>
     </div>
 <hr>
     <div class="row shadow mt-2">
-             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('tempsTraitements.index') }}"> Retour</a>
+       <div class="col-sm-3 col-md-3">
+            <div>
+                    <h5>FILTRE :</h5>
             </div>
+        </div>
+        <div class="col-sm-3 col-md-3 ">
+            <div class="dataTables_length select" id="dataTable_length">
+                <label> <h6>Date</h6>
+                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+            </div>
+        </div>
 
+        <div class="col-sm-3 col-md-3">
+            <div class="dataTables_length select" id="dataTable_length">
+                <label><h6>Statut</h6>
+                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+
+        <div class="col-sm-3 col-md-3">
+            <div class="dataTables_length select" id="dataTable_length">
+                <label><h6>Type</h6>
+                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="pull-right">
+                <a class="btn btn-success" href="{{ route('uniteTempsTraitements.create') }}">  Nouveau</a>
+            </div>
         
     </div>
 
-        <div class="container mt-6 shadow-lg  col-9  p-5 bg-body rounded ">
-        <div class="row mb-6">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Nombre de temps:</strong>
-                    {{ $tempsTraitement->nombreTempsTraitement }}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Unité de temps:</strong>
-                    {{ $tempsTraitement->uniteTempsTraitement->designationUniteTempsTraitement }}
-                </div>
-            </div>
-
+    <div class="card-body shadow">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+            <th>No</th>
+            <th>Designation</th>
+            <th width="280px">Action</th>
+           </tr>
+                </thead>
+                <tfoot>
+                <th>No</th>
+            <th>Designation</th>
+            <th width="280px">Action</th>
+           </tr>
+                </tfoot>
+                <tbody>
+                @foreach ($uniteTempsTraitements as $uniteTempsTraitement)
+        <tr>
+            <td>{{ ++$i }}</td>
+            <td>{{ $uniteTempsTraitement->designationUniteTempsTraitement }}</td>
+            <td>
+                <form action="{{ route('uniteTempsTraitements.destroy',$uniteTempsTraitement->id) }}" method="POST">
+   
+                    <a class="btn btn-info" href="{{ route('uniteTempsTraitements.show',$uniteTempsTraitement->id) }}">Show</a>
+    
+                    <a class="btn btn-primary" href="{{ route('uniteTempsTraitements.edit',$uniteTempsTraitement->id) }}">Edit</a>
+   
+                    @csrf
+                    @method('DELETE')
+      
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        @endforeach
+                </tbody>
+            </table>
+            {!! $uniteTempsTraitements->links() !!}
         </div>
     </div>
 </div>

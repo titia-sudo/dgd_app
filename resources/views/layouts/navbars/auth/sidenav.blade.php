@@ -7,7 +7,7 @@
           <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
             aria-hidden="true" id="iconSidenav"></i>
         
-            <img src="./img/logo-dgd.png" width="450" height="300" alt="main_logo">
+            <img src="/../../../../img/logo-dgd.png" width="450" height="300" alt="main_logo">
         </div>
         <hr class="horizontal " style="height:3px;border-width:1;color:#04AA6D;background-color:#04AA6D">
         

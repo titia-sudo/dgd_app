@@ -1,4 +1,3 @@
-
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
@@ -11,7 +10,7 @@
                         <div class="row text-white ">
                             <div class="col-8">
                                 <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS</p>
+                                    <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS uniteTempsTraitement</p>
                                     <h2 class="font-weight-bolder text-white">
                                         286
                                     </h2>
@@ -92,50 +91,50 @@
                 </div>
             </div>
         </div>
-        <!-- partie   alerte-->
-        @if ($message = Session::get('success'))
-           <div class="alert alert-success">
-               <p>{{ $message }}</p>
-            </div>
-        @endif
-        <!-- partie   alerte-->
+        
+        <!------gestion des alertes--->
+        @if ($errors->any())
+       <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+       </div>
+     @endif
+        <!---fin gestion des alertes--->
     <!-- partie   contenu de l'administation-->
-<div class="container-fluid">
+<div class="container-fluid ">
 
   <!-- DataTales Example -->
-    <div class="row text-center mt-5">
-        <h4 class="m-0 font-weight-bold text-black">Détails temps traitements</h4>
+    <div class="row text-center mt-7">
+        <h4 class="m-0 font-weight-bold text-black">Ajout d'une unité de temps de traitement</h4><br>
     </div>
-<hr>
-    <div class="row shadow mt-2">
-             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('tempsTraitements.index') }}"> Retour</a>
-            </div>
+                <form action="{{ route('uniteTempsTraitements.store') }}" method="POST">
+                @csrf
+                    <div class="container mt-5 shadow-lg  col-9  p-5 bg-body rounded ">
+                        <div class="row mb-3">
+                            <div class="form-group">
+                            <strong>Unite de temps:</strong>
+                                <input type="text" name="designationUniteTempsTraitement" class="form-control" placeholder="l'unité de temps de traitement">
+                             </div>
 
-        
-    </div>
+                        </div> 
+                        <div class="text-end">
+                                <button type="submit" class="btn btn-primary btn-md text-white">Enregistrer</button>
+                         </div> 
 
-        <div class="container mt-6 shadow-lg  col-9  p-5 bg-body rounded ">
-        <div class="row mb-6">
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Nombre de temps:</strong>
-                    {{ $tempsTraitement->nombreTempsTraitement }}
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-12">
-                <div class="form-group">
-                    <strong>Unité de temps:</strong>
-                    {{ $tempsTraitement->uniteTempsTraitement->designationUniteTempsTraitement }}
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
+                    </div>
+                </form>
+     </div>
 
 </div>
        
         @include('layouts.footers.auth.footer')
     </div>
 @endsection
+
+
+
+
