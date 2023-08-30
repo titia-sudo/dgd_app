@@ -25,7 +25,7 @@ class TempsTraitement extends Model
         return $this->belongsTo(UniteTempsTraitement::class, 'idUniteTempsTraitement');
     }
 
-    public function niveauTraitement(): HasMany 
+    public function NiveauTraitement(): HasMany 
     { 
         return $this->hasMany(NiveauTraitement::class); 
     }

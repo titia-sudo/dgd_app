@@ -22,9 +22,9 @@ class NiveauTraitement extends Model
     ];
 
 
-    public function tempsTraitement(): BelongsTo
+    public function TempsTraitement(): BelongsTo
     { 
-        return $this->belongsTo(TempsTraitement::class); 
+        return $this->belongsTo(TempsTraitement::class, 'idTempsTraitement'); 
     }
 
     public function users()

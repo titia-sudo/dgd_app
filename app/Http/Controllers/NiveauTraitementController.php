@@ -72,9 +72,8 @@ class NiveauTraitementController extends Controller
     public function show(NiveauTraitement $niveauTraitement)
     {
         //
-       /* $uniteTempsTraitement = $tempsTraitement->uniteTempsTraitement->designationUniteTempsTraitement;
-        return view('tempsTraitement.show',compact('tempsTraitement', 'uniteTempsTraitement'));
-        */
+        $tempsTraitements = TempsTraitement::orderBy('nombreTempsTraitement')->get();
+        return view('niveauTraitement.show',compact('niveauTraitement', 'tempsTraitements'));
     }
 
     /**
@@ -87,7 +86,7 @@ class NiveauTraitementController extends Controller
     {
         //
         $tempsTraitements = TempsTraitement::orderBy('nombreTempsTraitement')->get();
-        return view('niveauTraitements.edit', compact('niveauTraitement', 'tempsTraitements'));
+        return view('niveauTraitement.edit', compact('niveauTraitement', 'tempsTraitements'));
 
     }
 
