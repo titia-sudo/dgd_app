@@ -1,13 +1,13 @@
-@extends('service.layout')
+@extends('typeDossier.layout')
   
 @section('content')
 <div class="row">
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
-            <h2>Services</h2>
+            <h2>Ajout d'un type de dossier</h2>
         </div>
         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('services.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('uniteTempsTraitements.index') }}"> Back</a>
         </div>
     </div>
 </div>
@@ -23,26 +23,23 @@
     </div>
 @endif
    
-<form action="{{ route('services.store') }}" method="POST">
+<form action="{{ route('typeDossiers.store') }}" method="POST">
     @csrf
   
      <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Nom Service:</strong>
-                <input type="text" name="nomService" class="form-control" placeholder="nom service">
+                <strong>Designation:</strong>
+                <input type="text" name="designationTypeDossier" class="form-control" placeholder="libelle type dossier">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <option value="" selected>Veuillez choisir...</option>
-                <select name="idDirection" id="idDirection" class="form-control">
-                    @foreach($directions as $direction)
-                        <option value="{{ $direction->id }}">{{ $direction->nomDirection }} {{ $direction->sigleDirection }}</option>
-                    @endforeach
-                </select>
+                <strong>Nombre Niveau Traitement:</strong>
+                <input type="text" name="nombreNiveauTraitement" class="form-control" placeholder="l'unité de temps de traitement">
             </div>
         </div>
+
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-primary">Enregister</button>
         </div>

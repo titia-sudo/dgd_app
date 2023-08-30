@@ -1,4 +1,4 @@
-@extends('user.layout')
+@extends('typeDossier.layout')
  
 @section('content')
     <div class="row">
@@ -7,7 +7,7 @@
                 <h2>DGD APP</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('users.create') }}">  Nouveau</a>
+                <a class="btn btn-success" href="{{ route('typeDossiers.create') }}">  Nouveau</a>
             </div>
         </div>
     </div>
@@ -21,25 +21,23 @@
     <table class="table table-bordered">
         <tr>
             <th>No</th>
-            <th>Nom d'utilisateur</th>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Email</th>
+            <th>Designation</th>
+            <th>Nombre Niveau de traitement:</th>
             <th width="280px">Action</th>
         </tr>
-        @foreach ($users as $user)
+        @foreach ($typeDossiers as $typeDossier)
         <tr>
             <td>{{ ++$i }}</td>
-            <td>{{ $user->firstname }}</td>
-            <td>{{ $user->lastname }}</td>
-            <td>{{ $user->username }}</td>
-            <td>{{ $user->email }}</td>
+            <td>{{ $typeDossier->designationTypeDossier }}</td> 
+            <td>{{ $typeDossier->nombreNiveauTraitement }}</td>
+            </div>
+        </div>
             <td>
-                <form action="{{ route('users.destroy',$user->id) }}" method="POST">
+                <form action="{{ route('typeDossiers.destroy',$typeDossier->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
+                    <a class="btn btn-info" href="{{ route('typeDossiers.show',$typeDossier->id) }}">Show</a>
     
-                    <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
+                    <a class="btn btn-primary" href="{{ route('typeDossiers.edit',$typeDossier->id) }}">Edit</a>
    
                     @csrf
                     @method('DELETE')
@@ -51,7 +49,7 @@
         @endforeach
     </table>
   
-    {!! $users->links() !!}
+    {!! $typeDossiers->links() !!}
       
 @endsection
 

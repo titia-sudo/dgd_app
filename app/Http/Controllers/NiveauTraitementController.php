@@ -22,9 +22,8 @@ class NiveauTraitementController extends Controller
         //
         $niveauTraitements = NiveauTraitement::with('TempsTraitement')->get();
         $niveauTraitements = NiveauTraitement::latest()->paginate(5);
-                  
-        return view('niveauTraitement.index', compact('niveauTraitements')
-                ->with('i', (request()->input('page', 1) - 1) * 5));
+        return view('niveauTraitement.index', compact('niveauTraitements'))->with('i', (request()->input('page', 1) - 1) * 5);
+
     }
 
     /**

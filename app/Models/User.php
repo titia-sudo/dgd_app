@@ -8,6 +8,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Profil;
+use App\Models\Service;
 
 class User extends Authenticatable
 {
@@ -29,7 +32,8 @@ class User extends Authenticatable
         'country',
         'postal',
         'about',
-        'profil'
+        'profil',
+        'idService'
     ];
 
     /**
@@ -75,6 +79,17 @@ class User extends Authenticatable
     public function niveauTraitements()
     {
         return $this->belongsToMany(NiveauTraitements::class, 'users_niveautraitements', 'idUser', 'idNiveauTraitement');
+    }
+
+
+    public function profil_d():BelongsTo
+    {
+        return $this->belongsTo(Profil::class, 'idProfil');
+    }
+
+    public function service():BelongsTo
+    {
+        return $this->belongsTo(Service::class, 'idService');
     }
 
 }
