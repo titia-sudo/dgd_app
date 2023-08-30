@@ -19,6 +19,7 @@ class ServiceController extends Controller
     public function index()
     {
         //
+        $services = Service::with('Direction')->get();
         $services = Service::latest()->paginate(5);
         
         return view('service.index',compact('services'))
@@ -33,7 +34,8 @@ class ServiceController extends Controller
     public function create():View
     {
         //
-        $directions = Direction::with('Direction')->orderBy('nomDirection')->get();
+        $services = Service::all();
+        $directions = Direction::orderBy('nomDirection', 'ASC')->get();
         return view('service.create', compact('directions'));
         
     }
@@ -52,9 +54,9 @@ class ServiceController extends Controller
             'idDirection' => 'required',
         ]);
         
-        Product::create($request->all());
+        Service::create($request->all());
          
-        return redirect()->route('service.index')
+        return redirect()->route('services.index')
                         ->with('success','service créé avec success.');
     }
 

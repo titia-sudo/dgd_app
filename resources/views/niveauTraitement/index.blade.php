@@ -29,7 +29,7 @@
         <tr>
             <td>{{ ++$i }}</td>
             <td>{{ $niveauTraitement->nomNiveau }}</td>
-            <td>{{ $niveauTraitement->UniteTempsTraitement->designationUniteTempsTraitement}}</td>
+            <td>{{ $niveauTraitement->tempsTraitement->nombreTempsTraitement}}{{ $niveauTraitement->uniteTempsTraitement->designationUniteTempsTraitement}}</td>
             <td>
                 <form action="{{ route('niveauTraitements.destroy',$niveauTraitement->id) }}" method="POST">
    

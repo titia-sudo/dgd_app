@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Direction;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Service extends Model
 {
@@ -19,7 +20,7 @@ class Service extends Model
         'idDirection'
     ];
 
-    public function direction():BelongsTo
+    public function Direction():BelongsTo
     {
         return $this->belongsTo(Direction::class, 'idDirection');
     }

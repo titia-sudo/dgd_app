@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Service;
+use App\Models\Profil;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ProfilControlleur;
 
 class UserController extends Controller
 {
@@ -29,7 +32,9 @@ class UserController extends Controller
     public function create()
     {
         //
-        return view('user.create');
+        $profils = Profil::orderBy('nomProfil', 'ASC')->get();
+        $services = Service::orderBy('nomService', 'ASC')->get();
+        return view('user.create', compact('services', 'profils'));
     }
 
     /**
@@ -63,7 +68,9 @@ class UserController extends Controller
     public function show(User $user)
     {
         //
-        return view('user.show',compact('user'));
+        $profils = Profil::orderBy('nomProfil', 'ASC')->get();
+        $services = Service::orderBy('nomService', 'ASC')->get();
+        return view('user.show',compact('user', 'profils', 'services'));
     }
 
     /**
@@ -75,7 +82,9 @@ class UserController extends Controller
     public function edit(User $user)
     {
         //
-        return view('users.edit',compact('user'));
+        $profils = Profil::orderBy('nomProfil', 'ASC')->get();
+        $services = Service::orderBy('nomService', 'ASC')->get();
+        return view('user.edit',compact('user', 'profils', 'services'));
     }
 
     /**

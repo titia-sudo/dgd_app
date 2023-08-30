@@ -76,11 +76,13 @@ Route::middleware(['auth', 'user-access:superAdmin'])->group(function () {
 Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class);
 Route::resource('/tempsTraitements', TempsTraitementController::class);
 Route::resource('/niveauTraitements', NiveauTraitementController::class);
-//Route::get('user/create', 'UserController@create')->name('niveauTraitements.create');
 Route::resource('/users', UserController::class);    
 Route::resource('/profils', ProfilController::class);
 Route::resource('/directions', DirectionController::class);
 Route::resource('/services', ServiceController::class);
+Route::resource('/typeDossiers', TypeDossierController::class);
+Route::resource('/dossiers', DossierController::class);
+Route::resource('/historique', HistoriqueController::class);
  
 Route::get('/creation', [UniteTempsTraitementController::class,'create'])->name('creation');
 
