@@ -81,7 +81,8 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         //
-        return view('services.edit',compact('service'));
+        $directions = Direction::orderBy('nomDirection', 'ASC')->get();
+        return view('service.edit',compact('service', 'directions'));
     }
 
     /**

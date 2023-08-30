@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Edit Unite de temps</h2>
+                <h2>Edit Service</h2>
             </div>
 
         </div>
@@ -21,22 +21,29 @@
         </div>
     @endif
   
-    <form action="{{ route('uniteTempsTraitements.update',$uniteTempsTraitement->id) }}" method="POST">
+    <form action="{{ route('services.update',$service->id) }}" method="POST">
         @csrf
         @method('PUT')
    
          <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Designation:</strong>
-                    <input type="text" name="designationUniteTempsTraitement" value="{{ $uniteTempsTraitement->designationUniteTempsTraitement }}" class="form-control" placeholder="Name">
+                    <strong>Nom Service:</strong>
+                    <input type="text" name="nomService" value="{{ $service->nomService }}" class="form-control" placeholder="Name">
                 </div>
             </div>
-
-            <div class="ol-xs-12 col-sm-6 col-md-12 text-center">
-                <a class="btn btn-primary" href="{{ route('uniteTempsTraitements.index') }}"> Retour</a>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <option value="" selected>Veuillez choisir...</option>
+                <select name="idDirection" id="idDirection" class="form-control">
+                    @foreach($directions as $direction)
+                        <option value="{{ $direction->id }}">{{ $direction->nomDirection }}</option>
+                    @endforeach
+                </select>
             </div>
+        </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+            <a class="btn btn-primary" href="{{ route('services.index') }}"> Retour</a>
               <button type="submit" class="btn btn-primary">Enregistrer</button>
             </div>
         </div>
