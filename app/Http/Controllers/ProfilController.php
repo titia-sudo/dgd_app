@@ -104,7 +104,7 @@ class ProfilController extends Controller
     public function destroy(Profil $profil)
     {
         //
-        $product->delete();
+        $profil->delete();
          
         return redirect()->route('profils.index')
                         ->with('success','profil deleted successfully');
