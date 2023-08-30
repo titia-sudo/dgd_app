@@ -17,7 +17,6 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-   
     <table class="table table-bordered">
         <tr>
             <th>No</th>
@@ -29,7 +28,7 @@
         <tr>
             <td>{{ ++$i }}</td>
             <td>{{ $niveauTraitement->nomNiveau }}</td>
-            <td>{{ $niveauTraitement->tempsTraitement->nombreTempsTraitement}}{{ $niveauTraitement->uniteTempsTraitement->designationUniteTempsTraitement}}</td>
+            <td>{{ $niveauTraitement->TempsTraitement->nombreTempsTraitement}} {{ $niveauTraitement->TempsTraitement->UniteTempsTraitement->designationUniteTempsTraitement}}</td>
             <td>
                 <form action="{{ route('niveauTraitements.destroy',$niveauTraitement->id) }}" method="POST">
    

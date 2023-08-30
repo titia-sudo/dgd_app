@@ -1,4 +1,4 @@
-@extends('tempsTraitement.layout')
+@extends('niveauTraitement.layout')
    
 @section('content')
     <div class="row">
@@ -21,7 +21,7 @@
         </div>
     @endif
   
-    <form action="{{ route('niveauTraitements.update',$tempsTraitement->id) }}" method="POST">
+    <form action="{{ route('niveauTraitements.update',$niveauTraitement->id) }}" method="POST">
         @csrf
         @method('PUT')
    
@@ -29,15 +29,14 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Nombre de Temps de Traitement:</strong>
-                    <input type="text" name="nombreTempsTraitement" value="{{ $tempsTraitement->nombreTempsTraitement }}" class="form-control" placeholder="Name">
+                    <input type="text" name="nomNiveau" value="{{ $niveauTraitement->nomNiveau }}" class="form-control" placeholder="Name">
                 </div>
             </div>
 
             <div class="form-group">
-                <select name="idUniteTempsTraitement" id="idUniteTempsTraitement" class="form-control">
-                <option value="{{ $current_city }}">{{ $current_city_name }}</option>    
-                @foreach($uniteTempsTraitements as $uniteTempsTraitement)
-                        <option value="{{ $uniteTempsTraitement->id }}">{{ $uniteTempsTraitement->designationUniteTempsTraitement }}</option>
+                <select name="idTempsTraitement" id="idTempsTraitement" class="form-control">  
+                    @foreach($tempsTraitements as $tempsTraitement)
+                        <option {{$tempsTraitement->id==$tempsTraitement->idTempsTraitement?'selected':''}} value="{{ $tempsTraitement->id }}">{{ $tempsTraitement->nombreTempsTraitement }} {{ $tempsTraitement->UniteTempsTraitement->designationUniteTempsTraitement }}</option>
                     @endforeach                 
                 </select>
             </div>

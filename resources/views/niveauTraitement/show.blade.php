@@ -15,14 +15,20 @@
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
+                <strong>Nom niveauTraitement:</strong>
+                {{ $niveauTraitement->nomNiveau }}
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
                 <strong>Nombre de temps:</strong>
-                {{ $tempsTraitement->nombreTempsTraitement }}
+                {{ $niveauTraitement->TempsTraitement->nombreTempsTraitement }}
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <strong>Unité de temps:</strong>
-                {{ $tempsTraitement->UniteTempsTraitement->designationUniteTempsTraitement }}
+                {{ $niveauTraitement->TempsTraitement->UniteTempsTraitement->designationUniteTempsTraitement }}
             </div>
         </div>
 
