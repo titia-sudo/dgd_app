@@ -112,7 +112,7 @@
         <div class="row shadow-lg mt-5">
             <div class="col-2 text-start">
             
-                <a class="btn btn-primary" href="{{ route('directions.index') }}"> Retour</a>
+                <a class="btn btn-primary" href="{{ route('directions.index') }}">Liste des directions</a>
             </div>
             <div class="col-10">
                  <h4 class="m-0 font-weight-bold text-black">Ajout de directions</h4><br>

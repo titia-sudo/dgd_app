@@ -35,13 +35,13 @@
                   </a>
                     <ul>
                         <li class="nav-link {{ Route::currentRouteName() == 'creation de compte' ? 'active' : '' }}">
-                            <a href="{{ route('dashboard-cr-users') }}">
+                            <a href="{{route('users.create') }}">
                                 <i class="fas fa-user-plus ms-1"></i>
                                 <span class="  nav-link-text  " >creation de compte</span>
                             </a>
                         </li>
                         <li class="nav-link {{ Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}">
-                            <a href="{{ route('dashboard-ls-users') }}">
+                            <a href="{{ route('users.index')  }}">
                                 <i class="fas fa-users   ms-1">_</i>
                                 <span class="nav-link-text" >Liste des utilisateurs</span>
                             </a>
@@ -73,25 +73,48 @@
                 </a>
                 <ul>
                         <li class="nav-link {{ Route::currentRouteName() == 'Temps de traitement' ? 'active' : '' }}">
-                            <a href="{{ route('dashboard-temps') }}">
+                            <a href="{{ route('uniteTempsTraitements.index') }}">
                             <i class="fa fa-gears ms-2"></i>
-                                <span class="nav-link-text " >Temps de traitement</span>
+                                <span class="nav-link-text " > Unité temps traitement</span>
+                            </a>
+                        </li>
+                        <li class="nav-link {{ Route::currentRouteName() == 'Temps de traitement' ? 'active' : '' }}">
+                            <a href="{{ route('tempsTraitements.index') }}">
+                            <i class="fa fa-gears ms-2"></i>
+                                <span class="nav-link-text " > Temps traitement</span>
+                            </a>
+                        </li>
+                        <li class="nav-link {{ Route::currentRouteName() == 'Temps de traitement' ? 'active' : '' }}">
+                            <a href="{{ route('niveauTraitements.index') }}">
+                            <i class="fa fa-gears ms-2"></i>
+                                <span class="nav-link-text " > Niveau traitement</span>
                             </a>
                         </li>
                         <li class="nav-link {{ Route::currentRouteName() == 'Créer type de dossiers' ? 'active' : '' }}">
-                            <a href="{{ route('dashboard-type-dossiers') }}">
+                            <a href="{{ route('directions.index') }}">
                             <i class="fa fa-gears ms-2"></i>
-                                <span class=" nav-link-text " >Créer type de dossiers</span>
+                                <span class=" nav-link-text " >Directions douanes</span>
+                            </a>
+                        </li>
+                        <li class="nav-link {{ Route::currentRouteName() == 'Créer type de dossiers' ? 'active' : '' }}">
+                            <a href="{{ route('services.index') }}">
+                            <i class="fa fa-gears ms-2"></i>
+                                <span class=" nav-link-text " >Services douanes</span>
                             </a>
                         </li>
 
                         <li class="nav-link {{ Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}">
-                            <a href="{{ route('dashboard-niveau') }}">
+                            <a href="{{ route('profils.index') }}">
                             <i class="fa fa-gears ms-2"></i>
-                                <span class="nav-link-text " >Créer niveau de traitement</span>
+                                <span class="nav-link-text " >Profile utilisateur</span>
                             </a>
                         </li>
-
+                        <li class="nav-link {{ Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}">
+                            <a href="{{ route('typeDossiers.index') }}">
+                            <i class="fa fa-gears ms-2"></i>
+                                <span class="nav-link-text " >Type de dossiers</span>
+                            </a>
+                        </li>
                         <li class="nav-link {{ Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}">
                             <a href="{{ route('dashboard-config-flux') }}">
                             <i class="fa fa-code-fork ms-2"></i>

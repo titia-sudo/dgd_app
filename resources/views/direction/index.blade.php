@@ -104,7 +104,7 @@
 
   <!-- DataTales Example -->
     <div class="row text-center mt-5">
-        <h4 class="m-0 font-weight-bold text-black">Liste des directions</h4>
+        <h4 class="m-0 font-weight-bold text-black">Liste des directions de la Douane</h4>
     </div>
 <hr>
     <div class="row shadow mt-2">

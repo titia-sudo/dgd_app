@@ -112,7 +112,7 @@
         <div class="row shadow-lg mt-5">
             <div class="col-2 text-start">
             
-                <a class="btn btn-primary" href="{{ route('services.index') }}"> Retour</a>
+                <a class="btn btn-primary" href="{{ route('services.index') }}"> Liste des services</a>
             </div>
             <div class="col-10">
                  <h4 class="m-0 font-weight-bold text-black">Ajout d'une unité de temps de traitement</h4><br>
