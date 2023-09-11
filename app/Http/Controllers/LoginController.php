@@ -65,7 +65,7 @@ class LoginController extends Controller
                 ->with('error','Email-Address And Password Are Wrong.');
         }
           
-    
+     
         /*$credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],

@@ -12,6 +12,12 @@ use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\UniteTempsTraitementController;
 use App\Http\Controllers\TempsTraitementController;
+
+use App\Http\Controllers\DocController;
+use App\Http\Controllers\FlueController;
+use App\Http\Controllers\NiveauController;
+use App\Http\Controllers\TypeDossiersController;
+use App\Http\Controllers\TempsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,10 +85,24 @@ Route::middleware(['auth', 'user-access:superAdmin'])->group(function () {
   
     Route::get('/superAdminHome', [HomeController::class, 'superAdminHome']);
 });
- 
+
+//routes pour la ,gestion des pdf
+Route::get('/export_users', [UserController::class,'export_user'])->name('userPDF');
 //lien vers les CRUD
 
  
+Route::get('/creation', [UniteTempsTraitementController::class,'create'])->name('creation');
+
+Route::get('/user/Creation', [RegisterController::class, 'create'])->name('dashboard-cr-users');
+Route::get('/users-liste', [UserProfileController::class, 'show'])->name('dashboard-ls-users');
+Route::get('/dossiers-liste', [DocController::class, 'show'])->name('dashboard-ls-dossiers');
+Route::get('/temps', [TempsController::class, 'show'])->name('dashboard-temps');
+Route::get('/type-dossiers', [TypeDossiersController::class, 'show'])->name('dashboard-type-dossiers');
+Route::get('/niveau', [NiveauController::class, 'show'])->name('dashboard-niveau');
+Route::get('/conf-flue', [FlueController::class, 'show'])->name('dashboard-config-flux');
+Route::get('/dossier-new', [DocController::class, 'NewDossier'])->name('nouveau-dossier');
+
+
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 	Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');

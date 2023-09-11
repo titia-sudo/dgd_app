@@ -17,16 +17,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(LaratrustSeeder::class);
-        
         $users = [
-        [
-            'username'=>'SuperAdmin User',
+         [
+             'username'=>'SuperAdmin User',
             'firstname' => 'Tatiana',
-            'lastname' => 'Tatiana',
-            'email'=>'SuperAdmin@itsolutionstuff.com',
+             'lastname' => 'Tatiana',
+            'email'=>'SuperAdmin@super.com',
             'profil'=> 3,
-            'password'=> bcrypt('123456'),
+             'password'=> bcrypt('123456'),
             'idProfil'=>4,
             'idService'=>1
         ],
@@ -34,7 +32,7 @@ class DatabaseSeeder extends Seeder
             'username' => 'admin',
             'firstname' => 'Admin',
             'lastname' => 'Admin',
-            'email' => 'admin@argon.com',
+            'email' => 'admin@argone.com',
             'profil' => 2,
             'password' => bcrypt('123456'),
             'idProfil'=>1,
@@ -44,7 +42,7 @@ class DatabaseSeeder extends Seeder
             'username'=>'validateur',
             'firstname' => 'Francine',
             'lastname' => 'Francine',
-            'email'=>'Validateur@itsolutionstuff.com',
+            'email'=>'Validateur@it.com',
             'profil'=>1,
             'password'=> bcrypt('123456'),
             'idProfil'=>3,
@@ -54,7 +52,7 @@ class DatabaseSeeder extends Seeder
             'username'=>'demandeur',
             'firstname' => 'Ouedraogo',
             'lastname' => 'Ouedraogo',
-            'email'=>'Demandeur@itsolutionstuff.com',
+            'email'=>'Demandeur@it2.com',
             'profil'=>0,
             'password'=> bcrypt('123456'),
             'idProfil'=>2,
