@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\TypeDossier;
 use App\Models\Annee;
 use Illuminate\Http\Request;
+use Auth;
 
 class DossierController extends Controller
 {
@@ -15,6 +16,12 @@ class DossierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function index()
     {
         //
@@ -45,6 +52,7 @@ class DossierController extends Controller
     public function store(Request $request)
     {
         //
+        //$request->idUser = Auth::user()->id;
         $dossiers = $request->validate([
         'nomDossier' => 'required',
         'declarantDossier' => 'required',
@@ -73,10 +81,10 @@ class DossierController extends Controller
     public function show(Dossier $dossier)
     {
         //
-        $users = User::orderBy('nomUser', 'ASC')->get();
-        $typeDossiers = TypeDossiers::orderBy('designationTypeDossier', 'ASC')->get();
-        $annee = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossier.show',compact('dossier', 'users','typeDossiers', 'annee'));
+        $users = User::orderBy('firstname', 'ASC')->get();
+        $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
+        //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
+        return view('dossier.show',compact('dossier', 'users','typeDossiers'));
     }
 
     /**
@@ -88,10 +96,10 @@ class DossierController extends Controller
     public function edit(Dossier $dossier)
     {
         //
-        $users = User::orderBy('nomUser', 'ASC')->get();
-        $typeDossiers = TypeDossiers::orderBy('designationTypeDossier', 'ASC')->get();
-        $annee = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossier.edit',compact('dossier', 'users','typeDossiers', 'annee'));
+        $users = User::orderBy('firstname', 'ASC')->get();
+        $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
+        //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
+        return view('dossier.edit',compact('dossier', 'users','typeDossiers'));
     }
 
     /**
@@ -118,7 +126,7 @@ class DossierController extends Controller
             'idAnnee' => ''
         ]);
   
-        $user->update($request->all());
+        $dossier->update($request->all());
   
         return redirect()->route('dossiers.index')->with('success','dossier mis à jour');
     }

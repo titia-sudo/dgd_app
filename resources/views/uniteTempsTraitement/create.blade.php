@@ -6,9 +6,6 @@
         <div class="pull-left">
             <h2>Ajout d'une unité de temps de traitement</h2>
         </div>
-        <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('uniteTempsTraitements.index') }}"> Back</a>
-        </div>
     </div>
 </div>
    
@@ -35,7 +32,8 @@
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Enregister</button>
+            <a class="btn btn-primary" href="{{ route('uniteTempsTraitements.index') }}">Retour</a>
+            <button type="submit" class="btn btn-primary">Enregister</button>
         </div>
     </div>
    

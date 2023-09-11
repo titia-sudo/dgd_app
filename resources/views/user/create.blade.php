@@ -5,7 +5,7 @@
     <div class="col-lg-12 margin-tb">
         <div class="pull-left">
             <h2>utilisateurs</h2>
-        </div>
+</div>
         <div class="pull-right">
             <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
         </div>
@@ -59,17 +59,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <option value="" selected>Veuillez choisir...</option>
-                <select name="idProfil" id="idProfil" class="form-control">
-                    @foreach($profils as $profil)
-                        <option value="{{ $profil->id }}">{{ $profil->nomProfil }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <option value="" selected>Veuillez choisir...</option>
+                <option value="" selected>Veuillez choisir le service</option>
                 <select name="idService" id="idService" class="form-control">
                     @foreach($services as $service)
                         <option value="{{ $service->id }}">{{ $service->nomService }}</option>
@@ -77,7 +67,28 @@
                 </select>
             </div>
         </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="form-group">
+                <label for="role">Rôle</label>
+                <select name="role" id="role" class="form-control">
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->name }}">{{ $role->display_name }}</option>
+                    @endforeach
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <label for="permissions">Permissions</label>
+                    <select name="permissions[]" id="permissions" class="form-control" multiple>
+                        @foreach ($permissions as $permission)
+                            <option value="{{ $permission->name }}">{{ $permission->display_name }}</option>
+                        @endforeach
+                    </select>
+            </div>
+        </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <a class="btn btn-primary" href="{{ route('users.index') }}"> Retour</a>
                 <button type="submit" class="btn btn-primary">Enregister</button>
         </div>
     </div>

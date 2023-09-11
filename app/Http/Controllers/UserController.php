@@ -6,7 +6,16 @@ use App\Models\User;
 use App\Models\Service;
 use App\Models\Profil;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfilControlleur;
+use DB;
+use Hash;
+use Illuminate\Support\Arr;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
+use App\Models\Role; 
+use App\Models\Permission; 
+use Laratrust\LaratrustFacade as Laratrust;
 
 class UserController extends Controller
 {
@@ -31,10 +40,15 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        //Récupérez tous les rôles depuis la base de données.
+        $roles = Role::all(); 
+
+        // Récupérez toutes les permissions depuis la base de données si nécessaire.
+        $permissions = Permission::all(); 
+
         $profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
-        return view('user.create', compact('services', 'profils'));
+        return view('user.create', compact('services', 'roles', 'permissions'));
     }
 
     /**
@@ -43,7 +57,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) :RedirectResponse
     {
         //
         $request->validate([
@@ -52,10 +66,11 @@ class UserController extends Controller
             'lastname'=> 'required',
             'email'=> 'required',
             'password'=> 'required',
+            
         ]);
   
-        User::create($request->all());
-   
+        $user=User::create($request->all());
+        Laratrust::attachRole('demandeur', $user->id);
         return redirect()->route('users.index')->with('success','user created successfully.');
     }
 
@@ -79,9 +94,10 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $user)
+    public function edit( $id):View
     {
         //
+        $user = User::find($id);
         $profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
         return view('user.edit',compact('user', 'profils', 'services'));
@@ -102,11 +118,11 @@ class UserController extends Controller
             'firstname' => 'required',
             'lastname'=> 'required',
             'email'=> 'required',
-            'password'=> 'required',
+            'roles'=> 'required',
         ]);
-  
         $user->update($request->all());
-  
+        Laratrust::detachRoles($user);
+        Laratrust::attachRole('new_role', $user);
         return redirect()->route('users.index')->with('success','user mis à jour');
     }
 

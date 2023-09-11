@@ -11,10 +11,14 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Profil;
 use App\Models\Service;
+use HasRoles;
+use Spatie\Permission\Models\Role;
+use Laratrust\Traits\LaratrustUserTrait;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use LaratrustUserTrait;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -90,6 +94,25 @@ class User extends Authenticatable
     public function service():BelongsTo
     {
         return $this->belongsTo(Service::class, 'idService');
+    }
+    public function roles()
+    {
+      return $this->belongsToMany('App\Models\Role');
+    }
+
+    public function permissions()
+	{
+		return $this->belongsToMany('App\Models\Permission');
+	}
+
+	public function getRoleListAttribute()
+	{
+		return $this->roles->pluck('id')->toArray();
+	}
+
+        public function team()
+    {
+        return $this->belongsTo(Team::class);
     }
 
 }

@@ -15,6 +15,16 @@ class UniteTempsTraitementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+         $this->middleware('permission:uniteTempsTraitement-list|uniteTempsTraitement-create|uniteTempsTraitement-edit|uniteTempsTraitement-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:uniteTempsTraitement-create', ['only' => ['create','store']]);
+         $this->middleware('permission:uniteTempsTraitement-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:uniteTempsTraitement-delete', ['only' => ['destroy']]);
+    }
+
+
+
     public function index():View
     {
         //Gerer la pagination

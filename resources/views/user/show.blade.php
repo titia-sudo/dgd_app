@@ -30,14 +30,6 @@
                 <strong>email:</strong>
                 {{ $user->email }}
             </div>
-            <div class="form-group">
-                <strong>Profil:</strong>
-                @foreach($profils as $profil)
-                {{ $user->idProfil }}
-                {{ $user->$profil->nomProfil ?? '' }}
-
-                @endforeach
-            </div>
         </div>
 
     </div>

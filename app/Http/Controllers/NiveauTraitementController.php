@@ -107,7 +107,8 @@ class NiveauTraitementController extends Controller
 
         $niveauTraitement->update($data);
 
-        return back()->with('message', 'niveauTraitement mis à jour.');
+        return redirect()->route('niveauTraitements.index')
+                ->with('message', 'niveauTraitement mis à jour.');
     }
 
     /**

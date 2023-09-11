@@ -7,7 +7,9 @@
                 <h2>DGD APP</h2>
             </div>
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('uniteTempsTraitements.create') }}">  Nouveau</a>
+                @can('uniteTempsTraitement-create')
+                <a class="btn btn-success" href="{{ route('uniteTempsTraitements.create') }}"> Nouveau</a>
+                @endcan
             </div>
         </div>
     </div>
@@ -32,13 +34,15 @@
                 <form action="{{ route('uniteTempsTraitements.destroy',$uniteTempsTraitement->id) }}" method="POST">
    
                     <a class="btn btn-info" href="{{ route('uniteTempsTraitements.show',$uniteTempsTraitement->id) }}">Show</a>
-    
+                    @can('uniteTempsTraitement-edit')
                     <a class="btn btn-primary" href="{{ route('uniteTempsTraitements.edit',$uniteTempsTraitement->id) }}">Edit</a>
-   
+                    @endcan
+
                     @csrf
                     @method('DELETE')
-      
+                    @can('uniteTempsTraitement-delete')
                     <button type="submit" class="btn btn-danger">Delete</button>
+                    @endcan
                 </form>
             </td>
         </tr>

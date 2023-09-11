@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profil;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ProfilController extends Controller
@@ -104,7 +105,7 @@ class ProfilController extends Controller
     public function destroy(Profil $profil)
     {
         //
-        $product->delete();
+        $profil->delete();
          
         return redirect()->route('profils.index')
                         ->with('success','profil deleted successfully');

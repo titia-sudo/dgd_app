@@ -28,6 +28,12 @@
          <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
+                    <strong>nom d'utilisateur:</strong>
+                    <input type="text" name="username" value="{{ $user->username }}" class="form-control" >
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
                     <strong>nom:</strong>
                     <input type="text" name="firstname" value="{{ $user->firstname }}" class="form-control" >
                 </div>
@@ -57,7 +63,7 @@
                     @foreach($profils as $profil)
                         <option value="{{ $profil->id }}">{{ $profil->nomProfil }}</option>
                     @endforeach
-                </select>
+</select>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">

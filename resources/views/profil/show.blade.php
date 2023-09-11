@@ -1,4 +1,4 @@
-@extends('uniteTempsTraitement.layout')
+@extends('profil.layout')
   
 @section('content')
     <div class="row">

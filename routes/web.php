@@ -6,6 +6,8 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
 use App\Http\Controllers\UniteTempsTraitementController;
@@ -25,7 +27,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
- Auth::routes();
+Route::get('/roles/create', 'RoleController@create')->name('roles.create');
+Route::resource('/roles', RoleController::class); 
+Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class);
+Route::resource('/tempsTraitements', TempsTraitementController::class);
+Route::resource('/niveauTraitements', NiveauTraitementController::class);
+Route::resource('/users', UserController::class);    
+Route::resource('/profils', ProfilController::class);
+Route::resource('/directions', DirectionController::class);
+Route::resource('/services', ServiceController::class);
+Route::resource('/typeDossiers', TypeDossierController::class);
+Route::resource('/dossiers', DossierController::class);
+Route::resource('/historique', HistoriqueController::class);
+ //Auth::routes();
  /*------------------------------------------
 --------------------------------------------
 All Normal Users Routes List
@@ -67,16 +81,7 @@ Route::middleware(['auth', 'user-access:superAdmin'])->group(function () {
 });
  
 //lien vers les CRUD
-Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class);
-Route::resource('/tempsTraitements', TempsTraitementController::class);
-Route::resource('/niveauTraitements', NiveauTraitementController::class);
-Route::resource('/users', UserController::class);    
-Route::resource('/profils', ProfilController::class);
-Route::resource('/directions', DirectionController::class);
-Route::resource('/services', ServiceController::class);
-Route::resource('/typeDossiers', TypeDossierController::class);
-Route::resource('/dossiers', DossierController::class);
-Route::resource('/historique', HistoriqueController::class);
+
  
 
 Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
@@ -99,4 +104,7 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static'); 
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+	
+
+
 });
