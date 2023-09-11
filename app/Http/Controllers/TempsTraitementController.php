@@ -21,9 +21,9 @@ class TempsTraitementController extends Controller
     {
         //
         $tempsTraitement = TempsTraitement::with('UniteTempsTraitement')->get();
-        $tempsTraitement = TempsTraitement::latest()->paginate(5);
+        $tempsTraitements = TempsTraitement::latest()->paginate(5);
 
-        return view('tempsTraitement.index',compact('tempsTraitement'))
+        return view('tempsTraitement.index',compact('tempsTraitements'))
                     ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -119,7 +119,7 @@ class TempsTraitementController extends Controller
         //
         $tempsTraitement->delete();
          
-        return redirect()->route('tempsTraitement.index')
+        return redirect()->route('tempsTraitements.index')
                         ->with('success','Temps de traitement supprimé avec succès');
     }
 }

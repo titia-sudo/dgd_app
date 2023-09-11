@@ -9,7 +9,7 @@ class RegisterController extends Controller
 {
     public function create()
     {
-        return view('auth.register');
+        return view('pages.dashboard-cr-users');
     }
 
     public function store()
