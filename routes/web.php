@@ -87,7 +87,7 @@ Route::middleware(['auth', 'user-access:superAdmin'])->group(function () {
 });
 
 //routes pour la ,gestion des pdf
-Route::get('/export_users', [UserController::class,'export_user'])->name('userPDF');
+//Route::get('/export_users', [UserController::class,'export_user'])->name('userPDF');
 //lien vers les CRUD
 
  
