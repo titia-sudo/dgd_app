@@ -48,7 +48,7 @@ class UserController extends Controller
 
         $profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
-        return view('user.create', compact('services', 'roles', 'permissions'));
+        return view('user.create', compact('services', 'roles', 'permissions', 'profils'));
     }
 
     /**
