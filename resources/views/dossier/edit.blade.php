@@ -1,4 +1,4 @@
-@extends('user.layout')
+@extends('dossier.layout')
    
 @section('content')
     <div class="row">
@@ -21,51 +21,41 @@
         </div>
     @endif
   
-    <form action="{{ route('users.update',$user->id) }}" method="POST">
+    <form action="{{ route('dossiers.update',$dossier->id) }}" method="POST">
         @csrf
         @method('PUT')
    
          <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>nom:</strong>
-                    <input type="text" name="firstname" value="{{ $user->firstname }}" class="form-control" >
+                    <strong>nom Dossier:</strong>
+                    <input type="text" name="firstname" value="{{ $dossier->nomDossier }}" class="form-control" >
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <strong>Prenom:</strong>
-                    <input type="text" name="lastname" value="{{ $user->lastname }}"class="form-control">
+                    <strong>Declarant:</strong>
+                    <input type="text" name="lastname" value="{{ $dossier->declarantDossier }}"class="form-control">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>password:</strong>
-                <input type="password" name="password" value ="{{$user->password}}" class="form-control" >
+                <strong>IFU:</strong>
+                <input type="text" name="password" value ="{{ $dossier->ifuDossier}}" class="form-control" >
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <strong>Email:</strong>
-                <input type="text" name="email" value ="{{$user->email}}" class="form-control">
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <option value="" selected>Veuillez choisir...</option>
-                <select name="idProfil" id="idProfil" class="form-control">
-                    @foreach($profils as $profil)
-                        <option value="{{ $profil->id }}">{{ $profil->nomProfil }}</option>
-                    @endforeach
-                </select>
+                <strong>Statut:</strong>
+                <input type="text" name="email" value ="{{$dossier->statutDossier}}" class="form-control">
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <option value="" selected>Veuillez choisir...</option>
-                <select name="idService" id="idService" class="form-control">
-                    @foreach($services as $service)
-                        <option value="{{ $service->id }}">{{ $service->nomService }}</option>
+                <select name="idTypeDossier" id="idTypeDossier" class="form-control">
+                    @foreach($typeDossiers as $typeDossier)
+                        <option value="{{ $typeDossier->id }}">{{ $typeDossier->designationTypeDossier }}</option>
                     @endforeach
                 </select>
             </div>

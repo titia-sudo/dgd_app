@@ -68,11 +68,6 @@
                 <strong>texteReferenceDossier:</strong>
                 <input type="text" name="texteReferenceDossier" class="form-control" placeholder="saisissez les textes de reference">
             </div>
-        </div><div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <input type="hidden" name="statutDossier" class="form-control" placeholder="saisissez les textes de reference">
-            </div>
-        </div>
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
                 <option value="" selected>Veuillez choisir...</option>
