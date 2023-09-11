@@ -71,7 +71,9 @@ Route::middleware(['auth', 'user-access:superAdmin'])->group(function () {
   
     Route::get('/superAdminHome', [HomeController::class, 'superAdminHome']);
 });
- 
+
+//routes pour la ,gestion des pdf
+Route::get('/export_users', [UserController::class,'export_user'])->name('userPDF');
 //lien vers les CRUD
 Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class);
 Route::resource('/tempsTraitements', TempsTraitementController::class);

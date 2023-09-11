@@ -3,7 +3,7 @@
 @section('content')
     <div class="container position-sticky z-index-sticky top-0">
         <div class="row">
-            <div class="col-12">
+            <div class="col-6">
                 @include('layouts.navbars.guest.navbar')
             </div>
         </div>
@@ -16,8 +16,8 @@
                         <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
                             <div class="card card-plain">
                                 <div class="card-header pb-0 text-start">
-                                    <h4 class="font-weight-bolder">Reset your password</h4>
-                                    <p class="mb-0">Enter your email and please wait a few seconds</p>
+                                    <h4 class="font-weight-bolder">Reinitialiser le mot de passe</h4>
+                                    <p class="mb-0">Entrer votre adresse Email et patienter</p>
                                 </div>
                                 <div class="card-body">
                                     <form role="form" method="POST" action="{{ route('reset.perform') }}">
@@ -28,7 +28,7 @@
                                             @error('email') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                                         </div>
                                         <div class="text-center">
-                                            <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Send Reset Link</button>
+                                            <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Envoyer le lien</button>
                                         </div>
                                     </form>
                                 </div>
@@ -37,17 +37,12 @@
                                 </div>
                             </div>
                         </div>
-                        <div
-                            class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
-                            <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-                                style="background-image: url('../img/images (13).jpeg');
-                                        background-size: cover;">
-                                <span class="mask bg-gradient-primary opacity-6"></span>
-                                <h4 class="mt-5 text-white font-weight-bolder position-relative">"Attention is the new
-                                    currency"</h4>
-                                <p class="text-white position-relative">The more effortless the writing looks, the more
-                                    effort the writer actually put into the process.</p>
+                       
+                        <div class="col-md-6">
+                            <div class="oblique position-absolute top-0 h-100 d-md-block d-none me-n8">
+                                <div class="oblique-image bg-cover position-absolute fixed-top ms-auto h-100 z-index-0 ms-n6" style="background-image:url('../img/dgd-maison2.jpg')"> <span class="mask bg-gradient-secondary opacity-2"></span></div>
                             </div>
+                           
                         </div>
                     </div>
                 </div>
