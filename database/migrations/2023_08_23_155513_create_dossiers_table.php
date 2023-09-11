@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('destinataireDossier');
             $table->string('elementRequeteDossier');
             $table->string('texteReferenceDossier');
-            $table->string('statutDossier')->default('Cree');
+            $table->enum('statutDossier', ['Enregistré','Cree','Validé','Rejetté'])->default('Cree');
             $table->unsignedBiginteger('idUser')->unsigned();
             $table->unsignedBiginteger('idTypeDossier')->unsigned();
             $table->unsignedBiginteger('idAnnee')->unsigned();
