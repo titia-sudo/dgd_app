@@ -1,88 +1,113 @@
-@extends('dossier.layout')
-  
+
+@extends('layouts.app-user', ['class' => 'g-sidenav-show bg-gray-100'])
+
 @section('content')
-<div class="row">
-    <div class="col-lg-12 margin-tb">
-        <div class="pull-left">
-            <h2>Dossiers</h2>
-        </div>
-        <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('dossiers.index') }}"> Back</a>
-        </div>
-    </div>
-</div>
-   
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-   
-<form action="{{ route('dossiers.store') }}" method="POST">
-    @csrf
-  
-     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Nom du dossier:</strong>
-                <input type="text" name="nomDossier" class="form-control" placeholder="Saisissez le nom du dossier ">
+    @include('layouts.navbars.auth.topnav-user', ['title' => 'Dashboard'])
+    
+    <!-- partie   contenu de l'administation-->
+<div class="container">
+
+            <!-- DataTales Example -->
+       
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                 @endforeach
+            </ul>
             </div>
+         @endif
+        <div class="row shadow mt-2">
+        <div class=" text-center mt-7 mb-3">
+            <h4 class="m-0 font-weight-bold text-black">Nouveau dossier</h4>
+         </div>
+         <div class="pull-right">
+            <a class="btn btn-primary" href="{{ route('dossiers.index') }}"> Retour</a>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Declarant:</strong>
+        <form action="{{ route('dossiers.store') }}" method="POST">
+        @csrf
+        <hr>
+        <div class="row">
+        <div class="col">
+                    <strong>Nom du dossier:</strong>
+                    <input type="text" name="nomDossier" class="form-control" placeholder="Saisissez le nom du dossier ">
+                    </div>
+            <div class="col">
+                <label for="example-text-input" class="form-control-label text-lg">Type de dossiers</label>
+                    <select name="idTypeDossier" id="idTypeDossier" class="form-control">
+                        @foreach($typeDossiers as $typeDossier)
+                            <option value="{{ $typeDossier->id }}">{{ $typeDossier->designationTypeDossier }}</option>
+                        @endforeach
+                    </select>       
+            </div>
+            
+        </div>
+        <div class="row"> 
+            
+            <div class="col">
+                <label for="example-text-input" class="form-control-label text-lg">Déclarant </label>
                 <input type="text" name="declarantDossier" class="form-control" placeholder="Saisissez le nom du declarant">
             </div>
+            <div class="col">
+                 <label for="example-text-input" class="form-control-label text-lg">N° IFU</label>
+                 <input type="text" name="ifuDossier" class="form-control" placeholder="Saisissez le numero IFU">
+            </div>
+            
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>IFU:</strong>
-                <input type="text" name="ifuDossier" class="form-control" placeholder="Saisissez le numero IFU">
+
+        <div class="row">
+            <div class="col">
+                    <label for="example-text-input" class="form-control-label text-lg">Agrément</label>
+                    <input type="text" name="agrementDossier" class="form-control" placeholder="Saisissez votre agrement">
+            </div>
+            <div class="col">
+                    <label for="example-text-input" class="form-control-label text-lg">Destinataire</label>
+                    <input type="text" name="destinataireDossier" class="form-control" placeholder="Saisissez les informations du destinataire">
+            </div>
+            
+        </div>
+
+        <div class="row">
+            <div class="">
+                <label for="exampleFormControlTextarea1" class="form-label text-lg">Elements de requêtte</label>
+                <textarea name="elementRequeteDossier" class="form-control" placeholder="Saisissez votre requete"></textarea>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Agrement:</strong>
-                <input type="text" name="agrementDossier" class="form-control" placeholder="Saisissez votre agrement">
+        <div class="row">
+            <div class="">
+                <label for="exampleFormControlTextarea1" class="form-label text-lg">Textes de référence</label>
+                <textarea name="texteReferenceDossier" class="form-control" placeholder="saisissez les textes de reference"></textarea>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>Destinataire:</strong>
-                <input type="text" name="destinataireDossier" class="form-control" placeholder="Saisissez les informations du destinataire">
-            </div>
+       <div class="row mt-3">
+         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-secondary me-md-2" type="button">Enregistrer</button>
+            <button class="btn btn-primary" type="button">Soumettre</button>
+         </div>
+       </div>
+
+       
+
+        
         </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>elementRequeteDossier:</strong>
-                <input type="text" name="elementRequeteDossier" class="form-control" placeholder="Saisissez votre requete">
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <strong>texteReferenceDossier:</strong>
-                <input type="text" name="texteReferenceDossier" class="form-control" placeholder="saisissez les textes de reference">
-            </div>
-        <div class="col-xs-12 col-sm-12 col-md-12">
-            <div class="form-group">
-                <option value="" selected>Veuillez choisir...</option>
-                <select name="idTypeDossier" id="idTypeDossier" class="form-control">
-                    @foreach($typeDossiers as $typeDossier)
-                        <option value="{{ $typeDossier->id }}">{{ $typeDossier->designationTypeDossier }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-        <div class="col-xs-8 col-sm-8 col-md-8 text-center">
-            <button type="submit" class="btn btn-primary">Enregister</button>
-            <button type="submit" class="btn btn-primary">Soumettre</button>
-        </div>
+        </form>
+</div>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
+
+.card{
+    padding: 1.5em .5em .5em;
+    border-radius: 10em;
+    text-align: center;
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+</style>
+       
+        @include('layouts.footers.auth.footer')
     </div>
-   
-</form>
 @endsection
