@@ -137,7 +137,10 @@ class DossierController extends Controller
      * @param  \App\Models\Dossier  $dossier
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Dossier $dossier)
+    
+    
+    
+     public function destroy(Dossier $dossier)
     {
         //
         $dossier->delete();

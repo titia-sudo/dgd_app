@@ -10,9 +10,9 @@
         "laravel-frontend-presets/argon": "^2.0",
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
+        "laravel/telescope": "^4.16",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.2",
-        "laravelcollective/html": "^6.4",
         "santigarcor/laratrust": "^7.2"
     },
     "require-dev": {

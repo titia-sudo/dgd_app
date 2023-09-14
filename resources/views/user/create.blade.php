@@ -110,10 +110,7 @@
         
         <!-- DataTales Example -->
         <div class="row shadow-lg mt-5">
-            <div class="col-2 text-start">
             
-                <a class="btn btn-primary" href="{{ route('users.index') }}"> liste user</a>
-            </div>
             <div class="col-10">
                  <h4 class="m-0 font-weight-bold text-black">Ajout d'un nouveau utilisateur</h4><br>
             </div>
@@ -156,14 +153,13 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
                             <div class="form-group">
-                            <strong>profile:</strong>
-                                
-                                <select name="idProfil" id="idProfil" class="form-control">
-                                <option value="" selected>Veuillez choisir...</option>
-                                 @foreach($profils as $profil)
-                                        <option value="{{ $profil->id }}">{{ $profil->nomProfil }}</option>
-                                    @endforeach
-                                </select>
+                            <strong>Role:</strong>
+                            <select name="role" id="role" class="form-control" required>
+                            <option value="" selected>Veuillez choisir...</option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->name }}">{{ $role->display_name }}</option>
+                                @endforeach
+                            </select>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12">
@@ -180,6 +176,7 @@
 
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-end">
                                     <button type="submit" class="btn btn-primary">Enregister</button>
+                                    <a class="btn btn-primary" href="{{ route('users.index') }}"> liste user</a>
                                  </div>
                         </div>
                     </div>

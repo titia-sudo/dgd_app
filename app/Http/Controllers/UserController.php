@@ -70,7 +70,7 @@ class UserController extends Controller
         ]);
   
         $user=User::create($request->all());
-        Laratrust::attachRole('demandeur', $user->id);
+        //Laratrust::attachRole('demandeur', $user->id);
         return redirect()->route('users.index')->with('success','user created successfully.');
     }
 
@@ -98,9 +98,10 @@ class UserController extends Controller
     {
         //
         $user = User::find($id);
+        $roles = Role::all(); 
         $profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
-        return view('user.edit',compact('user', 'profils', 'services'));
+        return view('user.edit',compact('user', 'profils', 'services', 'roles'));
     }
 
     /**
@@ -118,11 +119,8 @@ class UserController extends Controller
             'firstname' => 'required',
             'lastname'=> 'required',
             'email'=> 'required',
-            'roles'=> 'required',
         ]);
         $user->update($request->all());
-        Laratrust::detachRoles($user);
-        Laratrust::attachRole('new_role', $user);
         return redirect()->route('users.index')->with('success','user mis à jour');
     }
 
