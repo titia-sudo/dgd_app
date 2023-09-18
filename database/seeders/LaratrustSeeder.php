@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
-use Laratrust\LaratrustServiceProvider;
-use Laratrust\LaratrustFacade as Laratrust;
 
 class LaratrustSeeder extends Seeder
 {
@@ -18,10 +16,7 @@ class LaratrustSeeder extends Seeder
      */
     public function run()
     {
-        try{
         $this->truncateLaratrustTables();
-        $this->call(LaratrustSeeder::class);
-
 
         $config = Config::get('laratrust_seeder.roles_structure');
 
@@ -59,7 +54,6 @@ class LaratrustSeeder extends Seeder
                     ])->id;
 
                     $this->command->info('Creating Permission to '.$permissionValue.' for '. $module);
-                    
                 }
             }
 
@@ -78,9 +72,6 @@ class LaratrustSeeder extends Seeder
             }
 
         }
-    } catch (\Exception $e) {
-        dd($e->getMessage());
-    }
     }
 
     /**

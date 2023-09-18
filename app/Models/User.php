@@ -11,9 +11,10 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Profil;
 use App\Models\Service;
-use HasRoles;
-use Spatie\Permission\Models\Role;
+use hasRoles;
+use santigarcor\Laratrust;
 use Laratrust\Traits\LaratrustUserTrait;
+use Laratrust\Traits\HasRolesAndPermissions;
 
 class User extends Authenticatable
 {
@@ -59,6 +60,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function hasRole($role)
+    {
+        return $this->roles->contains('name', $role);
+    }
 
     protected function profil(): Attribute
     {
@@ -84,8 +89,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(NiveauTraitements::class, 'users_niveautraitements', 'idUser', 'idNiveauTraitement');
     }
-
-
+    
     public function profil_d():BelongsTo
     {
         return $this->belongsTo(Profil::class, 'idProfil');
@@ -95,9 +99,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Service::class, 'idService');
     }
+    
     public function roles()
     {
-      return $this->belongsToMany('App\Models\Role');
+      return $this->belongsToMany(Role::class);
     }
 
     public function permissions()

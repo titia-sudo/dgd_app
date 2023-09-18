@@ -159,17 +159,19 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                            <strong>profile:</strong>
-                        <select name="idProfil" id="idProfil" class="form-control">
-                            @foreach($profils as $profil)
-                                <option value="{{ $profil->id }}">{{ $profil->nomProfil }}</option>
+                    <strong>Role:</strong>
+                        <select id="role" class="form-control" name="role">
+                            @foreach($roles as $role)
+                                <option value="{{ $role->name }}" {{ $user->hasRole($role->name) ? 'selected' : '' }}>
+                                    {{ $role->display_name }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Services:</strong>
+                        <strong>Service:</strong>
                         <select name="idService" id="idService" class="form-control">
                             @foreach($services as $service)
                                 <option value="{{ $service->id }}">{{ $service->nomService }}</option>

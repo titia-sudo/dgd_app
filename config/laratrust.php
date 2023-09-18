@@ -1,35 +1,6 @@
 <?php
 
 return [
-
-    'role_structure' => [
-        'superadministrator' => [
-            'users' => 'c,r,u,d',
-            'acl' => 'c,r,u,d',
-            'profile' => 'r,u'
-        ],
-        'administrator' => [
-            'users' => 'c,r,u,d',
-            'profile' => 'r,u'
-        ],
-        'validateur' => [
-                'profile' => 'r,u'
-        ],
-        'Demandeur' => [
-            'profile' => 'r,u'
-    ],
-    ],
-    'permission_structure' => [
-        'cru_user' => [
-            'profile' => 'c,r,u'
-        ],
-    'permission_map' =>[
-        'c' => 'create',
-        'r' => 'read',
-        'u' => 'update',
-        'd' => 'delete'
-    ]
-    ],
     /*
     |--------------------------------------------------------------------------
     | Use MorphMap in relationships between models
@@ -242,7 +213,7 @@ return [
         | Please check the docs to see what you need to do in case you have the package already configured.
         |
         */
-        'enabled' => true,
+        'enabled' => false,
 
         /*
         |--------------------------------------------------------------------------

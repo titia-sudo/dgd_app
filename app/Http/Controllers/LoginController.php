@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\RedirectResponse;
+use App\Models\Role;
+use Laratrust\LaratrustFacade as Laratrust;
 
 class LoginController extends Controller
 {
@@ -40,29 +42,27 @@ class LoginController extends Controller
 
     public function login(Request $request):RedirectResponse
     {
-
-
-        $input = $request->all();
      
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required',
         ]);
      
-        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
+        if(auth()->attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
         {
-            if (auth()->user()->profil == 'admin') {
+            $user = auth()->user();
+            if ($user->Laratrust::hasRole('administrateur')) {
                 return redirect('/adminHome');
-            }else if (auth()->user()->profil == 'superAdmin') {
+            } elseif ($user->Laratrust::hasRole('super-administrateur')) {
                 return redirect('/superAdminHome');
-            }else if (auth()->user()->profil == 'validateur'){
+            } elseif ($user->Laratrust::hasRole('validateur')) {
                 return redirect('/validatorHome');
-            }else{
+            } else {
                 return redirect('/demandeurHome');
             }
-        }else{
+        } else {
             return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
+                ->with('error', 'Email-Address and Password are wrong.');
         }
           
      

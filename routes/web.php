@@ -33,8 +33,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/roles/create', 'RoleController@create')->name('roles.create');
-Route::resource('/roles', RoleController::class); 
+Route::get('/roles/create', 'RoleController@create')->name('roles.create')->middleware('permission:utilisateur-creer');
+ 
 Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class);
 Route::resource('/tempsTraitements', TempsTraitementController::class);
 Route::resource('/niveauTraitements', NiveauTraitementController::class);
