@@ -80,8 +80,7 @@
                         <th>Destinataire</th>
                         <th>element de Requete</th>
                         <th>texte de Reference</th>
-                        <th>Utilisateur</th>
-                        <th>Type de dossier</th>
+                        <th>statut</th>
                         <th width="280px">Action</th>
                     </tr>
                 </thead>
@@ -95,8 +94,7 @@
                         <th>Destinataire</th>
                         <th>element de Requete</th>
                         <th>texte de Reference</th>
-                        <th>Utilisateur</th>
-                        <th>Type de dossier</th>
+                        <th>statut</th>
                         <th width="280px">Action</th>
                     </tr>
                 </tfoot>
