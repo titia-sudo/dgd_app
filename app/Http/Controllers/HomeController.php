@@ -30,6 +30,10 @@ class HomeController extends Controller
      */
     public function index(): View
     {
+        return view('pages.adminHome');
+    }
+    public function demandeurHome(): View
+    {
         return view('pages.demandeurHome');
     }
 

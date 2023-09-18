@@ -7,10 +7,7 @@ use App\Models\User;
 
 class RegisterController extends Controller
 {
-    public function create()
-    {
-        return view('pages.dashboard-cr-users');
-    }
+   
 
     public function store()
     {
