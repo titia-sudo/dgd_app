@@ -38,7 +38,7 @@
                     <span class="mask bg-primary opacity-6"></span>
                 </div>
             @endif
-            @include('layouts.navbars.auth.sidenav-demandeur')
+            @include('layouts.navbars.auth.sidenav-validateur')
                 <main class="main-content border-radius-lg">
                     @yield('content')
                 </main>

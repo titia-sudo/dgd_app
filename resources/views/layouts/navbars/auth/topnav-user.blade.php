@@ -79,9 +79,7 @@
     </div>
 
     <div class="row">
-        <div class="text-end">
-            <a href="{{ route('dossiers.create') }}" type="submit" class="btn btn-primary  text-white">Nouveau dossier</a>
-        </div> 
+        
     </div>
 </nav>
 

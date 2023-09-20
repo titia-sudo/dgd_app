@@ -45,6 +45,7 @@ Route::resource('/services', ServiceController::class);
 Route::resource('/typeDossiers', TypeDossierController::class);
 Route::resource('/dossiers', DossierController::class);
 Route::resource('/adminDossiers', DossierAdminController::class);
+Route::resource('/validateurDossiers', DossierValidateurController::class);
 Route::resource('/historique', HistoriqueController::class);
  //Auth::routes();
  /*------------------------------------------
