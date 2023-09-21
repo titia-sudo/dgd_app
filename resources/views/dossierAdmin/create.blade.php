@@ -1,3 +1,4 @@
+
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
@@ -91,50 +92,92 @@
                 </div>
             </div>
         </div>
-        
+        <!-- la partie   alerte-->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Whoops!</strong> There were some problems with your input.<br><br>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                 @endforeach
+                </ul>
+            </div>
+        @endif
+        <!-- fin de la partie   alerte-->
+
     <!-- partie   contenu de l'administation-->
-<div class="container-fluid ">
+    <div class="container-fluid ">
+        
+        <!-- DataTales Example -->
+        <div class="row shadow-lg mt-5">
+            <div class="col text-center">
+                 <h4 class="m-0 font-weight-bold text-black">Nouveau dossier</h4>
+            </div>
+            <hr>
+        </div>
+        <div class="row shadow-lg mt-5">
+        <form action="{{ route('dossiers.store') }}" method="POST">
+            @csrf
+            
+            <div class="row">
+                <div class="col">
+                    <strong>Nom du dossier:</strong>
+                    <input type="text" name="nomDossier" class="form-control" placeholder="Saisissez le nom du dossier ">
+                </div>
+                <div class="col">
+                    <label for="example-text-input" class="form-control-label text-lg">Type de dossiers</label>
+                        <select name="idTypeDossier" id="idTypeDossier" class="form-control">
+                            @foreach($typeDossiers as $typeDossier)
+                                <option value="{{ $typeDossier->id }}">{{ $typeDossier->designationTypeDossier }}</option>
+                            @endforeach
+                        </select>       
+                </div>
+            </div>
+            <div class="row"> 
+                <div class="col">
+                    <label for="example-text-input" class="form-control-label text-lg">Déclarant </label>
+                    <input type="text" name="declarantDossier" class="form-control" placeholder="Saisissez le nom du declarant">
+                </div>
+                <div class="col">
+                    <label for="example-text-input" class="form-control-label text-lg">N° IFU</label>
+                    <input type="text" name="ifuDossier" class="form-control" placeholder="Saisissez le numero IFU">
+                </div>
+            
+            </div>
 
-  <!-- DataTales Example -->
-    <div class="row text-center mt-7">
-        <h4 class="m-0 font-weight-bold text-black">Création de type de dossiers</h4><br>
+            <div class="row">
+                <div class="col">
+                    <label for="example-text-input" class="form-control-label text-lg">Agrément</label>
+                    <input type="text" name="agrementDossier" class="form-control" placeholder="Saisissez votre agrement">
+                </div>
+                <div class="col">
+                    <label for="example-text-input" class="form-control-label text-lg">Destinataire</label>
+                    <input type="text" name="destinataireDossier" class="form-control" placeholder="Saisissez les informations du destinataire">
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="">
+                    <label for="exampleFormControlTextarea1" class="form-label text-lg">Elements de requêtte</label>
+                    <textarea name="elementRequeteDossier" class="form-control" placeholder="Saisissez votre requete"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="">
+                    <label for="exampleFormControlTextarea1" class="form-label text-lg">Textes de référence</label>
+                    <textarea name="texteReferenceDossier" class="form-control" placeholder="saisissez les textes de reference"></textarea>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button class="btn btn-secondary me-md-2" type="button">Enregistrer</button>
+                    <button class="btn btn-primary" type="button">Soumettre</button>
+                </div>
+            </div>
+        </div>
+        </form>
+        </div>
     </div>
-                <form action="">
-                    <div class="container mt-6 shadow-lg  col-9  p-5 bg-body rounded ">
-                        <div class="row mb-6">
-                            <div class="form-group">
-                            <label for="example-text-input" class="form-control-label text-lg">Nom du dossier</label>
-                               <input type="text" class="form-control" placeholder="1" aria-label="nombre">
-                            </div>
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label text-lg">Type de dossiers </label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Choisir</option>
-                                    <option value="b">B</option>
-                                    <option value="c">C</option>
-                                    <option value="d">D</option>
-                                    <option value="e">E</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="example-text-input" class="form-control-label text-lg">temps de traitement </label>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Heure</option>
-                                    <option value="J">Jour</option>
-                                    <option value="S">Semaine</option>
-                                    <option value="M">mois</option>
-                                    <option value="A">Anneé</option>
-                                </select>
-                            </div>
-
-                        </div> 
-                        <div class="text-end">
-                                <button type="submit" class="btn btn-primary btn-md text-white">Enregistrer</button>
-                         </div> 
-
-                    </div>
-                </form>
-     </div>
 
 </div>
        

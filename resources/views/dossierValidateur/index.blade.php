@@ -1,4 +1,5 @@
-@extends('layouts.app-user', ['class' => 'g-sidenav-show bg-gray-100'])
+
+@extends('layouts.app-validateur', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
     @include('layouts.navbars.auth.topnav-user', ['title' => 'Dashboard'])
@@ -10,8 +11,17 @@
     <div class="row text-center mt-7">
         <h4 class="m-0 font-weight-bold text-black">Liste des dossiers</h4>
     </div>
+    <div class="text-end">
+            <a href="{{ route('validateurDossiers.create') }}" type="submit" class="btn btn-primary  text-white">Nouveau dossier</a>
+        </div> 
     <hr>
 
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success">
+            <p>{{ $message }}</p>
+        </div>
+    @endif
+   
     <div class="row shadow mt-3">
        <div class="col-sm-3 col-md-3">
             <div>
@@ -65,93 +75,47 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th><h6>Designation</h6></th>
-                        <th><h6>Type de dossiers</h6></th>
-                        <th><h6>Date de création</h6></th>
-                        <th><h6>Statut</h6></th>
-                        <th><h6>Actions</h6></th>
-                     
+                        <th>No</th>
+                        <th>nom Dossier</th>
+                        <th>Declarant</th>
+                        <th>IFU</th>
+                        <th>Agrement</th>
+                        <th>Destinataire</th>
+                        
+                        <th>statut</th>
+                        <th width="280px">Action</th>
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                    <th><h6>Designation</h6></th>
-                        <th><h6>Type de dossiers</h6></th>
-                        <th><h6>Date de création</h6></th>
-                        <th><h6>Statut</h6></th>
-                        <th><h6>Actions</h6></th>
+                        <th>No</th>
+                        <th>nom Dossier</th>
+                        <th>Declarant</th>
+                        <th>IFU</th>
+                        <th>Agrement</th>
+                        <th>Destinataire</th>
+                        <th>statut</th>
+                        <th width="280px">Action</th>
                     </tr>
                 </tfoot>
                 <tbody>
+                 @foreach ($dossiers as $dossier)
                     <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>2011/01/25</td>
-                        <td>61</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                       
+                        <td>{{ ++$i }}</td>
+                        <td>{{ $dossier->nomDossier }}</td>
+                        <td>{{ $dossier->declarantDossier }}</td>
+                        <td>{{ $dossier->ifuDossier }}</td>
+                        <td>{{ $dossier->agrementDossier }}</td>
+                        <td>{{ $dossier->destinataireDossier }}</td>
+                        <td>{{ $dossier->statutDossier }}</td>
+                        <td>
+                        <a class="btn btn-primary" href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers" >Détails</a>
+                        </td>
                     </tr>
-                    <tr>
-                        <td>Garrett Winters</td>
-                        <td>Accountant</td>
-                        <td>2011/01/25</td>
-                        <td>63</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                    </tr>
-                    
-                    <tr>
-                        <td>Michael Silva</td>
-                        <td>Marketing Designer</td>
-                        <td>2011/01/25</td>
-                        <td>66</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>Paul Byrd</td>
-                        <td>Chief Financial Officer (CFO)</td>
-                        <td>2011/01/25</td>
-                        <td>64</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                    </tr>
-                   
-                        <td>Sakura Yamamoto</td>
-                        <td>Support Engineer</td>
-                        <td>2011/01/25</td>
-                        <td>37</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                    </tr>
-                  
-                    <tr>
-                        <td>Shad Decker</td>
-                        <td>Regional Director</td>
-                        <td>2011/01/25</td>
-                        <td>51</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>Michael Bruce</td>
-                        <td>Javascript Developer</td>
-                        <td>2011/01/25</td>
-                        <td>29</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>Donna Snider</td>
-                        <td>Customer Support</td>
-                        <td>2011/01/25</td>
-                        <td>27</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                        
-                    </tr>
+                 @endforeach
                 </tbody>
             </table>
+            {!! $dossiers->links() !!}
         </div>
     </div>
 </div>
@@ -165,7 +129,7 @@
         <h5 class="modal-title" id="modalDetails-dossiersLabel text-center">Details du dossier</h5>
             <!---gestion de la progression du tratement du dossier--->
             <label for="customRange3" class="form-label">progression</label>
-              <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
+              <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3" value="{{ $dossier->statutDossier }}">
                         <div class="spinner-grow text-warning" role="status">
                          <span class="visually-hidden">Loading...</span>
                         </div>
@@ -178,7 +142,7 @@
         <div class="row">
             <div class="col">
             <label for="example-text-input" class="form-control-label text-lg">Désignation</label>
-              <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+              <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="{{ $dossier->nomDossier }}">
             </div>
             <div class="col">
                 <label for="example-text-input" class="form-control-label text-lg">Type de dossiers</label>
@@ -194,11 +158,11 @@
             
             <div class="col">
                 <label for="example-text-input" class="form-control-label text-lg">Déclarant </label>
-                <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="{{ $dossier->declarantDossier }}">
             </div>
             <div class="col">
                  <label for="example-text-input" class="form-control-label text-lg">N° IFU</label>
-              <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+              <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" value="{{ $dossier->ifuDossier  }}">
             </div>
             
         </div>
@@ -206,11 +170,11 @@
         <div class="row">
             <div class="col">
                 <label for="example-text-input" class="form-control-label text-lg">Agrément</label>
-                <input type="text" class="form-control" placeholder="First name" aria-label="First name">
+                <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="{{ $dossier->agrementDossier}}">
             </div>
             <div class="col">
              <label for="example-text-input" class="form-control-label text-lg">Destinataire</label>
-                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
+                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" value="{{ $dossier->destinataireDossier}}">
             </div>
             
         </div>
@@ -218,19 +182,19 @@
         <div class="row">
             <div class="">
                 <label for="exampleFormControlTextarea1" class="form-label text-lg">Elements de requêtte</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" >{{ $dossier->elementRequeteDossier }}</textarea>
             </div>
         </div>
         <div class="row">
             <div class="">
                 <label for="exampleFormControlTextarea1" class="form-label text-lg">Textes de référence</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" >{{ $dossier->texteReferenceDossier }}</textarea>
             </div>
         </div>
         <div class="row">
             <div class="">
                 <label for="exampleFormControlTextarea1" class="form-label text-lg">Appréciations</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value=""></textarea>
             </div>
         </div>
 
