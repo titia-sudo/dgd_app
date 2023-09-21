@@ -110,8 +110,10 @@
         
         <!-- DataTales Example -->
         <div class="row shadow-lg mt-5">
-            
-            <div class="col-10">
+        <div class="col-2 text-start">
+            <a class="btn btn-primary" href="{{ route('users.index') }}"> Liste des utilisateurs</a>
+        </div>
+            <div class="col-10 text-center">
                  <h4 class="m-0 font-weight-bold text-black">Ajout d'un nouveau utilisateur</h4><br>
             </div>
             

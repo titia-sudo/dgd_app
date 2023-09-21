@@ -35,7 +35,7 @@ class Dossier extends Model
         'statutDossier',
         'idUser',
         'idTypeDossier',
-        'idAnnee'
+       // 'idAnnee'
     ];
 
     public function user():BelongsTo
@@ -48,10 +48,10 @@ class Dossier extends Model
         return $this->belongsTo(Service::class, 'idTypeDossier');
     }
 
-    public function annee():BelongsTo
-    {
-        return $this->belongsTo(Annee::class, 'idAnnee');
-    }
+   // public function annee():BelongsTo
+    //{
+       // return $this->belongsTo(Annee::class, 'idAnnee');
+   // }
 
         public function validations()
     {

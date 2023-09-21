@@ -17,7 +17,7 @@
         <div class=" mx-2">
 
             <div>
-                <a  class=" nav-link {{ Route::currentRouteName() == 'creation de compte' || Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}" href="{{ route('home') }}">
+                <a  class=" nav-link {{ Route::currentRouteName() == 'creation de compte' || Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}" href="{{ route('dossiers.index') }}">
                        <i class="fa fa-home icon-lg"></i>
                         <span class="font-weight-bold text-lg" >Accueil</span>
                 </a>

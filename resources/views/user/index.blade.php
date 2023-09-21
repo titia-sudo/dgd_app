@@ -167,6 +167,7 @@
             </div>
         </div>
     </form>
+    <hr>
         <div class="pull-right">
                 <a class="btn btn-success" href="{{ route('users.create') }}"> Nouveau</a>
             </div>

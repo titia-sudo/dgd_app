@@ -140,11 +140,11 @@ class UserController extends Controller
      */
     public function edit( $id):View
     {
-        //
+        $roles = Role::all(); 
         $user = User::find($id);
         $profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
-        return view('user.edit',compact('user', 'profils', 'services'));
+        return view('user.edit',compact('user', 'profils', 'roles','services'));
     }
 
     /**
