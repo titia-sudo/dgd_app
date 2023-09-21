@@ -51,7 +51,7 @@ Route::resource('/typeDossiers', TypeDossierController::class);
 Route::resource('/dossiers', DossierController::class);
 //Route::put('/dossiers/{id}/update/{idUser}', [DossierController::class, 'update'])->name('dossiers.update');
 Route::resource('/historique', HistoriqueController::class);
-Route::get('/users/filtrer', 'UserController@index')->name('user.index');
+Route::get('/users', 'UserController@index')->name('user.index');
  //Auth::routes();
  /*------------------------------------------
 --------------------------------------------
@@ -78,7 +78,7 @@ Route::middleware(['auth', 'user-access:validateur'])->group(function () {
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:admin'])->group(function () {
+Route::middleware(['auth', 'user-access:administrateur'])->group(function () {
   
     Route::get('/adminHome', [HomeController::class, 'adminHome']);
 });
@@ -88,7 +88,7 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
-Route::middleware(['auth', 'user-access:superAdmin'])->group(function () {
+Route::middleware(['auth', 'user-access:super-administrateur'])->group(function () {
   
     Route::get('/superAdminHome', [HomeController::class, 'superAdminHome']);
 });

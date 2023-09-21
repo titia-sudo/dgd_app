@@ -46,11 +46,10 @@ class UserController extends Controller
            $query->whereDate('users.created_at', '=', $dateCreation); // Précisez la table 'users'
        }
     
-        if (!empty($roleId)) {
-            // Joignez la table pivot "role_user" pour filtrer par rôle
-            $query->join('role_user', 'users.id', '=', 'role_user.user_id')
-                ->join('roles', 'role_user.role_id', '=', 'roles.id')
-                ->where('roles.id', $roleId);
+       if (!empty($roleId)) {
+            $query->whereHas('roles', function ($query) use ($roleId) {
+                $query->where('roles.id', $roleId);
+            });
         }
 
         if (!empty($serviceId)) {
@@ -63,7 +62,8 @@ class UserController extends Controller
                $query->where('idDirection', $idDirection);
            });
        }
-    
+
+       //dd($dateCreation, $roleId, $serviceId, $idDirection, $query->toSql());
         // Paginez les résultats
         $users = $query->paginate(10); // Vous pouvez ajuster le nombre d'utilisateurs par page
     
@@ -108,12 +108,9 @@ class UserController extends Controller
         ]);
   
         $user=User::create($request->all());
-
-        // Récupérez le rôle que vous souhaitez attacher (demandeur)
-        $role = LaratrustRole::where('name', 'demandeur')->first();
         
         // Attachez le rôle à l'utilisateur
-        $user->attachRole($role);
+        $user->attachRole('demandeur');
         
         return redirect()->route('users.index')->with('success','user created successfully.');
     }
