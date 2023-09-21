@@ -110,7 +110,7 @@
         <h4 class="m-0 font-weight-bold text-black">Liste des utilisateurs</h4>
     </div>
 <hr>
-<form method="GET" action="{{ route('user.index') }}">
+    <form method="GET" action="{{ route('user.index') }}">
        <div class="row shadow mt-2">
        <div class="col-md-2">
             <div>
@@ -120,37 +120,46 @@
         <div class="col-md-2 ">
             <div class="dataTables_length select" id="dataTable_length">
                 <label> <h6>Date de Creation</h6>
-                <input type="date" name="dateCreation" class="form-control" value="{{ request('dateCreation') }}">
+                <input type="date" name="dateCreation" value="{{ $dateCreation }}" class="form-control">
                 </label>
             </div>
         </div>
-        <div class="col-md-2 ">
-        <label for="roleId">role :</label>
-            <select name="roleId" class="form-control">
-            <option value="">Tous les rôles</option>
-                @foreach ($roles as $role)
-                    <option value="{{ $role->id }}" @if ($roleId == $role->id) selected @endif>{{ $role->name }}</option>
-                @endforeach
-             </select>
+
+        <div class="col-md-2">
+            <div class="dataTables_length select" id="dataTable_length">
+                <label><h6>Service</h6>
+                    <select name="service_id" class="form-control">
+                        <option value="">Tous les services</option>
+                        @foreach($services as $service)
+                            <option {{$service->id==$service->idService?'selected':''}} value="{{ $service->id }}">{{ $service->nomService }}</option>
+                        @endforeach
+                    </select>
+                </label>
+            </div>
         </div>
         <div class="col-md-2">
-        <label for="serviceId">Service :</label>
-            <select name="serviceId" class="form-control">
-                <option value="">Tous les services</option>
-                @foreach($services as $service)
-                    <option value="{{ $service->id }}" @if($serviceId == $service->id) selected @endif>{{ $service->nomService }}</option>
-                @endforeach
-            </select>
+            <div class="dataTables_length select" id="dataTable_length">
+                <label><h6>Directions</h6>
+                    <select name="service_id" class="form-control">
+                        <option value="">Toutes les directions</option>
+                        @foreach($services as $service)
+                            <option value="{{ $service->id }}">{{ $service->nomService }} {{ $service->Direction->nomDirection }}</option>
+                        @endforeach
+                    </select>
+                </label>
+            </div>
         </div>
         <div class="col-md-2">
-            <label><h6>Direction :</h6></label>
-            <select name="idDirection" class="form-control">
-                <option value="">Toutes les directions</option>
-                @foreach($directions as $direction)
-                    <option value="{{ $direction->id }}" @if($idDirection == $direction->id) selected @endif>{{ $direction->nomDirection }}</option>
-                @endforeach
-            </select>
-        </div>
+            <div class="dataTables_length select" id="dataTable_length">
+                <label for="role"><h6>Rôle :</h6>
+                    <select name="role" class="form-control">
+                    <option value="">Tous les roles</option>
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                </label>
+            </div>
         </div>
         <div class="col-md-2">
             <div class="dataTables_length select" id="dataTable_length">
