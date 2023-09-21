@@ -55,7 +55,7 @@ Route::resource('/adminDossiers', DossierAdminController::class);
 
 //Route::put('/dossiers/{id}/update/{idUser}', [DossierController::class, 'update'])->name('dossiers.update');
 Route::resource('/historique', HistoriqueController::class);
-Route::get('/users/filtrer', 'UserController@index')->name('user.index');
+Route::get('/users', 'UserController@index')->name('user.index');
  //Auth::routes();
  /*------------------------------------------
 --------------------------------------------
