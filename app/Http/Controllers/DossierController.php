@@ -65,7 +65,7 @@ class DossierController extends Controller
         'statutDossier' => '',
         'idUser' => '',
         'idTypeDossier' => 'required',
-        'idAnnee' => ''
+       // 'idAnnee' => ''
         ]);
         //dd($dossiers);
         Dossier::create($request->all());
@@ -163,7 +163,7 @@ class DossierController extends Controller
             'elementRequeteDossier' => 'required',
             'texteReferenceDossier' => 'required',
             'statutDossier' => '',
-            'idUser' => '',
+           // 'idUser' => '',
             'idTypeDossier' => 'required',
         ]);
 

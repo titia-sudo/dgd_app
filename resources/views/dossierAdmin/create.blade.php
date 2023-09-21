@@ -171,7 +171,7 @@
             <div class="row mt-3">
                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                     <button class="btn btn-secondary me-md-2" type="button">Enregistrer</button>
-                    <button class="btn btn-primary" type="button">Soumettre</button>
+                    <button type="submit" class="btn btn-primary">Enregister</button>
                 </div>
             </div>
         </div>

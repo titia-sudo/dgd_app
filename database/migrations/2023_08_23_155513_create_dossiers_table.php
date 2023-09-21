@@ -25,7 +25,7 @@ return new class extends Migration
             $table->enum('statutDossier', ['Enregistré','Cree','Validé','Rejetté'])->default('Cree');
             $table->unsignedBiginteger('idUser')->unsigned();
             $table->unsignedBiginteger('idTypeDossier')->unsigned();
-            $table->unsignedBiginteger('idAnnee')->unsigned();
+            //$table->unsignedBiginteger('idAnnee')->unsigned();
 
             $table->foreign('idUser')->references('id')
                  ->on('users')->onDelete('cascade');
@@ -33,8 +33,8 @@ return new class extends Migration
             $table->foreign('idTypeDossier')->references('id')
                 ->on('typeDossiers')->onDelete('cascade');
 
-            $table->foreign('idAnnee')->references('id')
-                ->on('annees')->onDelete('cascade');
+           // $table->foreign('idAnnee')->references('id')
+                //->on('annees')->onDelete('cascade');
 
             $table->timestamps();
         });

@@ -58,7 +58,7 @@
                 </a>
                 <ul>
                     <li class="nav-link {{ Route::currentRouteName() == 'Liste des dossiers' ? 'active' : '' }}">
-                        <a href="">
+                        <a href= "{{ route('adminDossiers.index') }}">
                         <i class="fa fa-folder-open-o ms-2">_</i>
                             <span class="nav-link-text" >Liste des dossiers</span>
                         </a>

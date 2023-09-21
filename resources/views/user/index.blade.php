@@ -152,12 +152,12 @@
             </select>
         </div>
         </div>
-            <div class="col-md-2">
-                <div class="dataTables_length select" id="dataTable_length">
-                    <button type="submit" class="btn btn-primary">Rechercher</button>
-                </div>
+        <div class="col-md-2">
+            <div class="dataTables_length select" id="dataTable_length">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
             </div>
-        </form>
+        </div>
+    </form>
         <div class="pull-right">
                 <a class="btn btn-success" href="{{ route('users.create') }}"> Nouveau</a>
             </div>
