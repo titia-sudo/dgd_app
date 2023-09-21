@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Http\Controllers\Auth;
 
 class UserProfileController extends Controller
 {
     public function show()
     {
-        return view('pages.dashboard-ls-users');
+        return view('pages.user-profile');
     }
 
     public function update(Request $request)

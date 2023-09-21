@@ -17,18 +17,17 @@
             <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
               <div class="card card-plain mt-8">
                 <div class="card-header pb-0 text-left bg-transparent">
-                  <h3 class="font-weight-bolder text-info text-gradient">Welcome </h3>
+                  <h3 class="font-weight-bolder text-info text-gradient">Bienvenue </h3>
                     </div>
                     <div class="card-body">
-                        <form role="form" method="POST" action="{{ route('login.perform') }}">
+                        <form method="POST" action="{{ route('login') }}">
                             @csrf
-                            @method('post')
                             <div class="flex flex-col mb-3">
-                                <input type="email" name="email" class="form-control form-control-lg" value="{{ old('email') ?? 'admin@argon.com' }}" aria-label="Email">
+                                <input type="email" name="email" class="form-control form-control-lg" value="{{ old('email')}}" aria-label="Email">
                                 @error('email') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                             </div>
                             <div class="flex flex-col mb-3">
-                                <input type="password" name="password" class="form-control form-control-lg" aria-label="Password" value="secret" >
+                                <input type="password" name="password" class="form-control form-control-lg" aria-label="Password" >
                                 @error('password') <p class="text-danger text-xs pt-1"> {{$message}} </p>@enderror
                             </div>
                             <div class="form-check form-switch">
@@ -43,7 +42,7 @@
                     <div class="card-footer text-center pt-0 px-lg-2 px-1">
                         <p class="mb-1 text-sm mx-auto">
                             Mot de passe oublié?
-                            <a href="{{ route('reset-password') }}" class="text-primary text-gradient font-weight-bold">Cliquez ici</a>
+                            <a href="" class="text-primary text-gradient font-weight-bold">Cliquez ici</a>
                         </p>
                         
                     </div>

@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Service;
+use App\Models\Direction;
 use App\Models\Profil;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ProfilControlleur;
+use Laratrust\Models\LaratrustRole;
 use DB;
 use Hash;
 use Illuminate\Support\Arr;
@@ -26,11 +28,47 @@ class UserController extends Controller
      */
 
      
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $users = User::latest()->paginate(5);
-        return view('user.index',compact('users'))->with('i', (request()->input('page', 1) - 1) * 5);
+        $dateCreation = $request->input('dateCreation', '');
+        $roleId = $request->input('roleId', ''); // Récupère la valeur de 'roleId' ou une chaîne vide par défaut
+        $serviceId = $request->input('serviceId');
+        $idDirection = $request->input('idDirection');
+
+        // Commencez avec une requête de base pour les utilisateurs
+        $roles = Role::all();
+        $services = Service::all();
+        $directions = Direction::all();
+        $query = User::query();
+    
+        // Appliquez le filtre en fonction de la date de création
+        if (!empty($dateCreation)) {
+           $query->whereDate('users.created_at', '=', $dateCreation); // Précisez la table 'users'
+       }
+    
+        if (!empty($roleId)) {
+            // Joignez la table pivot "role_user" pour filtrer par rôle
+            $query->join('role_user', 'users.id', '=', 'role_user.user_id')
+                ->join('roles', 'role_user.role_id', '=', 'roles.id')
+                ->where('roles.id', $roleId);
+        }
+
+        if (!empty($serviceId)) {
+           // Filtrez par service en utilisant la colonne 'idService' de la table 'users'
+           $query->where('users.idService', $serviceId);
+       }
+
+       if (!empty($idDirection)) {
+           $query->whereHas('service', function ($query) use ($idDirection) {
+               $query->where('idDirection', $idDirection);
+           });
+       }
+    
+        // Paginez les résultats
+        $users = $query->paginate(10); // Vous pouvez ajuster le nombre d'utilisateurs par page
+    
+        // Affichez la vue avec les utilisateurs filtrés
+        return view('user.index', compact('dateCreation', 'roleId', 'users', 'roles', 'serviceId', 'idDirection', 'services', 'directions'))->with('i', ($request->input('page', 1) - 1) * 10);
     }
 
     /**
@@ -70,7 +108,13 @@ class UserController extends Controller
         ]);
   
         $user=User::create($request->all());
-        //Laratrust::attachRole('demandeur', $user->id);
+
+        // Récupérez le rôle que vous souhaitez attacher (demandeur)
+        $role = LaratrustRole::where('name', 'demandeur')->first();
+        
+        // Attachez le rôle à l'utilisateur
+        $user->attachRole($role);
+        
         return redirect()->route('users.index')->with('success','user created successfully.');
     }
 
@@ -98,10 +142,9 @@ class UserController extends Controller
     {
         //
         $user = User::find($id);
-        $roles = Role::all(); 
         $profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
-        return view('user.edit',compact('user', 'profils', 'services', 'roles'));
+        return view('user.edit',compact('user', 'profils', 'services'));
     }
 
     /**
@@ -119,8 +162,11 @@ class UserController extends Controller
             'firstname' => 'required',
             'lastname'=> 'required',
             'email'=> 'required',
+            'roles'=> 'required',
         ]);
         $user->update($request->all());
+        Laratrust::detachRoles($user);
+        Laratrust::attachRole('new_role', $user);
         return redirect()->route('users.index')->with('success','user mis à jour');
     }
 

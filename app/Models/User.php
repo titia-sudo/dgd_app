@@ -11,15 +11,16 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use App\Models\Profil;
 use App\Models\Service;
-use hasRoles;
+use HasRoles;
 use santigarcor\Laratrust;
 use Laratrust\Traits\LaratrustUserTrait;
 use Laratrust\Traits\HasRolesAndPermissions;
 
+
 class User extends Authenticatable
 {
     use LaratrustUserTrait;
-    use Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -65,13 +66,7 @@ class User extends Authenticatable
         return $this->roles->contains('name', $role);
     }
 
-    protected function profil(): Attribute
-    {
-        return new Attribute(
-            get: fn ($value) =>  ["demandeur", "validateur", "admin", "superAdmin"][$value],
-        );
-
-    }
+    
 
     
     /**

@@ -1,23 +1,24 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PageController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\UserProfileController;
-use App\Http\Controllers\RoleController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\LoginController;
+
 use App\Http\Controllers\ResetPassword;
 use App\Http\Controllers\ChangePassword;
-use App\Http\Controllers\UniteTempsTraitementController;
-use App\Http\Controllers\TempsTraitementController;
-
-use App\Http\Controllers\DocController;
 use App\Http\Controllers\FlueController;
-use App\Http\Controllers\NiveauController;
-use App\Http\Controllers\TypeDossiersController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\TempsController;
+
+use App\Http\Controllers\NiveauController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\UserProfileController;
+use App\Http\Controllers\TypeDossiersController;
+use App\Http\Controllers\TempsTraitementController;
+use App\Http\Controllers\UniteTempsTraitementController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,9 +30,13 @@ use App\Http\Controllers\TempsController;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
+
+Auth::routes(['login' => false, 'verify' => false]);
+
 
 Route::get('/roles/create', 'RoleController@create')->name('roles.create')->middleware('permission:utilisateur-creer');
  
@@ -44,7 +49,9 @@ Route::resource('/directions', DirectionController::class);
 Route::resource('/services', ServiceController::class);
 Route::resource('/typeDossiers', TypeDossierController::class);
 Route::resource('/dossiers', DossierController::class);
+//Route::put('/dossiers/{id}/update/{idUser}', [DossierController::class, 'update'])->name('dossiers.update');
 Route::resource('/historique', HistoriqueController::class);
+Route::get('/users/filtrer', 'UserController@index')->name('user.index');
  //Auth::routes();
  /*------------------------------------------
 --------------------------------------------
@@ -95,25 +102,27 @@ Route::get('/creation', [UniteTempsTraitementController::class,'create'])->name(
 
 Route::get('/user/Creation', [RegisterController::class, 'create'])->name('dashboard-cr-users');
 Route::get('/users-liste', [UserProfileController::class, 'show'])->name('dashboard-ls-users');
-Route::get('/dossiers-liste', [DocController::class, 'show'])->name('dashboard-ls-dossiers');
+//Route::get('/dossiers-liste', [DocController::class, 'show'])->name('dashboard-ls-dossiers');
 Route::get('/temps', [TempsController::class, 'show'])->name('dashboard-temps');
 Route::get('/type-dossiers', [TypeDossiersController::class, 'show'])->name('dashboard-type-dossiers');
 Route::get('/niveau', [NiveauController::class, 'show'])->name('dashboard-niveau');
 Route::get('/conf-flue', [FlueController::class, 'show'])->name('dashboard-config-flux');
-Route::get('/dossier-new', [DocController::class, 'NewDossier'])->name('nouveau-dossier');
+Route::get('/dossier-new', [DossierController::class, 'create'])->name('nouveau-dossier');
 
 
 
-Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
+//Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
 	Route::get('/register', [RegisterController::class, 'create'])->middleware('guest')->name('register');
 	Route::post('/register', [RegisterController::class, 'store'])->middleware('guest')->name('register.perform');
 	Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
-	Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
+    //Route::get('/login', [LoginController::class, 'showLoginForm'])->middleware('guest')->name('login');
+    Route::get('/login', 'LoginController@show')->name('login');
+	//Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login');
 	Route::get('/reset-password', [ResetPassword::class, 'show'])->middleware('guest')->name('reset-password');
 	Route::post('/reset-password', [ResetPassword::class, 'send'])->middleware('guest')->name('reset.perform');
 	Route::get('/change-password', [ChangePassword::class, 'show'])->middleware('guest')->name('change-password');
 	Route::post('/change-password', [ChangePassword::class, 'update'])->middleware('guest')->name('change.perform');
-	Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
+ 	//Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/virtual-reality', [PageController::class, 'vr'])->name('virtual-reality');
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
@@ -127,4 +136,7 @@ Route::group(['middleware' => 'auth'], function () {
 	
 
 
-});
+ });
+Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

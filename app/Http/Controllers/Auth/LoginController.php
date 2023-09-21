@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -9,22 +9,33 @@ use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Database\Eloquent\Factories\HasRole;
+use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Http\RedirectResponse;
-use App\Models\Role;
-use Laratrust\LaratrustFacade as Laratrust;
+
 
 class LoginController extends Controller
 {
-    /**
-     * Display login page.
-     *
-     * @return Renderable
-     */
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
 
     use AuthenticatesUsers;
-    protected $redirectTo = RouteServiceProvider::HOME;
 
-        /**
+    /**
+     * Where to redirect users after login.
+     *
+     * @var string
+     */
+    
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -34,53 +45,39 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-
-    public function show()
+        public function show()
     {
         return view('auth.login');
     }
 
+
+
     public function login(Request $request):RedirectResponse
     {
+        $input = $request->all();
      
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required',
         ]);
      
-        if(auth()->attempt(['email' => $request->input('email'), 'password' => $request->input('password')]))
+        if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             $user = auth()->user();
-            if ($user->Laratrust::hasRole('administrateur')) {
+
+            if ($user->hasRole('administrateur')) {
                 return redirect('/adminHome');
-            } elseif ($user->Laratrust::hasRole('super-administrateur')) {
+            } elseif ($user->hasRole('super-administrateur')) {
                 return redirect('/superAdminHome');
-            } elseif ($user->Laratrust::hasRole('validateur')) {
+            } elseif ($user->hasRole('validateur')) {
                 return redirect('/validatorHome');
             } else {
                 return redirect('/demandeurHome');
             }
-        } else {
+        }else{
             return redirect()->route('login')
-                ->with('error', 'Email-Address and Password are wrong.');
+                ->with('error','Email-Address And Password Are Wrong.');
         }
-          
-     
-        /*$credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
-
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            $request->session()->regenerate();
-
-            return redirect()->intended('dashboard');
-        }
-
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
-        */
     }
 
     public function logout(Request $request)

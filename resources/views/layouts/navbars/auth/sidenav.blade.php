@@ -21,7 +21,7 @@
      <ul>
 
             <li >
-                <a  class=" nav-link {{ Route::currentRouteName() == 'creation de compte' || Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}" href="{{ route('home') }}">
+                <a  class=" nav-link {{ Route::currentRouteName() == 'creation de compte' || Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}" href="">
                        <i class="fa fa-home"></i>
                         <span>Tableau de bord</span>
                 </a>
@@ -58,7 +58,7 @@
                 </a>
                 <ul>
                     <li class="nav-link {{ Route::currentRouteName() == 'Liste des dossiers' ? 'active' : '' }}">
-                        <a href="{{ route('dashboard-ls-dossiers') }}">
+                        <a href="">
                         <i class="fa fa-folder-open-o ms-2">_</i>
                             <span class="nav-link-text" >Liste des dossiers</span>
                         </a>

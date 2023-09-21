@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class UserSeeder extends Seeder
 {
@@ -24,9 +25,8 @@ class UserSeeder extends Seeder
                'firstname' => 'Tatiana',
                'lastname' => 'Tatiana',
                'email'=>'SuperAdmin@super.com',
-               'profil'=> 3,
-               'password'=> bcrypt('123456'),
-               'idProfil'=>4,
+               'profil'=> 0,
+               'password'=> Hash::make('password'),
                'idService'=>1
            ],
            [
@@ -34,9 +34,8 @@ class UserSeeder extends Seeder
                'firstname' => 'Admin',
                'lastname' => 'Admin',
                'email' => 'admin@argon.com',
-               'profil' => 2,
-               'password' => bcrypt('123456'),
-               'idProfil'=>1,
+               'profil' => 0,
+               'password' => Hash::make('password'),
                'idService'=>1
            ], 
            [
@@ -44,9 +43,8 @@ class UserSeeder extends Seeder
                'firstname' => 'Francine',
                'lastname' => 'Francine',
                'email'=>'Validateur@it.com',
-               'profil'=>1,
-               'password'=> bcrypt('123456'),
-               'idProfil'=>3,
+               'profil'=>0,
+               'password'=> Hash::make('password'),
                'idService'=>1
             ],
             [
@@ -55,8 +53,7 @@ class UserSeeder extends Seeder
                'lastname' => 'Ouedraogo',
                'email'=>'Demandeur@it2.com',
                'profil'=>0,
-               'password'=> bcrypt('123456'),
-               'idProfil'=>2,
+               'password'=> Hash::make('password'),
                'idService'=>1
             ],
            ];
@@ -66,15 +63,15 @@ class UserSeeder extends Seeder
            foreach ($users as $user) {
                 $newUser = User::create($user);
                 // Attachez les rôles aux utilisateurs en fonction du nom d'utilisateur
-            if ($newUser->username === 'SuperAdmin User') {
-                $newUser->attachRole('super-administrateur');
-            } elseif ($newUser->username === 'admin') {
-                $newUser->attachRole('administrateur');
-            } elseif ($newUser->username === 'validateur') {
-                $newUser->attachRole('validateur');
-            } elseif ($newUser->username === 'demandeur') {
-                $newUser->attachRole('demandeur');
-            }
+            // if ($newUser->username === 'SuperAdmin User') {
+            //     $newUser->attachRole('super-administrateur');
+            // } elseif ($newUser->username === 'admin') {
+            //     $newUser->attachRole('administrateur');
+            // } elseif ($newUser->username === 'validateur') {
+            //     $newUser->attachRole('validateur');
+            // } elseif ($newUser->username === 'demandeur') {
+            //     $newUser->attachRole('demandeur');
+            // }
            }  
 
    

@@ -110,55 +110,67 @@
         <h4 class="m-0 font-weight-bold text-black">Liste des utilisateurs</h4>
     </div>
 <hr>
-    <div class="row shadow mt-2">
-       <div class="col-sm-3 col-md-3">
+    <form method="GET" action="{{ route('user.index') }}">
+       <div class="row shadow mt-2">
+       <div class="col-md-2">
             <div>
-                    <h5>FILTRE :</h5>
+                <h5>FILTRE :</h5>
             </div>
         </div>
-        <div class="col-sm-3 col-md-3 ">
+        <div class="col-md-2 ">
             <div class="dataTables_length select" id="dataTable_length">
-                <label> <h6>Date</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
+                <label> <h6>Date de Creation</h6>
+                <input type="date" name="dateCreation" value="{{ $dateCreation }}" class="form-control">
                 </label>
             </div>
         </div>
 
-        <div class="col-sm-3 col-md-3">
+        <div class="col-md-2">
             <div class="dataTables_length select" id="dataTable_length">
-                <label><h6>Statut</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
+                <label><h6>Service</h6>
+                    <select name="service_id" class="form-control">
+                        <option value="">Tous les services</option>
+                        @foreach($services as $service)
+                            <option {{$service->id==$service->idService?'selected':''}} value="{{ $service->id }}">{{ $service->nomService }}</option>
+                        @endforeach
                     </select>
                 </label>
             </div>
         </div>
-
-        <div class="col-sm-3 col-md-3">
+        <div class="col-md-2">
             <div class="dataTables_length select" id="dataTable_length">
-                <label><h6>Type</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
+                <label><h6>Directions</h6>
+                    <select name="service_id" class="form-control">
+                        <option value="">Toutes les directions</option>
+                        @foreach($services as $service)
+                            <option value="{{ $service->id }}">{{ $service->nomService }} {{ $service->Direction->nomDirection }}</option>
+                        @endforeach
                     </select>
                 </label>
             </div>
         </div>
-
+        <div class="col-md-2">
+            <div class="dataTables_length select" id="dataTable_length">
+                <label for="role"><h6>Rôle :</h6>
+                    <select name="role" class="form-control">
+                    <option value="">Tous les roles</option>
+                        @foreach ($roles as $role)
+                            <option value="{{ $role->id }}">{{ $role->name }}</option>
+                        @endforeach
+                    </select>
+                </label>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="dataTables_length select" id="dataTable_length">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </div>
+        </div>
+    </form>
         <div class="pull-right">
                 <a class="btn btn-success" href="{{ route('users.create') }}"> Nouveau</a>
             </div>
-    </div>
+        </div>
 
     <div class="card-body shadow">
         <div class="table-responsive">

@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\TypeDossier;
 use App\Models\Annee;
 use Illuminate\Http\Request;
+use App\Models\Historique;
 use Auth;
 
 class DossierController extends Controller
@@ -126,7 +127,19 @@ class DossierController extends Controller
             'idAnnee' => ''
         ]);
   
+        // Sauvegardez les données du dossier mises à jour
         $dossier->update($request->all());
+
+        // Créez une entrée d'historique
+        Historique::create([
+            'idUser' => auth()->id(), // L'utilisateur actuel
+            'actionHistorique' => 'Mise à jour du dossier', // Action effectuée (peut être personnalisée)
+            'statutHistorique' => $dossier->statutDossier, // Nouveau statut
+            'commentaireAction' => $request->input('commentaireAction'), // Commentaire (ajoutez-le si nécessaire)
+            'dateAction' => now(), // Date et heure de l'action actuelle
+            'idDossier' => $dossier->id, // ID du dossier mis à jour
+            // Ajoutez d'autres informations spécifiques ici
+        ]);
   
         return redirect()->route('dossiers.index')->with('success','dossier mis à jour');
     }
@@ -137,7 +150,53 @@ class DossierController extends Controller
      * @param  \App\Models\Dossier  $dossier
      * @return \Illuminate\Http\Response
      */
-    
+        public function submit(Request $request)
+    {
+        // Validez les données du formulaire de soumission
+        $this->validate($request, [
+            // Définissez les règles de validation appropriées ici
+            'nomDossier' => 'required',
+            'declarantDossier' => 'required',
+            'ifuDossier' => 'required',
+            'agrementDossier' => 'required',
+            'destinataireDossier' => 'required',
+            'elementRequeteDossier' => 'required',
+            'texteReferenceDossier' => 'required',
+            'statutDossier' => '',
+            'idUser' => '',
+            'idTypeDossier' => 'required',
+        ]);
+
+        
+        // Enregistrez les données du dossier dans la base de données
+        $dossier = new Dossier();
+        // Remplissez les champs du dossier avec les données du formulaire
+        $dossier->nomDossier = $request->input('nomDossier');
+        $dossier->declarantDossier = $request->input('declarantDossier');
+        $dossier->ifuDossier = $request->input('ifuDossier');
+        $dossier->agrementDossier = $request->input('agrementDossier');
+        $dossier->destinataireDossier = $request->input('destinataireDossier');
+        $dossier->elementRequeteDossier = $request->input('elementRequeteDossier');
+        $dossier->texteReferenceDossier = $request->input('texteReferenceDossier');
+        $dossier->declarantDossier = $request->input('declarantDossier');
+        $dossier->idUser = $request->input('idUser');
+        $dossier->idTypeDossier = $request->input('idTypeDossier');
+
+        // Vérifiez la valeur du bouton "action"
+        if ($request->input('action') === 'brouillon') 
+        {
+            $dossier->statutDossier = 'brouillon';
+        } elseif ($request->input('action') === 'soumettre') {
+
+                // Définissez le statut du dossier pour indiquer qu'il est soumis
+                $dossier->statutDossier = 'soumis';
+        }
+        // Enregistrez le dossier
+        $dossier->save();
+
+        // Redirigez l'utilisateur vers une page de confirmation ou de suivi
+        return redirect()->route('dossier.index')->with('success','dossier mis à jour');
+    }
     
     
      public function destroy(Dossier $dossier)

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('actionHistorique');
             $table->string('statutHistorique');
             $table->string('commentaireAction');
-            $table->string('dateAction');
+            $table->timestamp('dateAction');
             $table->unsignedBiginteger('idDossier')->unsigned();
             $table->unsignedBiginteger('idUser')->unsigned();
 
@@ -27,8 +27,6 @@ return new class extends Migration
                  
             $table->foreign('idUser')->references('id')
                 ->on('users')->onDelete('cascade');
-                
-            $table->timestamps();
         });
     }
 
