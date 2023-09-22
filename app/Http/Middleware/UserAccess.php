@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Laratrust\Laratrust;
 
 class UserAccess
 {
@@ -16,9 +17,9 @@ class UserAccess
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
     
-    public function handle(Request $request, Closure $next, $userProfil): Response
+    public function handle(Request $request, Closure $next, $role): Response
     {
-        if (auth()->user()->profil == $userProfil)
+        if (auth()->user()->hasRole($role))
         {
         return $next($request);
         }

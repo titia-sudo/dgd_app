@@ -101,18 +101,30 @@ class UserController extends Controller
         $request->validate([
             'username' => 'required',
             'firstname' => 'required',
-            'lastname'=> 'required',
-            'email'=> 'required',
-            'password'=> 'required',
-            
+            'lastname' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+            'role' => 'required',
         ]);
-  
-        $user=User::create($request->all());
-        
-        // Attachez le rôle à l'utilisateur
-        $user->attachRole('demandeur');
-        
-        return redirect()->route('users.index')->with('success','user created successfully.');
+    
+        $user = User::create($request->all());
+
+        // Récupérez le nom du rôle à partir de la demande
+        $roleName = $request->input('role');
+    
+        // Recherchez le rôle en fonction de son nom
+        $role = Role::where('name', $roleName)->first();
+    
+        if ($role) {
+            // Attachez le rôle à l'utilisateur
+            $user->attachRole($role);
+    
+            return redirect()->route('users.index')->with('success', 'Utilisateur créé avec succès.');
+        } else {
+            // Gérez le cas où le rôle n'est pas trouvé
+            return redirect()->route('users.index')->with('error', 'Le rôle "' . $roleName . '" n\'a pas été trouvé.');
+        }
+    
     }
 
     /**

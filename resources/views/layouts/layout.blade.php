@@ -38,11 +38,11 @@
                     <span class="mask bg-primary opacity-6"></span>
                 </div>
             @endif
-            @include('')
+            
                 <main class="main-content border-radius-lg">
                     @yield('content')
                 </main>
-            @include('components.fixed-plugin')
+            
         @endif
     @endauth
 
