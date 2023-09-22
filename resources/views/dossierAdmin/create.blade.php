@@ -116,7 +116,7 @@
             <hr>
         </div>
         <div class="row shadow-lg mt-5">
-        <form action="{{ route('dossiers.store') }}" method="POST">
+        <form action="{{ route('adminDossiers.store') }}" method="POST">
             @csrf
             
             <div class="row">

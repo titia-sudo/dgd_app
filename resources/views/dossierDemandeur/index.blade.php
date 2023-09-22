@@ -78,8 +78,7 @@
                         <th>IFU</th>
                         <th>Agrement</th>
                         <th>Destinataire</th>
-                        <th>element de Requete</th>
-                        <th>texte de Reference</th>
+
                         <th>statut</th>
                         <th width="280px">Action</th>
                     </tr>
@@ -92,8 +91,6 @@
                         <th>IFU</th>
                         <th>Agrement</th>
                         <th>Destinataire</th>
-                        <th>element de Requete</th>
-                        <th>texte de Reference</th>
                         <th>statut</th>
                         <th width="280px">Action</th>
                     </tr>
@@ -107,20 +104,14 @@
                         <td>{{ $dossier->ifuDossier }}</td>
                         <td>{{ $dossier->agrementDossier }}</td>
                         <td>{{ $dossier->destinataireDossier }}</td>
-                        <td>{{ $dossier->elementRequeteDossier }}</td>
-                        <td>{{ $dossier->texteReferenceDossier }}</td>
                         <td>{{ $dossier->statutDossier }}</td>
                         <td>
-                        <form action="{{ route('dossiers.destroy',$dossier->id) }}" method="POST">
+                        <form action="{{ route('demandeurDossiers.destroy',$dossier->id) }}" method="POST">
    
-                            <a class="btn btn-info" href="{{ route('dossiers.show',$dossier->id) }}">Show</a>
+                            <a class="btn btn-info" href="{{ route('demandeurDossiers.show',$dossier->id) }}">Show</a>
     
-                            <a class="btn btn-primary" href="{{ route('dossiers.edit',$dossier->id) }}">Edit</a>
+                            <a class="btn btn-primary" href="{{ route('demandeurDossiers.edit',$dossier->id) }}">Edit</a>
    
-                            @csrf
-                            @method('DELETE')
-      
-                                <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
                     </tr>

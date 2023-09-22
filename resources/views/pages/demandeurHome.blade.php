@@ -1,4 +1,3 @@
-
 @extends('layouts.app-user', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
@@ -13,12 +12,6 @@
     </div>
     <hr>
 
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-   
     <div class="row shadow mt-3">
        <div class="col-sm-3 col-md-3">
             <div>
@@ -72,62 +65,93 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>No</th>
-                        <th>nom Dossier</th>
-                        <th>Declarant</th>
-                        <th>IFU</th>
-                        <th>Agrement</th>
-                        <th>Destinataire</th>
-                        <th>element de Requete</th>
-                        <th>texte de Reference</th>
-                        <th>statut</th>
-                        <th width="280px">Action</th>
+                        <th><h6>Designation</h6></th>
+                        <th><h6>Type de dossiers</h6></th>
+                        <th><h6>Date de création</h6></th>
+                        <th><h6>Statut</h6></th>
+                        <th><h6>Actions</h6></th>
+                     
                     </tr>
                 </thead>
                 <tfoot>
                     <tr>
-                        <th>No</th>
-                        <th>nom Dossier</th>
-                        <th>Declarant</th>
-                        <th>IFU</th>
-                        <th>Agrement</th>
-                        <th>Destinataire</th>
-                        <th>element de Requete</th>
-                        <th>texte de Reference</th>
-                        <th>statut</th>
-                        <th width="280px">Action</th>
+                    <th><h6>Designation</h6></th>
+                        <th><h6>Type de dossiers</h6></th>
+                        <th><h6>Date de création</h6></th>
+                        <th><h6>Statut</h6></th>
+                        <th><h6>Actions</h6></th>
                     </tr>
                 </tfoot>
                 <tbody>
-                 @foreach ($dossiers as $dossier)
                     <tr>
-                        <td>{{ ++$i }}</td>
-                        <td>{{ $dossier->nomDossier }}</td>
-                        <td>{{ $dossier->declarantDossier }}</td>
-                        <td>{{ $dossier->ifuDossier }}</td>
-                        <td>{{ $dossier->agrementDossier }}</td>
-                        <td>{{ $dossier->destinataireDossier }}</td>
-                        <td>{{ $dossier->elementRequeteDossier }}</td>
-                        <td>{{ $dossier->texteReferenceDossier }}</td>
-                        <td>{{ $dossier->statutDossier }}</td>
-                        <td>
-                        <form action="{{ route('dossiers.destroy',$dossier->id) }}" method="POST">
-   
-                            <a class="btn btn-info" href="{{ route('dossiers.show',$dossier->id) }}">Show</a>
-    
-                            <a class="btn btn-primary" href="{{ route('dossiers.edit',$dossier->id) }}">Edit</a>
-   
-                            @csrf
-                            @method('DELETE')
-      
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
+                        <td>Tiger Nixon</td>
+                        <td>System Architect</td>
+                        <td>2011/01/25</td>
+                        <td>61</td>
+                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
+                       
                     </tr>
-                 @endforeach
+                    <tr>
+                        <td>Garrett Winters</td>
+                        <td>Accountant</td>
+                        <td>2011/01/25</td>
+                        <td>63</td>
+                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
+                        
+                    </tr>
+                    
+                    <tr>
+                        <td>Michael Silva</td>
+                        <td>Marketing Designer</td>
+                        <td>2011/01/25</td>
+                        <td>66</td>
+                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Paul Byrd</td>
+                        <td>Chief Financial Officer (CFO)</td>
+                        <td>2011/01/25</td>
+                        <td>64</td>
+                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
+                        
+                    </tr>
+                   
+                        <td>Sakura Yamamoto</td>
+                        <td>Support Engineer</td>
+                        <td>2011/01/25</td>
+                        <td>37</td>
+                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
+                        
+                    </tr>
+                  
+                    <tr>
+                        <td>Shad Decker</td>
+                        <td>Regional Director</td>
+                        <td>2011/01/25</td>
+                        <td>51</td>
+                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Michael Bruce</td>
+                        <td>Javascript Developer</td>
+                        <td>2011/01/25</td>
+                        <td>29</td>
+                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
+                        
+                    </tr>
+                    <tr>
+                        <td>Donna Snider</td>
+                        <td>Customer Support</td>
+                        <td>2011/01/25</td>
+                        <td>27</td>
+                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
+                        
+                        
+                    </tr>
                 </tbody>
             </table>
-            {!! $dossiers->links() !!}
         </div>
     </div>
 </div>

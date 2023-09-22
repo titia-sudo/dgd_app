@@ -17,7 +17,7 @@
         <div class=" mx-2">
 
             <div>
-                <a  class=" nav-link {{ Route::currentRouteName() == 'creation de compte' || Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}" href="{{ route('dossiers.index') }}">
+                <a  class=" nav-link {{ Route::currentRouteName() == 'creation de compte' ? 'active' : '' }}" href="{{ route('demandeurDossiers.index') }}">
                        <i class="fa fa-home icon-lg"></i>
                         <span class="font-weight-bold text-lg" >Accueil</span>
                 </a>
@@ -39,7 +39,7 @@
                     <div>
                      <a href="#ecom">
                         <i class="fa fa-folder icon-lg"></i>
-                          <a href="{{ route('dossiers.create') }}" class="nav-link-text font-weight-bold text-primary">Nouveau dossier</a>
+                          <a href="{{ route('demandeurDossiers.create') }}" class="nav-link-text font-weight-bold text-primary">Nouveau dossier</a>
                      </a>
                     </div>
         </div>
