@@ -42,6 +42,7 @@ Route::get('/roles/index', 'RoleController@index')->name('roles.index')->middlew
 Route::get('/roles/create', 'RoleController@create')->name('roles.create')->middleware('permission:role-creer');
 Route::get('/roles/update', 'RoleController@update')->name('roles.update')->middleware('permission:role-modifier');
 Route::get('/roles/create', 'RoleController@delete')->name('roles.delete')->middleware('permission:role-supprimer');
+
 Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class);
 Route::resource('/tempsTraitements', TempsTraitementController::class);
 Route::resource('/niveauTraitements', NiveauTraitementController::class);
