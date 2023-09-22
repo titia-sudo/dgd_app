@@ -41,11 +41,6 @@ class HomeController extends Controller
         return view('pages.adminHome');
     }
   
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function superAdminHome(): View
     {
         return view('pages.superAdminHome');

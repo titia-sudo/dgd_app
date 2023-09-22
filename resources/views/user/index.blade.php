@@ -102,6 +102,53 @@
                 </div>
         @endif
         <!-- partie   alerte-->
+
+        <form method="GET" action="{{ route('Filtrer') }}" id="filtrageUser">
+       <div class="row shadow mt-2">
+        <div class="col-md-2">
+                <div>
+                    <h5>FILTRE :</h5>
+                </div>
+            </div>
+            <div class="col-md-2 ">
+                    <label> <h6>Date de Creation</h6>
+                    <input type="date" name="dateCreation" class="form-control" value="{{ request('dateCreation') }}">
+                    </label>
+            </div>
+            <div class="col-md-2 ">
+            <label><h6>Role :</h6></label>
+                <select name="roleId" class="form-control">
+                <option value="">Tous les rôles</option>
+                    @foreach ($roles as $role)
+                        <option value="{{ $role->id }}" @if ($roleId == $role->id) selected @endif>{{ $role->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-2">
+            <label><h6>Service :</h6></label>
+                <select name="serviceId" class="form-control">
+                    <option value="">Tous les services</option>
+                    @foreach($services as $service)
+                        <option value="{{ $service->id }}" @if($serviceId == $service->id) selected @endif>{{ $service->nomService }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label><h6>Direction :</h6></label>
+                <select name="idDirection" class="form-control">
+                    <option value="">Toutes les directions</option>
+                    @foreach($directions as $direction)
+                        <option value="{{ $direction->id }}" @if($idDirection == $direction->id) selected @endif>{{ $direction->nomDirection }}</option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </div>
+        </div>
+            
+        </form>
+
     <!-- partie   contenu de l'administation-->
 <div class="container-fluid">
 
@@ -110,56 +157,9 @@
         <h4 class="m-0 font-weight-bold text-black">Liste des utilisateurs</h4>
     </div>
 <hr>
-    <form method="GET" action="{{ route('user.index') }}">
-       <div class="row shadow mt-2">
-       <div class="col-md-2">
-            <div>
-                <h5>FILTRE :</h5>
-            </div>
-        </div>
-        <div class="col-md-2 ">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label> <h6>Date de Creation</h6>
-                <input type="date" name="dateCreation" class="form-control" value="{{ request('dateCreation') }}">
-                </label>
-            </div>
-        </div>
-<div class="col-md-2 ">
-            <label for="roleId">role :</label>
-                    <select name="roleId" class="form-control">
-                        <option value="">Tous les rôles</option>
-                        @foreach ($roles as $role)
-                            <option value="{{ $role->id }}" @if ($roleId == $role->id) selected @endif>{{ $role->name }}</option>
-                        @endforeach
-                    </select>
-                        </div>
-        <div class="col-md-2">
-            <label for="serviceId">Service :</label>
-                    <select name="serviceId" class="form-control">
-                        <option value="">Tous les services</option>
-                        @foreach($services as $service)
-                            <option value="{{ $service->id }}" @if($serviceId == $service->id) selected @endif>{{ $service->nomService }}</option>
-                        @endforeach
-                    </select>
-                        </div>
-        <div class="col-md-2">
-            <label><h6>Direction :</h6></label>
-                    <select name="idDirection" class="form-control">
-                    <option value="">Toutes les directions</option>
-                        @foreach($directions as $direction)
-                            <option value="{{ $direction->id }}" @if($idDirection == $direction->id) selected @endif>{{ $direction->nomDirection }}</option>
-                        @endforeach
-                    </select>
-                            </div>
-        </div>
-        <div class="col-md-2">
-            <div class="dataTables_length select" id="dataTable_length">
-                <button type="submit" class="btn btn-primary">Rechercher</button>
-            </div>
-        </div>
-    </form>
+        
         <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('users.create') }}"> Nouveau</a>
+                <a class="btn btn-success" href="{{ route('users.create') }}">Nouveau</a>
             </div>
         </div>
 

@@ -84,9 +84,9 @@ class UserController extends Controller
         // Récupérez toutes les permissions depuis la base de données si nécessaire.
         $permissions = Permission::all(); 
 
-        $profils = Profil::orderBy('nomProfil', 'ASC')->get();
+        //$profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
-        return view('user.create', compact('services', 'roles', 'permissions', 'profils'));
+        return view('user.create', compact('services', 'roles', 'permissions'));
     }
 
     /**
@@ -136,7 +136,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         //
-        $profils = Profil::orderBy('nomProfil', 'ASC')->get();
+        //$profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
         return view('user.show',compact('user', 'profils', 'services'));
     }
@@ -151,7 +151,7 @@ class UserController extends Controller
     {
         $roles = Role::all(); 
         $user = User::find($id);
-        $profils = Profil::orderBy('nomProfil', 'ASC')->get();
+        //$profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
         return view('user.edit',compact('user', 'profils', 'roles','services'));
     }

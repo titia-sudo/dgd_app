@@ -84,11 +84,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(NiveauTraitements::class, 'users_niveautraitements', 'idUser', 'idNiveauTraitement');
     }
-    
-    public function profil_d():BelongsTo
-    {
-        return $this->belongsTo(Profil::class, 'idProfil');
-    }
 
     public function service():BelongsTo
     {
