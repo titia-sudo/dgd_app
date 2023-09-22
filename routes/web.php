@@ -37,6 +37,31 @@ Route::get('/', function () {
 
 Auth::routes(['login' => false, 'verify' => false]);
 
+
+Route::get('/roles/create', 'RoleController@create')->name('roles.create')->middleware('permission:utilisateur-creer');
+ 
+Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class);
+Route::resource('/tempsTraitements', TempsTraitementController::class);
+Route::resource('/niveauTraitements', NiveauTraitementController::class);
+Route::resource('/users', UserController::class);    
+Route::resource('/profils', ProfilController::class);
+Route::resource('/directions', DirectionController::class);
+Route::resource('/services', ServiceController::class);
+Route::resource('/typeDossiers', TypeDossierController::class);
+Route::resource('/dossiers', DossierController::class);
+Route::resource('/validateurDossiers', DossierValidateurController::class);
+Route::resource('/adminDossiers', DossierAdminController::class);
+
+
+//Route::put('/dossiers/{id}/update/{idUser}', [DossierController::class, 'update'])->name('dossiers.update');
+Route::resource('/historique', HistoriqueController::class);
+Route::get('/users/filtrer', 'UserController@index')->name('user.index');
+ //Auth::routes();
+ /*------------------------------------------
+--------------------------------------------
+All Normal Users Routes List
+--------------------------------------------
+--------------------------------------------*/
 Route::middleware(['auth', 'user-access:demandeur'])->group(function () {
   
     Route::get('/demandeurHome', [HomeController::class, 'index'])->name('demandeurHome');

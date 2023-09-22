@@ -42,7 +42,7 @@
                 <main class="main-content border-radius-lg">
                     @yield('content')
                 </main>
-            
+           
         @endif
     @endauth
 
