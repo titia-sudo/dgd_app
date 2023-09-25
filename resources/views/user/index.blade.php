@@ -104,7 +104,7 @@
         <!-- partie   alerte-->
 
         <form method="GET" action="{{ route('Filtrer') }}" id="filtrageUser">
-       <div class="row shadow mt-2">
+       <div class="row shadow mt-6">
         <div class="col-md-2">
                 <div>
                     <h5>FILTRE :</h5>

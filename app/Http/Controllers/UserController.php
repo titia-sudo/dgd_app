@@ -138,7 +138,7 @@ class UserController extends Controller
         //
         //$profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
-        return view('user.show',compact('user', 'profils', 'services'));
+        return view('user.show',compact('user', 'services'));
     }
 
     /**
@@ -153,7 +153,7 @@ class UserController extends Controller
         $user = User::find($id);
         //$profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
-        return view('user.edit',compact('user', 'profils', 'roles','services'));
+        return view('user.edit',compact('user', 'roles','services'));
     }
 
     /**

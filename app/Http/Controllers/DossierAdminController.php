@@ -65,7 +65,7 @@ class DossierAdminController extends Controller
         'statutDossier' => '',
         'idUser' => '',
         'idTypeDossier' => 'required',
-        'idAnnee' => ''
+        //'idAnnee' => ''
         ]);
         //dd($dossiers);
         Dossier::create($request->all());
