@@ -19,10 +19,6 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\TypeDossiersController;
 use App\Http\Controllers\TempsTraitementController;
 use App\Http\Controllers\UniteTempsTraitementController;
-
-use App\Http\Controllers\DossierAdminController;
-use App\Http\Controllers\DossierValidateurController;
-use App\Http\Controllers\DossierController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,7 +56,7 @@ Route::resource('/profils', ProfilController::class);
 Route::resource('/directions', DirectionController::class);
 Route::resource('/services', ServiceController::class);
 Route::resource('/typeDossiers', TypeDossierController::class);
-Route::resource('/demandeurDossiers', DossierController::class);
+Route::resource('/dossiers', DossierController::class);
 Route::resource('/validateurDossiers', DossierValidateurController::class);
 Route::resource('/adminDossiers', DossierAdminController::class);
 
