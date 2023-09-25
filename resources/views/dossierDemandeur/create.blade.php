@@ -1,5 +1,5 @@
 
-@extends('layouts.app-validateur', ['class' => 'g-sidenav-show bg-gray-100'])
+@extends('layouts.app-user', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
     @include('layouts.navbars.auth.topnav-user', ['title' => 'Dashboard'])
@@ -24,9 +24,9 @@
             <h4 class="m-0 font-weight-bold text-black">Nouveau dossier</h4>
          </div>
          <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('validateurDossiers.index') }}"> Retour</a>
+            <a class="btn btn-primary" href="{{ route('demandeurDossiers.index') }}"> Retour</a>
         </div>
-        <form action="{{ route('validateurDossiers.store') }}" method="POST">
+        <form action="{{ route('demandeurDossiers.store') }}" method="POST">
         @csrf
         <hr>
         <div class="row">
@@ -83,8 +83,8 @@
         </div>
        <div class="row mt-3">
          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-secondary me-md-2" type="submit">Enregistrer</button>
-            <button class="btn btn-primary" type="submit">Soumettre</button>
+         <button class="btn btn-secondary me-md-2" name="action" type="submit" value="brouillon">Enregistrer</button>
+         <button class="btn btn-primary" type="submit" name="action" value="soumettre">Soumettre</button>
          </div>
        </div>
 
