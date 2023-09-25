@@ -33,15 +33,13 @@
         <td>{{ ++$i }}</td>
         <td>{{ $role->name }}</td>
         <td>
-            <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a>
-            @can('role-edit')
-                <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Edit</a>
-            @endcan
-            @can('role-delete')
-                {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                {!! Form::close() !!}
-            @endcan
+        <form action="{{ route('roles.destroy', ['id' => $role->id]) }}" method="POST">
+            <a class="btn btn-info" href="{{ route('roles.show', ['id' => $role->id]) }}">Afficher</a>
+            <a class="btn btn-primary" href="{{ route('roles.edit',['id' => $role->id]) }}">Modifier</a>
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger">Supprimer</button>
+        </form>
         </td>
     </tr>
     @endforeach
@@ -51,5 +49,5 @@
 {!! $roles->render() !!}
 
 
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
+<p class="text-center text-primary"><small>Direction Générale des Douanes</small></p>
 @endsection

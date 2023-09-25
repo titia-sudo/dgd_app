@@ -11,6 +11,7 @@ use DB;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 use Laratrust\LaratrustFacade as Laratrust;
+use Illuminate\Pagination\LengthAwarePaginator;
 
     
 class RoleController extends Controller
@@ -28,7 +29,8 @@ class RoleController extends Controller
      */
     public function index(Request $request): View
     {
-        $roles = Laratrust::role()->get();
+        $roles = Role::paginate(10);
+        
         return view('roles.index',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -52,13 +54,15 @@ class RoleController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        Laratrust::role()->create([
+        $role = new Role([
             'name' => $request->input('name'),
             'display_name' => $request->input('display_name'),
             'description' => $request->input('description'),
         ]);
+        $role->save();
     
-        $role = Role::create(['name' => $request->input('name')]);
+        // Assurez-vous que votre modèle Role a une méthode syncPermissions pour gérer les permissions.
+    
         $role->syncPermissions($request->input('permission'));
     
         return redirect()->route('roles.index')
@@ -73,11 +77,11 @@ class RoleController extends Controller
     public function show($id): View
     {
         $role = Role::find($id);
-        $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-            ->where("role_has_permissions.role_id",$id)
-            ->get();
-    
-        return view('roles.show',compact('role','rolePermissions'));
+
+        // Utilisez la méthode permissions() pour récupérer les permissions associées au rôle
+        $rolePermissions = $role->permissions;
+
+        return view('roles.show', compact('role', 'rolePermissions'));
     }
     
     /**
@@ -89,6 +93,7 @@ class RoleController extends Controller
     public function edit($id): View
     {
         $role = Role::find($id);
+        $rolePermissions = $role->permissions;
         $permission = Permission::get();
     
         return view('roles.edit',compact('role','permission','rolePermissions'));
@@ -125,7 +130,19 @@ class RoleController extends Controller
      */
     public function destroy($id): RedirectResponse
     {
-        return redirect()->route('roles.index')
-                        ->with('success','Role deleted successfully');
+        $role = Role::find($id);
+
+        if (!$role) {
+            return redirect()->route('roles.index')->with('error', 'Rôle non trouvé.');
+        }
+    
+        // Vérifiez si l'utilisateur a la permission de supprimer un rôle
+        if (!auth()->user()->hasPermission('role-supprimer')) {
+            return redirect()->route('roles.index')->with('error', 'Vous n\'avez pas le droit de supprimer un rôle.');
+        }
+    
+        $role->delete();
+    
+        return redirect()->route('roles.index')->with('success', 'Rôle supprimé avec succès.');
     }
 }

@@ -6,9 +6,6 @@
         <div class="pull-left">
             <h2>Edit Role</h2>
         </div>
-        <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
-        </div>
     </div>
 </div>
 
@@ -25,31 +22,36 @@
 @endif
 
 
-{!! Form::model($role, ['method' => 'PATCH','route' => ['roles.update', $role->id]]) !!}
-<div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Name:</strong>
-            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+<form method="POST" action="{{ route('roles.update', ['id' => $role->id]) }}">
+    @csrf
+    @method('PATCH')
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Name:</strong>
+                <input type="text" name="name" value="{{ $role->name }}" placeholder="Name" class="form-control">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <strong>Permission:</strong>
+                <br>
+                @foreach($permission as $value)
+                    <label>
+                    <input type="checkbox" name="permission[]" value="{{ $value->id }}" {{ $rolePermissions->contains('id', $value->id) ? 'checked' : '' }}>
+                     {{ $value->name }}
+                    </label><br>
+                @endforeach
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+        <a class="btn btn-primary" href="{{ route('roles.index') }}">Retour</a>
+            <button type="submit" class="btn btn-primary">Enregistrer</button>
         </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="form-group">
-            <strong>Permission:</strong>
-            <br/>
-            @foreach($permission as $value)
-                <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}
-                {{ $value->name }}</label>
-            <br/>
-            @endforeach
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-</div>
-{!! Form::close() !!}
+</form>
 
 
 @endsection
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>
+<p class="text-center text-primary"><small>DIrection Générale des Douanes</small></p>

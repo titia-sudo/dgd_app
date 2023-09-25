@@ -171,11 +171,11 @@ class UserController extends Controller
             'firstname' => 'required',
             'lastname'=> 'required',
             'email'=> 'required',
-            'roles'=> 'required',
+            'role'=> 'required',
         ]);
         $user->update($request->all());
-        Laratrust::detachRoles($user);
-        Laratrust::attachRole('new_role', $user);
+        // Laratrust::detachRoles($user);
+        // Laratrust::attachRole('new_role', $user);
         return redirect()->route('users.index')->with('success','user mis à jour');
     }
 
