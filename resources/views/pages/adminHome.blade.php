@@ -153,7 +153,7 @@
         </div>
 
         <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('adminDossiers.create') }}"> Nouveau</a>
+                <a class="btn btn-success" href="{{ route('dossierAdmin.create') }}"> Nouveau</a>
             </div>
     </div>
 

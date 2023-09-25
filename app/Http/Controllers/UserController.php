@@ -138,7 +138,7 @@ class UserController extends Controller
         //
         //$profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
-        return view('user.show',compact('user', 'profils', 'services'));
+        return view('user.show',compact('user', 'services'));
     }
 
     /**
@@ -153,7 +153,7 @@ class UserController extends Controller
         $user = User::find($id);
         //$profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
-        return view('user.edit',compact('user', 'profils', 'roles','services'));
+        return view('user.edit',compact('user', 'roles','services'));
     }
 
     /**
@@ -171,11 +171,11 @@ class UserController extends Controller
             'firstname' => 'required',
             'lastname'=> 'required',
             'email'=> 'required',
-            'roles'=> 'required',
+            'role'=> 'required',
         ]);
         $user->update($request->all());
-        Laratrust::detachRoles($user);
-        Laratrust::attachRole('new_role', $user);
+        // Laratrust::detachRoles($user);
+        // Laratrust::attachRole('new_role', $user);
         return redirect()->route('users.index')->with('success','user mis à jour');
     }
 

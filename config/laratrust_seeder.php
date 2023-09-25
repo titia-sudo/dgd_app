@@ -14,8 +14,8 @@ return [
     'roles_structure' => [
         'super-administrateur' => [
             'utilisateur' => 'c,r,u,d',
+            'role' => 'c,r,u,d',
             'dossier' => 'c,r,u,d',
-            'profil' => 'c,r,u,d',
             'type-Dossier'=>'c,r,u,d',
             'unite-temps-traitement'=>'c,r,u,d',
             'service'=>'c,r,u,d',
@@ -26,9 +26,9 @@ return [
         ],
         'administrateur' => [
             'utilisateur' => 'c,r,u',
+            'role' => 'c,r,u',
             'dossier' => 'c,r,u',
-            'profil' => 'c,r,u',
-            'type-Dossier'=>'c,r,u',
+            'type-dossier'=>'c,r,u',
             'unite-temps-traitement'=>'c,r,u',
             'service'=>'c,r,u',
             'direction'=>'c,r,u,d',

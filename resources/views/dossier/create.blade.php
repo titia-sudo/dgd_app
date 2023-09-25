@@ -23,10 +23,7 @@
         <div class=" text-center mt-7 mb-3">
             <h4 class="m-0 font-weight-bold text-black">Nouveau dossier</h4>
          </div>
-         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('dossiers.index') }}"> Retour</a>
-        </div>
-        <form action="{{ route('dossier.submit.post') }}" method="POST">
+        <form action="{{ route('dossiers.store') }}" method="POST">
         @csrf
         <hr>
         <div class="row">
@@ -82,10 +79,11 @@
             </div>
         </div>
        <div class="row mt-3">
-         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-         <button class="btn btn-secondary me-md-2" name="action" type="submit" value="brouillon">Enregistrer</button>
-         <button class="btn btn-primary" type="submit" name="action" value="soumettre">Soumettre</button>
-         </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <a class="btn btn-primary" href="{{ route('dossiers.index') }}"> Retour</a>
+                <button class="btn btn-secondary me-md-2" name="action" type="submit" value="brouillon">Enregistrer</button>
+                <button class="btn btn-primary" type="submit" name="action" value="soumettre">Soumettre</button>
+            </div>
        </div>
 
        

@@ -15,6 +15,7 @@ use HasRoles;
 use santigarcor\Laratrust;
 use Laratrust\Traits\LaratrustUserTrait;
 use Laratrust\Traits\HasRolesAndPermissions;
+use Laratrust\Traits\LaratrustRoleTrait;
 
 
 class User extends Authenticatable

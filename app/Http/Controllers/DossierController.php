@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Dossier;
-use App\Models\User;
-use App\Models\TypeDossier;
-use App\Models\Annee;
-use Illuminate\Http\Request;
-use App\Models\Historique;
 use Auth;
+use App\Models\User;
+use App\Models\Annee;
+use App\Models\Dossier;
+use App\Models\Historique;
+use App\Models\TypeDossier;
+use Illuminate\Http\Request;
+use App\Events\DossierCreated;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Event;
 
 class DossierController extends Controller
 {
@@ -54,7 +57,7 @@ class DossierController extends Controller
     {
         //
         //$request->idUser = Auth::user()->id;
-        $dossiers = $request->validate([
+        $request->validate([
         'nomDossier' => 'required',
         'declarantDossier' => 'required',
         'ifuDossier' => 'required',
@@ -68,9 +71,12 @@ class DossierController extends Controller
        // 'idAnnee' => ''
         ]);
         //dd($dossiers);
-        Dossier::create($request->all());
-   
-        return redirect()->route('dossiers.index')->with('success','dossier created successfully.');
+        $dossier = Dossier::create($request->all());
+        //dd('Dossier créé avec succès');
+        event(new DossierCreated($dossier, 'Création de dossier'));
+        //dd('Dossier créé avec succès');
+        Log::info('Message de test');
+        return redirect()->route('dossiers.index')->with('success','Dossier a été créé avec succès.');
     }
 
     /**
@@ -81,7 +87,7 @@ class DossierController extends Controller
      */
     public function show(Dossier $dossier)
     {
-        //
+        dd($dossier);
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();

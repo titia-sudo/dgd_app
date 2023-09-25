@@ -40,8 +40,11 @@ Auth::routes(['login' => false, 'verify' => false]);
 
 Route::get('/roles/index', 'RoleController@index')->name('roles.index')->middleware('permission:role-lire');
 Route::get('/roles/create', 'RoleController@create')->name('roles.create')->middleware('permission:role-creer');
-Route::get('/roles/update', 'RoleController@update')->name('roles.update')->middleware('permission:role-modifier');
-Route::get('/roles/create', 'RoleController@delete')->name('roles.delete')->middleware('permission:role-supprimer');
+Route::patch('/roles/update/{id}', 'RoleController@update')->name('roles.update')->middleware('permission:role-modifier');
+Route::delete('/roles/delete/{id}', 'RoleController@destroy')->name('roles.destroy')->middleware('permission:role-supprimer');
+Route::get('/roles/show/{id}', 'RoleController@show')->name('roles.show');
+Route::get('/roles/edit/{id}', 'RoleController@edit')->name('roles.edit');
+Route::post('/roles', 'RoleController@store')->name('roles.store');
 
 Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class);
 Route::resource('/tempsTraitements', TempsTraitementController::class);
@@ -111,9 +114,7 @@ Route::resource('/profils', ProfilController::class);
 Route::resource('/directions', DirectionController::class);
 Route::resource('/services', ServiceController::class);
 Route::resource('/typeDossiers', TypeDossierController::class);
-Route::resource('/dossiers', DossierController::class);
 Route::resource('/validateurDossiers', DossierValidateurController::class);
-Route::resource('/adminDossiers', DossierAdminController::class);
 
 
 //Route::put('/dossiers/{id}/update/{idUser}', [DossierController::class, 'update'])->name('dossiers.update');
