@@ -22,19 +22,8 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(): View
-    {
-        return view('pages.adminHome');
-    }
-    public function demandeurHome(): View
-    {
-        return view('pages.demandeurHome');
-    }
 
-    public function validatorHome(): View
-    {
-        return view('pages.validatorHome');
-    }
+    
 
     public function adminHome(): View
     {

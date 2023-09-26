@@ -19,6 +19,11 @@ use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\TypeDossiersController;
 use App\Http\Controllers\TempsTraitementController;
 use App\Http\Controllers\UniteTempsTraitementController;
+
+use App\Http\Controllers\DossierValidateurController;
+use App\Http\Controllers\DossierAdminController;
+use App\Http\Controllers\DossierController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,6 +52,7 @@ Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class)
 Route::resource('/tempsTraitements', TempsTraitementController::class);
 Route::resource('/niveauTraitements', NiveauTraitementController::class);
 
+Route::get('/dossiers/filtrer', 'DossierController@index')->name('Filtrerdoc');
 Route::get('/users/filtrer', 'UserController@index')->name('Filtrer');
 Route::resource('/users', UserController::class);  
 Route::resource('/profils', ProfilController::class);
@@ -68,7 +74,7 @@ All Normal Users Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:demandeur'])->group(function () {
   
-    Route::get('/demandeurHome', [HomeController::class, 'index'])->name('demandeurHome');
+    Route::get('/demandeurHome', [DossierController::class, 'index'])->name('demandeurHome');
 });
 
 /*------------------------------------------
@@ -78,7 +84,7 @@ All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:validateur'])->group(function () {
   
-    Route::get('/validatorHome', [HomeController::class, 'validatorHome']);
+    Route::get('/validatorHome', [DossierValidateurController::class, 'index']);
 });
   
 /*------------------------------------------
@@ -88,7 +94,7 @@ All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:administrateur'])->group(function () {
   
-    Route::get('/adminHome', [HomeController::class, 'adminHome']);
+    Route::get('/admin', [HomeController::class, 'adminHome'])->name('homeAdmin');
 });
   
 /*------------------------------------------

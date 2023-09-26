@@ -5,17 +5,19 @@
     @include('layouts.navbars.auth.topnav-user', ['title' => 'Dashboard'])
     
     <!-- partie   contenu de l'administation-->
-<div class="container">
+    <div class="container">
 
             <!-- DataTales Example -->
-       
-
-        <div class="row shadow mt-2">
-        <div class=" text-center mt-7 mb-3">
+        <div class="row shadow mt-7">
+        <div class="pull-right">
+              <a class="btn btn-primary" href="{{ route('dossiers.index') }}"> Retour</a>
+          </div>
+          
+        <div class=" text-center">
             <h4 class="m-0 font-weight-bold text-black">Editer dossier</h4>
          </div>
-        
-        <div class="row">
+         <hr>
+        <div class="row mt-3">
             <div class="col">
             <label for="example-text-input" class="form-control-label text-lg">Désignation</label>
               <input type="text" class="form-control" placeholder="First name" aria-label="First name">

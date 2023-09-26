@@ -20,49 +20,41 @@
     @endif
    
     <div class="row shadow mt-3">
-       <div class="col-sm-3 col-md-3">
-            <div>
+       
+    <form method="GET" action="{{ route('Filtrerdoc') }}" id="filtrageUser">
+       <div class="row shadow mt-6">
+        <div class="col-md-2">
+                <div>
                     <h5>FILTRE :</h5>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-3 col-md-3 ">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label> <h6>Date</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </label>
+            <div class="col-md-2 ">
+                    <label> <h6>Date de Creation</h6>
+                        <input type="date" name="dateCreation" class="form-control" value="{{ request('dateCreation') }}">
+                    </label>
             </div>
-        </div>
+            <div class="col-md-2 ">
+                <label><h6>Déclarant:</h6>
+                    <input type="text" name="declarant" class="form-control" value="{{ request('declarant') }}">
+                 </label>
+            </div>
+            <div class="col-md-2 ">
+                <label><h6>IFU:</h6>
+                    <input type="text" name="ifu" class="form-control" value="{{ request('ifu') }}">
+                 </label>
+            </div>
+            <div class="col-md-2 ">
+                <label><h6>statut:</h6>
+                <input type="text" name="statut" class="form-control" value="{{ request('statut') }}">
+                 </label>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary">Rechercher</button>
+            </div>
+         </div>
+            
+        </form>
 
-        <div class="col-sm-3 col-md-3">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label><h6>Statut</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </label>
-            </div>
-        </div>
-
-        <div class="col-sm-3 col-md-3">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label><h6>Type</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </label>
-            </div>
-        </div>
 
         
     </div>
@@ -78,8 +70,6 @@
                         <th>IFU</th>
                         <th>Agrement</th>
                         <th>Destinataire</th>
-                        <th>element de Requete</th>
-                        <th>texte de Reference</th>
                         <th>statut</th>
                         <th width="280px">Action</th>
                     </tr>
@@ -92,8 +82,6 @@
                         <th>IFU</th>
                         <th>Agrement</th>
                         <th>Destinataire</th>
-                        <th>element de Requete</th>
-                        <th>texte de Reference</th>
                         <th>statut</th>
                         <th width="280px">Action</th>
                     </tr>
@@ -107,8 +95,6 @@
                         <td>{{ $dossier->ifuDossier }}</td>
                         <td>{{ $dossier->agrementDossier }}</td>
                         <td>{{ $dossier->destinataireDossier }}</td>
-                        <td>{{ $dossier->elementRequeteDossier }}</td>
-                        <td>{{ $dossier->texteReferenceDossier }}</td>
                         <td>{{ $dossier->statutDossier }}</td>
                         <td>
                         <form action="{{ route('dossiers.destroy',$dossier->id) }}" method="POST">
@@ -116,11 +102,6 @@
                             <a class="btn btn-info" href="{{ route('dossiers.show',$dossier->id) }}">Show</a>
     
                             <a class="btn btn-primary" href="{{ route('dossiers.edit',$dossier->id) }}">Edit</a>
-   
-                            @csrf
-                            @method('DELETE')
-      
-                                <button type="submit" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
                     </tr>

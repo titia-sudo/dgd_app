@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\View\View;
 use Auth;
 use App\Models\User;
 use App\Models\Annee;
@@ -26,11 +26,37 @@ class DossierController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $dossiers = Dossier::latest()->paginate(5);
-        return view('dossierDemandeur.index',compact('dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
+
+
+        $dateCreation = $request->input('dateCreation', '');
+        $ifu = $request->input('ifu', '');
+        $declarant=$request->input('declarant', '');
+        $statut=$request->input('statut', '');
+        
+        // Récupère la valeur de 'roleId' ou une chaîne vide par défaut
+       /* $serviceId = $request->input('serviceId');
+        $idDirection = $request->input('idDirection');
+*/
+         $query = Dossier::query();
+        // Appliquez le filtre en fonction de la date de création
+        if (!empty($dateCreation)) {
+           $query->whereDate('dossiers.created_at', '=', $dateCreation); // Précisez la table 'users'
+       }
+       if (!empty($ifu)) {
+            $query->where('dossiers.ifuDossier', '=', $ifu); // Précisez la table 'users'
+        }
+        if (!empty($declarant)) {
+            $query->where('dossiers.declarantDossier', '=', $declarant); // Précisez la table 'users'
+        }
+        if (!empty($statut)) {
+            $query->where('dossiers.statutDossier', '=', $statut); // Précisez la table 'users'
+        }
+
+       // $users = $query->paginate(10);
+        $dossiers = $query->paginate(5);
+        return view('dossierDemandeur.index',compact('dateCreation', 'ifu','declarant','statut','dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
