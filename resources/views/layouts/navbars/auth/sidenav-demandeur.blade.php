@@ -26,13 +26,11 @@
                     <i class="fa fa-folder-o"></i> <span class="font-weight-bold">dossiers recents</span>
                 </div>
                 <div class="mt-4">
-                  <ul class="list-group">
-                        <li class="list-group-item " >A disabled item</li>
-                        <li class="list-group-item">A second item</li>
-                        <li class="list-group-item">A third item</li>
-                        <li class="list-group-item">A fourth item</li>
-                        <li class="list-group-item">And a fifth one</li>
+                @foreach ($recents as $recent)
+                    <ul class="list-group">
+                        <a class="list-group-item  text-primary " href="{{ route('dossiers.show',$recent->id) }}" ><h6 class="text-primary">{{ $recent->nomDossier }}</h6></a>
                     </ul>
+                    @endforeach
                 </div>
           <hr>
        

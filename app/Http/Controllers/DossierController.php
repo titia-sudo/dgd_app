@@ -29,34 +29,31 @@ class DossierController extends Controller
     public function index(Request $request)
     {
 
-
+        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $dateCreation = $request->input('dateCreation', '');
         $ifu = $request->input('ifu', '');
         $declarant=$request->input('declarant', '');
         $statut=$request->input('statut', '');
         
-        // Récupère la valeur de 'roleId' ou une chaîne vide par défaut
-       /* $serviceId = $request->input('serviceId');
-        $idDirection = $request->input('idDirection');
-*/
+     
          $query = Dossier::query();
         // Appliquez le filtre en fonction de la date de création
         if (!empty($dateCreation)) {
-           $query->whereDate('dossiers.created_at', '=', $dateCreation); // Précisez la table 'users'
+           $query->whereDate('dossiers.created_at', '=', $dateCreation); 
        }
        if (!empty($ifu)) {
-            $query->where('dossiers.ifuDossier', '=', $ifu); // Précisez la table 'users'
+            $query->where('dossiers.ifuDossier', '=', $ifu); 
         }
         if (!empty($declarant)) {
-            $query->where('dossiers.declarantDossier', '=', $declarant); // Précisez la table 'users'
+            $query->where('dossiers.declarantDossier', '=', $declarant); 
         }
         if (!empty($statut)) {
-            $query->where('dossiers.statutDossier', '=', $statut); // Précisez la table 'users'
+            $query->where('dossiers.statutDossier', '=', $statut); 
         }
 
-       // $users = $query->paginate(10);
+       
         $dossiers = $query->paginate(5);
-        return view('dossierDemandeur.index',compact('dateCreation', 'ifu','declarant','statut','dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('dossierDemandeur.index',compact('dateCreation','recents', 'ifu','declarant','statut','dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -67,10 +64,11 @@ class DossierController extends Controller
     public function create()
     {
         //
+        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annees = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossierDemandeur.create', compact('users', 'typeDossiers'));
+        return view('dossierDemandeur.create', compact('users', 'recents','typeDossiers'));
     }
 
     /**
@@ -111,10 +109,11 @@ class DossierController extends Controller
     public function show(Dossier $dossier)
     {
          // dd($dossier);
+         $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossierDemandeur.show',compact('dossier', 'users','typeDossiers'));
+        return view('dossierDemandeur.show',compact('dossier','recents', 'users','typeDossiers'));
     }
 
     /**
@@ -126,10 +125,11 @@ class DossierController extends Controller
     public function edit(Dossier $dossier)
     {
         //
+        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossierDemandeur.edit',compact('dossier', 'users','typeDossiers'));
+        return view('dossierDemandeur.edit',compact('dossier','recents', 'users','typeDossiers'));
     }
 
     /**

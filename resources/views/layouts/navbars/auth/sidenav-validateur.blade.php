@@ -17,7 +17,7 @@
         <div class=" mx-2">
 
             <div>
-                <a  class=" nav-link " href="{{ route('validateurDossiers.index') }}">
+                <a  class=" nav-link " href="{{ route('validateurs.index') }}">
                        <i class="fa fa-home icon-lg"></i>
                         <span class="font-weight-bold text-lg" >Accueil</span>
                 </a>
@@ -26,20 +26,19 @@
                     <i class="fa fa-folder-o"></i> <span class="font-weight-bold">dossiers recents</span>
                 </div>
                 <div class="mt-4">
+
+                @foreach ($recents as $recent)
                   <ul class="list-group">
-                        <li class="list-group-item " >A disabled item</li>
-                        <li class="list-group-item">A second item</li>
-                        <li class="list-group-item">A third item</li>
-                        <li class="list-group-item">A fourth item</li>
-                        <li class="list-group-item">And a fifth one</li>
+                        <a class="list-group-item  text-primary " href="{{ route('validateurs.show',$recent->id) }}" ><h6 class="text-primary">{{ $recent->nomDossier }}</h6></a>
                     </ul>
+                    @endforeach
                 </div>
-          <hr>
+          <hr>  
        
                     <div>
                      <a href="#ecom">
                         <i class="fa fa-folder icon-lg"></i>
-                          <a href="{{ route('validateurDossiers.create') }}" class="nav-link-text font-weight-bold text-primary">Nouveau dossier</a>
+                          <a href="{{ route('validateurs.create') }}" class="nav-link-text font-weight-bold text-primary">Nouveau dossier</a>
                      </a>
                     </div>
         </div>
