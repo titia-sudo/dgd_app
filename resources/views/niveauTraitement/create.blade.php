@@ -110,10 +110,6 @@
         
         <!-- DataTales Example -->
         <div class="row shadow-lg mt-5">
-            <div class="col-2 text-start">
-            
-                <a class="btn btn-primary" href="{{ route('niveauTraitements.index') }}"> Retour</a>
-            </div>
             <div class="col-10">
                  <h4 class="m-0 font-weight-bold text-black">Ajout de niveau de traitements</h4><br>
             </div>
@@ -132,16 +128,28 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <option value="" selected>Veuillez choisir...</option>
+                                <strong>Temps de traitement:</strong>
                                     <select name="idTempsTraitement" id="idTempsTraitement" class="form-control">
+                                        <option value="" selected>Veuillez choisir...</option>
                                         @foreach($tempsTraitements as $tempsTraitement)
                                         <option value="{{ $tempsTraitement->id }}">{{ $tempsTraitement->nombreTempsTraitement }} {{ $tempsTraitement->UniteTempsTraitement->designationUniteTempsTraitement }}</option>
                                         @endforeach
                                     </select>
                                 </div>
                             </div>
-
+                            <div class="col-xs-12 col-sm-12 col-md-12">
+                                <div class="form-group">
+                                <strong>Membres:</strong>
+                                    <select name="users[]" id="users" class="form-control" multiple>
+                                        <option value="" selected>Veuillez choisir...</option>
+                                        @foreach ($users as $user)
+                                            <option value="{{ $user->id }}">{{ $user->firstname }} {{ $user->lastname }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-end">
+                                    <a class="btn btn-primary" href="{{ route('niveauTraitements.index') }}"> Retour</a>
                                     <button type="submit" class="btn btn-primary">Enregister</button>
                                  </div>
                         </div>

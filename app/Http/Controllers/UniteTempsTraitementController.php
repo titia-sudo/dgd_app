@@ -17,10 +17,7 @@ class UniteTempsTraitementController extends Controller
      */
     function __construct()
     {
-         $this->middleware('permission:uniteTempsTraitement-list|uniteTempsTraitement-create|uniteTempsTraitement-edit|uniteTempsTraitement-delete', ['only' => ['index','show']]);
-         $this->middleware('permission:uniteTempsTraitement-create', ['only' => ['create','store']]);
-         $this->middleware('permission:uniteTempsTraitement-edit', ['only' => ['edit','update']]);
-         $this->middleware('permission:uniteTempsTraitement-delete', ['only' => ['destroy']]);
+        
     }
 
 

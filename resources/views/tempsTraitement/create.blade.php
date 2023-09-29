@@ -110,10 +110,6 @@
         
         <!-- DataTales Example -->
         <div class="row shadow-lg mt-5">
-            <div class="col-2 text-start">
-            
-                <a class="btn btn-primary" href="{{ route('tempsTraitements.index') }}"> Retour</a>
-            </div>
             <div class="col-10">
                  <h4 class="m-0 font-weight-bold text-black">Ajout de temps de traitement</h4><br>
             </div>
@@ -132,16 +128,18 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <option value="" selected>Veuillez choisir...</option>
+                                <strong>Unité de temps de traitement:</strong>
                                     <select name="idUniteTempsTraitement" id="idUniteTempsTraitement" class="form-control">
-                                    @foreach($uniteTempsTraitements as $uniteTempsTraitement)
-                                    <option value="{{ $uniteTempsTraitement->id }}">{{ $uniteTempsTraitement->designationUniteTempsTraitement }}</option>
+                                        <option value="" selected>Veuillez choisir</option>
+                                        @foreach($uniteTempsTraitements as $uniteTempsTraitement)
+                                        <option value="{{ $uniteTempsTraitement->id }}">{{ $uniteTempsTraitement->designationUniteTempsTraitement }}</option>
                                     @endforeach
                                     </select>
                                 </div>
                             </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-end">
+                                <a class="btn btn-primary" href="{{ route('tempsTraitements.index') }}"> Retour</a>
                                     <button type="submit" class="btn btn-primary">Enregister</button>
                                  </div>
                         </div>

@@ -16,6 +16,7 @@ use santigarcor\Laratrust;
 use Laratrust\Traits\LaratrustUserTrait;
 use Laratrust\Traits\HasRolesAndPermissions;
 use Laratrust\Traits\LaratrustRoleTrait;
+use App\Models\NiveauTraitement;
 
 
 class User extends Authenticatable
@@ -39,7 +40,6 @@ class User extends Authenticatable
         'country',
         'postal',
         'about',
-        'profil',
         'idService'
     ];
 
@@ -67,9 +67,6 @@ class User extends Authenticatable
         return $this->roles->contains('name', $role);
     }
 
-    
-
-    
     /**
      * Always encrypt the password when it is updated.
      *
@@ -83,7 +80,7 @@ class User extends Authenticatable
 
     public function niveauTraitements()
     {
-        return $this->belongsToMany(NiveauTraitements::class, 'users_niveautraitements', 'idUser', 'idNiveauTraitement');
+        return $this->belongsToMany(NiveauTraitement::class, 'users_niveautraitements', 'idUser', 'idNiveauTraitement');
     }
 
     public function service():BelongsTo

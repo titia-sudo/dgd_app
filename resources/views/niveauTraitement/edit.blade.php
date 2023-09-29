@@ -113,9 +113,6 @@
     </div>
 <hr>
     <div class="row shadow mt-2">
-             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('niveauTraitements.index') }}"> Retour</a>
-            </div>
 
         
     </div>
@@ -135,6 +132,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
+                            <label for="users">Temps de traitement</label>
                             <select name="idTempsTraitement" id="idTempsTraitement" class="form-control">  
                             @foreach($tempsTraitements as $tempsTraitement)
                             <option {{$tempsTraitement->id==$tempsTraitement->idTempsTraitement?'selected':''}} value="{{ $tempsTraitement->id }}">{{ $tempsTraitement->nombreTempsTraitement }} {{ $tempsTraitement->UniteTempsTraitement->designationUniteTempsTraitement }}</option>
@@ -142,8 +140,18 @@
                             </select>
                         </div>
                     </div>
-
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label for="users">Utilisateurs</label>
+                                <select multiple class="form-control" id="users" name="users[]" required>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}" {{ in_array($user->id, $niveauTraitement->users->pluck('id')->toArray()) ? 'selected' : '' }}>{{ $user->firstname }} {{ $user->lastname }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                    </div>
                     <div class="col-xs-12 col-sm-12 col-md-12 text-end">
+                        <a class="btn btn-primary" href="{{ route('niveauTraitements.index') }}"> Retour</a>
                         <button type="submit" class="btn btn-primary">Enregistrer</button>
                     </div>
                 </div>

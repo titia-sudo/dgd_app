@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\TempsTraitement;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Models\NiveauTraitement;
 
 class NiveauTraitement extends Model
 {
@@ -29,6 +29,6 @@ class NiveauTraitement extends Model
 
     public function users()
     {
-        return $this->belongsToMany(Users::class, 'users_niveautraitements', 'idUser', 'idNiveauTraitement');
+        return $this->belongsToMany(User::class, 'users_niveautraitements', 'idUser', 'idNiveauTraitement');
     }
 }

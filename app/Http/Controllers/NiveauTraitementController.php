@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\NiveauTraitement;
-use App\Models\TempsTraitement;
-use App\Models\UniteTempsTraitement;
-use Illuminate\Http\Response;
+use App\Models\User;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use App\Models\TempsTraitement;
+use App\Models\NiveauTraitement;
+use Illuminate\Support\Facades\DB;
+use App\Models\UniteTempsTraitement;
 use Illuminate\Http\RedirectResponse;
 
 class NiveauTraitementController extends Controller
@@ -34,11 +36,13 @@ class NiveauTraitementController extends Controller
     public function create(): View
     {
         //
+        $users = User::all();
         $niveauTraitements = NiveauTraitement::all();
         $tempsTraitements = TempsTraitement::orderBy('nombreTempsTraitement')->get();
         //$uniteTempsTraitements = UniteTempsTraitement::orderBy('designationUniteTempsTraitement')->get();
         return view('niveauTraitement.create', array('niveauTraitements'=>$niveauTraitements,
                                                      'tempsTraitements'=>$tempsTraitements,
+                                                     'users'=>$users
                                                      ));
     }
 
@@ -54,13 +58,34 @@ class NiveauTraitementController extends Controller
         $request->validate([
             'nomNiveau' => 'required',
             'idTempsTraitement' =>  'required',
-         ]);
-         //dd($niveauTraitement);
-         NiveauTraitement::create($request->all());
-
-         return redirect()->route('niveauTraitements.index')
-                        ->with('success','niveau de traitement enregistrée avec succes.');
-
+            'users' => 'required|array',
+        ]);
+    
+        // Créez d'abord le niveau de traitement
+        $niveauTraitement = NiveauTraitement::create([
+            'nomNiveau' => $request->input('nomNiveau'),
+            'idTempsTraitement' => $request->input('idTempsTraitement'),
+        ]);
+    
+        // Assurez-vous que le niveau de traitement a été créé avec succès
+        if ($niveauTraitement) {
+            // Attachez les utilisateurs sélectionnés au niveau de traitement
+            //$niveauTraitement->users()->attach($request->input('users'));
+            foreach($request->input('users') as $user){
+                DB::table('users_niveautraitements')->insert([
+                    'idNiveauTraitement'=>$niveauTraitement->id,
+                    'idUser'=>$user,
+                ]);
+                
+            }
+    
+            return redirect()->route('niveauTraitements.index')
+                            ->with('success', 'Niveau de traitement enregistré avec succès.');
+        } else {
+            // Gérez l'erreur si la création du niveau de traitement a échoué
+            return redirect()->route('niveauTraitements.create')
+                            ->with('error', 'Une erreur s\'est produite lors de la création du niveau de traitement.');
+        }
     }
 
     /**
@@ -85,8 +110,9 @@ class NiveauTraitementController extends Controller
     public function edit(NiveauTraitement $niveauTraitement)
     {
         //
+        $users = User::all();
         $tempsTraitements = TempsTraitement::orderBy('nombreTempsTraitement')->get();
-        return view('niveauTraitement.edit', compact('niveauTraitement', 'tempsTraitements'));
+        return view('niveauTraitement.edit', compact('niveauTraitement', 'tempsTraitements', 'users'));
 
     }
 
@@ -103,12 +129,25 @@ class NiveauTraitementController extends Controller
         $data = $request->validate([
             'nomNiveau' => 'required',
             'idTempsTraitement' =>  'required|integer',
+            'users' => 'required|array',
         ]);
 
-        $niveauTraitement->update($data);
+        $niveauTraitement->update([
+            'nomNiveau' => $data['nomNiveau'],
+            'idTempsTraitement' => $data['idTempsTraitement'],
+        ]);
+        //$niveauTraitement->users()->sync($data['users']);
+        //$niveauTraitement->users()->updateExistingPivot($data);
+        foreach($request->input('users') as $user){
+            DB::table('users_niveautraitements')->update([
+                'idNiveauTraitement'=>$niveauTraitement->id,
+                'idUser'=>$user,
+            ]);
+            
+        }
 
         return redirect()->route('niveauTraitements.index')
-        ->with('success','niveauTraitement mis à jour');
+        ->with('success','niveauTraitement a été mis à jour avec succès');
     }
 
     /**

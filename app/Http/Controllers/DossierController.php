@@ -9,7 +9,6 @@ use App\Models\Dossier;
 use App\Models\Historique;
 use App\Models\TypeDossier;
 use Illuminate\Http\Request;
-use App\Events\DossierCreated;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Event;
 
@@ -72,18 +71,22 @@ class DossierController extends Controller
        // 'idAnnee' => ''
         ]);
         //dd($dossiers);
-<<<<<<< HEAD
-        $dossier = Dossier::create($request->all());
-        //dd('Dossier créé avec succès');
-        event(new DossierCreated($dossier, 'Création de dossier'));
-        //dd('Dossier créé avec succès');
-        Log::info('Message de test');
-        return redirect()->route('dossiers.index')->with('success','Dossier a été créé avec succès.');
-=======
-        Dossier::create($request->all());
-   
-        return redirect()->route('demandeurDossiers.index')->with('success','dossier created successfully.');
->>>>>>> 60dfee21492ed425cac31f6b55dead576e4f57b6
+        $dossier= Dossier::create($request->all());
+
+        if ($dossier) {
+            // Enregistrez l'historique après la création du dossier
+            Historique::create([
+                'actionHistorique' => 'Création de dossier',
+                'statutHistorique' => 'Nouveau dossier créé : ' . $dossier->nomDossier,
+                'idDossier' => $dossier->id,
+                'idUser' => auth()->id(),
+                // ... (autres champs d'historique que vous souhaitez enregistrer)
+            ]);
+            return redirect()->route('demandeurDossiers.index')->with('success','le dossier a été créé avec succes.');
+        } else {
+            // Gérez l'erreur si la création du dossier a échoué
+            return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la création du dossier.');
+        }
     }
 
     /**
