@@ -17,7 +17,7 @@
         <div class=" mx-2">
 
             <div>
-                <a  class=" nav-link {{ Route::currentRouteName() == 'creation de compte' ? 'active' : '' }}" href="{{ route('demandeurDossiers.index') }}">
+                <a  class=" nav-link {{ Route::currentRouteName() == 'creation de compte' ? 'active' : '' }}" href="{{ route('dossiers.index') }}">
                        <i class="fa fa-home icon-lg"></i>
                         <span class="font-weight-bold text-lg" >Accueil</span>
                 </a>
@@ -26,20 +26,18 @@
                     <i class="fa fa-folder-o"></i> <span class="font-weight-bold">dossiers recents</span>
                 </div>
                 <div class="mt-4">
-                  <ul class="list-group">
-                        <li class="list-group-item " >A disabled item</li>
-                        <li class="list-group-item">A second item</li>
-                        <li class="list-group-item">A third item</li>
-                        <li class="list-group-item">A fourth item</li>
-                        <li class="list-group-item">And a fifth one</li>
+                @foreach ($recents as $recent)
+                    <ul class="list-group">
+                        <a class="list-group-item  text-primary " href="{{ route('dossiers.show',$recent->id) }}" ><h6 class="text-primary">{{ $recent->nomDossier }}</h6></a>
                     </ul>
+                    @endforeach
                 </div>
           <hr>
        
                     <div>
                      <a href="#ecom">
                         <i class="fa fa-folder icon-lg"></i>
-                          <a href="{{ route('demandeurDossiers.create') }}" class="nav-link-text font-weight-bold text-primary">Nouveau dossier</a>
+                          <a href="{{ route('dossiers.create') }}" class="nav-link-text font-weight-bold text-primary">Nouveau dossier</a>
                      </a>
                     </div>
         </div>

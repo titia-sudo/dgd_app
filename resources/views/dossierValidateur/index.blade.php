@@ -11,9 +11,6 @@
     <div class="row text-center mt-7">
         <h4 class="m-0 font-weight-bold text-black">Liste des dossiers</h4>
     </div>
-    <div class="text-end">
-            <a href="{{ route('validateurDossiers.create') }}" type="submit" class="btn btn-primary  text-white">Nouveau dossier</a>
-        </div> 
     <hr>
 
     @if ($message = Session::get('success'))
@@ -21,55 +18,44 @@
             <p>{{ $message }}</p>
         </div>
     @endif
-   
-    <div class="row shadow mt-3">
-       <div class="col-sm-3 col-md-3">
-            <div>
-                    <h5>FILTRE :</h5>
+   <!-------debut gestion des filtres-------->
+    <div class="row mt-2">
+        <form method="GET" action="{{ route('FiltrerValidateur') }}" id="filtrageUser">
+            <div class="row shadow mb-4 p-2">
+                <div class="col-md-2">
+                    <div>
+                        <h5>FILTRE :</h5>
+                    </div>
+                </div>
+                <div class="col-md-2 ">
+                    <label> <h6>Date de Creation</h6>
+                        <input type="date" name="dateCreation" class="form-control" value="{{ request('dateCreation') }}">
+                    </label>
+                </div>
+                <div class="col-md-2 ">
+                    <label><h6>Déclarant:</h6>
+                        <input type="text" name="declarant" class="form-control" value="{{ request('declarant') }}">
+                    </label>
+                </div>
+                <div class="col-md-2 ">
+                    <label><h6>IFU:</h6>
+                        <input type="text" name="ifu" class="form-control" value="{{ request('ifu') }}">
+                    </label>
+                </div>
+                <div class="col-md-2 ">
+                    <label><h6>statut:</h6>
+                        <input type="text" name="statut" class="form-control" value="{{ request('statut') }}">
+                    </label>
+                </div>
+                <div class="col-md-2 mt-4">
+                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-3 col-md-3 ">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label> <h6>Date</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </label>
-            </div>
-        </div>
-
-        <div class="col-sm-3 col-md-3">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label><h6>Statut</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </label>
-            </div>
-        </div>
-
-        <div class="col-sm-3 col-md-3">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label><h6>Type</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </label>
-            </div>
-        </div>
-
-        
+            
+        </form>
     </div>
-
+<!-------fin gestion des filtres-------->
+<!-------debut tableau pour la liste des donnees-------->
     <div class="card-body shadow">
         <div class="table-responsive">
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -81,7 +67,6 @@
                         <th>IFU</th>
                         <th>Agrement</th>
                         <th>Destinataire</th>
-                        
                         <th>statut</th>
                         <th width="280px">Action</th>
                     </tr>
@@ -109,7 +94,12 @@
                         <td>{{ $dossier->destinataireDossier }}</td>
                         <td>{{ $dossier->statutDossier }}</td>
                         <td>
-                        <a class="btn btn-primary" href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers" >Détails</a>
+                        <form action="{{ route('validateurs.destroy',$dossier->id) }}" method="POST">
+   
+                            
+                            <a class="btn btn-primary" href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers" >Détails</a>
+                           
+                            </form>
                         </td>
                     </tr>
                  @endforeach
@@ -119,7 +109,8 @@
         </div>
     </div>
 </div>
-<!---fin datable exmple---->
+<!-------fin tableau pour la liste des donnees-------->
+
 
 <!-- Modal -->
 <div class="modal fade" id="modalDetails-dossiers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalDetails-dossiersLabel" aria-hidden="true">
@@ -129,7 +120,7 @@
         <h5 class="modal-title" id="modalDetails-dossiersLabel text-center">Details du dossier</h5>
             <!---gestion de la progression du tratement du dossier--->
             <label for="customRange3" class="form-label">progression</label>
-              <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3" value="{{ $dossier->statutDossier }}">
+              <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3" value="">
                         <div class="spinner-grow text-warning" role="status">
                          <span class="visually-hidden">Loading...</span>
                         </div>
@@ -137,12 +128,14 @@
                         <button type="button"  class="btn-close btn-danger bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
             <div class="modal-body">
+            <form id="productForm" name="productForm" class="form-horizontal">
+                   <input type="hidden" name="product_id" id="product_id">
                 <div class="row shadow mt-2">
         
         <div class="row">
             <div class="col">
             <label for="example-text-input" class="form-control-label text-lg">Désignation</label>
-              <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="{{ $dossier->nomDossier }}">
+              <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="">
             </div>
             <div class="col">
                 <label for="example-text-input" class="form-control-label text-lg">Type de dossiers</label>
@@ -158,11 +151,11 @@
             
             <div class="col">
                 <label for="example-text-input" class="form-control-label text-lg">Déclarant </label>
-                <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="{{ $dossier->declarantDossier }}">
+                <input type="text" class="form-control" placeholder="First name" aria-label="First name" id="name" name="name" value="">
             </div>
             <div class="col">
                  <label for="example-text-input" class="form-control-label text-lg">N° IFU</label>
-              <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" value="{{ $dossier->ifuDossier  }}">
+              <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" id="ifu" name="ifu" value="">
             </div>
             
         </div>
@@ -170,11 +163,11 @@
         <div class="row">
             <div class="col">
                 <label for="example-text-input" class="form-control-label text-lg">Agrément</label>
-                <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="{{ $dossier->agrementDossier}}">
+                <input type="text" class="form-control" placeholder="First name" aria-label="First name" id="agrement" name="agrement" value="">
             </div>
             <div class="col">
              <label for="example-text-input" class="form-control-label text-lg">Destinataire</label>
-                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" value="{{ $dossier->destinataireDossier}}">
+                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" id="destinataire" name="destinataire" value="">
             </div>
             
         </div>
@@ -182,13 +175,13 @@
         <div class="row">
             <div class="">
                 <label for="exampleFormControlTextarea1" class="form-label text-lg">Elements de requêtte</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" >{{ $dossier->elementRequeteDossier }}</textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="elementr" name="elementr" ></textarea>
             </div>
         </div>
         <div class="row">
             <div class="">
                 <label for="exampleFormControlTextarea1" class="form-label text-lg">Textes de référence</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" >{{ $dossier->texteReferenceDossier }}</textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" id="texte" name="texte"></textarea>
             </div>
         </div>
         <div class="row">
@@ -201,6 +194,7 @@
         
         </div>
       </div>
+</form>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button class="btn btn-secondary me-md-2" type="button">Enregistrer</button>
@@ -225,11 +219,11 @@
 }
 
 </style>
-       
+
+ 
         @include('layouts.footers.auth.footer')
     </div>
 @endsection
-
 
 
 

@@ -18,12 +18,11 @@
     
      <!---partie du code concernant le menu ----->
 
-     <ul>
-
+             <ul>
             <li >
-                <a  class=" nav-link {{ Route::currentRouteName() == 'creation de compte' || Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}" href="">
+                <a  class=" nav-link {{ Route::currentRouteName() == 'creation de compte' || Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}" href="{{route('homeAdmin') }}">
                        <i class="fa fa-home"></i>
-                        <span>Tableau de bord</span>
+                     <span>Tableau de bord</span>
                 </a>
             </li>
 

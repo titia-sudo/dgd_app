@@ -177,8 +177,8 @@
                         </div>
 
                                 <div class="col-xs-12 col-sm-12 col-md-12 text-end">
+                                    <a class="btn btn-primary"> Annuler</a>
                                     <button type="submit" class="btn btn-primary">Enregister</button>
-                                    <a class="btn btn-primary" href="{{ route('users.index') }}"> liste user</a>
                                  </div>
                         </div>
                     </div>

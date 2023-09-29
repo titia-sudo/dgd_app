@@ -20,10 +20,9 @@ use App\Http\Controllers\TypeDossiersController;
 use App\Http\Controllers\TempsTraitementController;
 use App\Http\Controllers\UniteTempsTraitementController;
 
-use App\Http\Controllers\DossierValidateurController;
 use App\Http\Controllers\DossierAdminController;
+use App\Http\Controllers\DossierValidateurController;
 use App\Http\Controllers\DossierController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,20 +51,18 @@ Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class)
 Route::resource('/tempsTraitements', TempsTraitementController::class);
 Route::resource('/niveauTraitements', NiveauTraitementController::class);
 
-Route::get('/validateurs/filtrer', 'DossierValidateurController@index')->name('FiltrerValidateur');
-Route::get('/dossiers/filtrer', 'DossierController@index')->name('filtreDemandeur');
 Route::get('/users/filtrer', 'UserController@index')->name('Filtrer');
 Route::resource('/users', UserController::class);  
 Route::resource('/profils', ProfilController::class);
 Route::resource('/directions', DirectionController::class);
 Route::resource('/services', ServiceController::class);
 Route::resource('/typeDossiers', TypeDossierController::class);
-Route::resource('/dossiers', DossierController::class);
+Route::resource('/demandeurDossiers', DossierController::class);
 Route::resource('/validateurs', DossierValidateurController::class);
 Route::resource('/adminDossiers', DossierAdminController::class);
 
 
-//Route::put('/dossiers/{id}/update/{idUser}', [DossierController::class, 'update'])->name('dossiers.update');
+
 Route::resource('/historique', HistoriqueController::class);
  //Auth::routes();
  /*------------------------------------------
@@ -75,7 +72,7 @@ All Normal Users Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:demandeur'])->group(function () {
   
-    Route::get('/demandeurHome', [DossierController::class, 'index'])->name('demandeurHome');
+    Route::get('/demandeurHome', [HomeController::class, 'index'])->name('demandeurHome');
 });
 
 /*------------------------------------------
@@ -85,7 +82,7 @@ All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:validateur'])->group(function () {
   
-    Route::get('/validatorHome', [DossierValidateurController::class, 'index']);
+    Route::get('/validatorHome', [HomeController::class, 'validatorHome']);
 });
   
 /*------------------------------------------
@@ -95,7 +92,7 @@ All Admin Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:administrateur'])->group(function () {
   
-    Route::get('/admin', [HomeController::class, 'adminHome'])->name('homeAdmin');
+    Route::get('/adminHome', [HomeController::class, 'adminHome']);
 });
   
 /*------------------------------------------
@@ -108,10 +105,6 @@ Route::middleware(['auth', 'user-access:super-administrateur'])->group(function 
     Route::get('/superAdminHome', [HomeController::class, 'superAdminHome']);
 });
 
-
-
-
- //Auth::routes();
  /*------------------------------------------
 --------------------------------------------
 All Normal Users Routes List
@@ -132,7 +125,7 @@ Route::get('/temps', [TempsController::class, 'show'])->name('dashboard-temps');
 Route::get('/type-dossiers', [TypeDossiersController::class, 'show'])->name('dashboard-type-dossiers');
 Route::get('/niveau', [NiveauController::class, 'show'])->name('dashboard-niveau');
 Route::get('/conf-flue', [FlueController::class, 'show'])->name('dashboard-config-flux');
-Route::get('/dossier-new', [DossierController::class, 'create'])->name('nouveau-dossier');
+
 
 
 

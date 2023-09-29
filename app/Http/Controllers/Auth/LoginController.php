@@ -68,7 +68,7 @@ class LoginController extends Controller
             //dd($user->hasRole('demandeurHome'));
 
             if ($user->hasRole('administrateur')) {
-                return redirect('/adminHome');
+                return redirect('/admin');
             } elseif ($user->hasRole('super-administrateur')) {
                 return redirect('/superAdminHome');
             } elseif ($user->hasRole('validateur')) {

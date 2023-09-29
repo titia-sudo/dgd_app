@@ -1,13 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Dossier;
-use App\Models\User;
-use App\Models\TypeDossier;
-use App\Models\Annee;
-use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Auth;
-
+use App\Models\User;
+use App\Models\Annee;
+use App\Models\Dossier;
+use App\Models\Historique;
+use App\Models\TypeDossier;
+use Illuminate\Http\Request;
+use App\Events\DossierCreated;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Event;
 
 class DossierValidateurController extends Controller
 {
@@ -23,11 +27,33 @@ class DossierValidateurController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
         //
-        $dossiers = Dossier::latest()->paginate(5);
-        return view('dossierValidateur.index',compact('dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
+        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
+        $dateCreation = $request->input('dateCreation', '');
+        $ifu = $request->input('ifu', '');
+        $declarant=$request->input('declarant', '');
+        $statut=$request->input('statut', '');
+        
+     
+         $query = Dossier::query();
+        // Appliquez le filtre en fonction de la date de création
+        if (!empty($dateCreation)) {
+           $query->whereDate('dossiers.created_at', '=', $dateCreation); 
+       }
+       if (!empty($ifu)) {
+            $query->where('dossiers.ifuDossier', '=', $ifu); 
+        }
+        if (!empty($declarant)) {
+            $query->where('dossiers.declarantDossier', '=', $declarant); 
+        }
+        if (!empty($statut)) {
+            $query->where('dossiers.statutDossier', '=', $statut); 
+        }
+
+        $dossiers = $query->paginate(5);
+        return view('dossierValidateur.index',compact('dateCreation','recents', 'ifu','declarant','statut','dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -38,10 +64,11 @@ class DossierValidateurController extends Controller
     public function create()
     {
         //
+        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annees = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossierValidateur.create', compact('users', 'typeDossiers'));
+        return view('dossierValidateur.create', compact('users','recents', 'typeDossiers'));
     }
 
     /**
@@ -70,7 +97,7 @@ class DossierValidateurController extends Controller
         //dd($dossiers);
         Dossier::create($request->all());
    
-        return redirect()->route('dossierValidateur.index')->with('success','dossier created successfully.');
+        return redirect()->route('validateurs.index')->with('success','dossier created successfully.');
     }
 
     /**
@@ -81,11 +108,12 @@ class DossierValidateurController extends Controller
      */
     public function show(Dossier $dossier)
     {
-        //
+       
+        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossierValidateur.show',compact('dossier', 'users','typeDossiers'));
+        return view('dossierValidateur.show',compact('dossier', 'recents','users','typeDossiers'));
     }
 
     /**
@@ -96,11 +124,12 @@ class DossierValidateurController extends Controller
      */
     public function edit(Dossier $dossier)
     {
-        //
-        $users = User::orderBy('firstname', 'ASC')->get();
-        $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
-        //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossierValidateur.edit',compact('dossier', 'users','typeDossiers'));
+      
+       
+            $dossier = Dossier::find($dossier);
+            return response()->json($dossier);
+
+    
     }
 
     /**
@@ -129,7 +158,7 @@ class DossierValidateurController extends Controller
   
         $dossier->update($request->all());
   
-        return redirect()->route('dossierValidateur.index')->with('success','dossier mis à jour');
+        return redirect()->route('validateurs.index')->with('success','dossier mis à jour');
     }
 
     /**
@@ -145,6 +174,6 @@ class DossierValidateurController extends Controller
     {
         //
         $dossier->delete();
-        return redirect()->route('dossierValidateur.index')->with('success','dossier supprimé avec succès');
+        return redirect()->route('validateurs.index')->with('success','dossier supprimé avec succès');
     }
 }

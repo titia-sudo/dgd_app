@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\View\View;
 use Auth;
 use App\Models\User;
 use App\Models\Annee;
@@ -25,12 +25,34 @@ class DossierController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $dossiers = Dossier::latest()->paginate(5);
+
+        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
+        $dateCreation = $request->input('dateCreation', '');
+        $ifu = $request->input('ifu', '');
+        $declarant=$request->input('declarant', '');
+        $statut=$request->input('statut', '');
         
-        return view('dossierDemandeur.index',compact('dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
+     
+         $query = Dossier::query();
+        // Appliquez le filtre en fonction de la date de création
+        if (!empty($dateCreation)) {
+           $query->whereDate('dossiers.created_at', '=', $dateCreation); 
+       }
+       if (!empty($ifu)) {
+            $query->where('dossiers.ifuDossier', '=', $ifu); 
+        }
+        if (!empty($declarant)) {
+            $query->where('dossiers.declarantDossier', '=', $declarant); 
+        }
+        if (!empty($statut)) {
+            $query->where('dossiers.statutDossier', '=', $statut); 
+        }
+
+       
+        $dossiers = $query->paginate(5);
+        return view('dossierDemandeur.index',compact('dateCreation','recents', 'ifu','declarant','statut','dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -41,10 +63,11 @@ class DossierController extends Controller
     public function create()
     {
         //
+        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annees = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossierDemandeur.create', compact('users', 'typeDossiers'));
+        return view('dossierDemandeur.create', compact('users', 'recents','typeDossiers'));
     }
 
     /**
@@ -57,7 +80,7 @@ class DossierController extends Controller
     {
         //
         //$request->idUser = Auth::user()->id;
-        $request->validate([
+        $dossier = $request->validate([
         'nomDossier' => 'required',
         'declarantDossier' => 'required',
         'ifuDossier' => 'required',
@@ -87,6 +110,9 @@ class DossierController extends Controller
             // Gérez l'erreur si la création du dossier a échoué
             return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la création du dossier.');
         }
+        Dossier::create($request->all());
+       
+        return redirect()->route('dossiers.index')->with('success','Dossier a été créé avec succès.');
     }
 
     /**
@@ -97,11 +123,12 @@ class DossierController extends Controller
      */
     public function show(Dossier $dossier)
     {
-        dd($dossier);
+         // dd($dossier);
+         $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossierDemandeur.show',compact('dossier', 'users','typeDossiers'));
+        return view('dossierDemandeur.show',compact('dossier','recents', 'users','typeDossiers'));
     }
 
     /**
@@ -113,10 +140,11 @@ class DossierController extends Controller
     public function edit(Dossier $dossier)
     {
         //
+        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossierDemandeur.edit',compact('dossier', 'users','typeDossiers'));
+        return view('dossierDemandeur.edit',compact('dossier','recents', 'users','typeDossiers'));
     }
 
     /**
@@ -157,7 +185,7 @@ class DossierController extends Controller
             // Ajoutez d'autres informations spécifiques ici
         ]);
   
-        return redirect()->route('demandeurDossiers.index')->with('success','dossier mis à jour');
+        return redirect()->route('dossiers.index')->with('success','dossier mis à jour');
     }
 
     /**
@@ -211,7 +239,7 @@ class DossierController extends Controller
         $dossier->save();
 
         // Redirigez l'utilisateur vers une page de confirmation ou de suivi
-        return redirect()->route('demandeurDossiers.index')->with('success','dossier mis à jour');
+        return redirect()->route('dossiers.index')->with('success','dossier mis à jour');
     }
     
     
@@ -219,6 +247,6 @@ class DossierController extends Controller
     {
         //
         $dossier->delete();
-        return redirect()->route('demandeurDossiers.index')->with('success','dossier supprimé avec succès');
+        return redirect()->route('dossiers.index')->with('success','dossier supprimé avec succès');
     }
 }

@@ -24,9 +24,9 @@
             <h4 class="m-0 font-weight-bold text-black">Nouveau dossier</h4>
          </div>
          <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('validateurDossiers.index') }}"> Retour</a>
+            <a class="btn btn-primary" href="{{ route('validateurs.index') }}"> Retour</a>
         </div>
-        <form action="{{ route('validateurDossiers.store') }}" method="POST">
+        <form action="{{ route('validateurs.store') }}" method="POST">
         @csrf
         <hr>
         <div class="row">
