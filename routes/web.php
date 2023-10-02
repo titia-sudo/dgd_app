@@ -46,7 +46,9 @@ Auth::routes(['login' => false, 'verify' => false]);
 Route::get('/roles/index', 'RoleController@index')->name('roles.index')->middleware('permission:role-lire');
 Route::get('/roles/create', 'RoleController@create')->name('roles.create')->middleware('permission:role-creer');
 Route::get('/roles/update', 'RoleController@update')->name('roles.update')->middleware('permission:role-modifier');
-Route::get('/roles/create', 'RoleController@delete')->name('roles.delete')->middleware('permission:role-supprimer');
+Route::get('/roles/delete', 'RoleController@destroy')->name('roles.delete')->middleware('permission:role-supprimer');
+Route::get('/roles/store', 'RoleController@store')->name('roles.store');
+Route::get('/roles/edit', 'RoleController@store')->name('roles.edit');
 
 Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class);
 Route::resource('/tempsTraitements', TempsTraitementController::class);
