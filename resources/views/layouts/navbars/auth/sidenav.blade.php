@@ -103,9 +103,9 @@
                         </li>
 
                         <li class="nav-link {{ Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}">
-                            <a href="{{ route('profils.index') }}">
+                            <a href="{{ route('roles.index') }}">
                             <i class="fa fa-gears ms-2"></i>
-                                <span class="nav-link-text " >Profile utilisateur</span>
+                                <span class="nav-link-text " >Roles</span>
                             </a>
                         </li>
                         <li class="nav-link {{ Route::currentRouteName() == 'Liste des utilisateurs' ? 'active' : '' }}">

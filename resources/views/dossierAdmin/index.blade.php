@@ -107,55 +107,47 @@
         <h4 class="m-0 font-weight-bold text-black">Liste des dosssiers</h4>
     </div>
 <hr>
-    <div class="row shadow mt-2">
-       <div class="col-sm-3 col-md-3">
-            <div>
-                    <h5>FILTRE :</h5>
+     <!-------debut gestion des filtres-------->
+     <div class="row mt-2">
+        <form method="GET" action="{{ route('FiltrerAdmin') }}" id="filtrageUser">
+            <div class="row shadow mb-4 p-2">
+                <div class="col-md-2">
+                    <div>
+                        <h5>FILTRE :</h5>
+                    </div>
+                </div>
+                <div class="col-md-2 ">
+                    <label> <h6>Date de Creation</h6>
+                        <input type="date" name="dateCreation" class="form-control" value="{{ request('dateCreation') }}">
+                    </label>
+                </div>
+                <div class="col-md-2 ">
+                    <label><h6>Déclarant:</h6>
+                        <input type="text" name="declarant" class="form-control" value="{{ request('declarant') }}">
+                    </label>
+                </div>
+                <div class="col-md-2 ">
+                    <label><h6>IFU:</h6>
+                        <input type="text" name="ifu" class="form-control" value="{{ request('ifu') }}">
+                    </label>
+                </div>
+                <div class="col-md-2 ">
+                    <label><h6>statut:</h6>
+                        <input type="text" name="statut" class="form-control" value="{{ request('statut') }}">
+                    </label>
+                </div>
+                <div class="col-md-2 mt-4">
+                    <button type="submit" class="btn btn-primary">Rechercher</button>
+                </div>
             </div>
-        </div>
-        <div class="col-sm-3 col-md-3 ">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label> <h6>Date</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </label>
-            </div>
-        </div>
-
-        <div class="col-sm-3 col-md-3">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label><h6>Statut</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </label>
-            </div>
-        </div>
-
-        <div class="col-sm-3 col-md-3">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label><h6>Type</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </label>
-            </div>
-        </div>
-
+            
+        </form>
+    </div>
+<!-------fin gestion des filtres-------->
         <div class="pull-right">
                 <a class="btn btn-success" href="{{ route('adminDossiers.create') }}"> Nouveau</a>
             </div>
-    </div>
+        </div>
 
     <div class="card-body shadow">
         <div class="table-responsive">
@@ -215,7 +207,7 @@
         <h5 class="modal-title" id="modalDetails-dossiersLabel text-center">Details du dossier</h5>
             <!---gestion de la progression du tratement du dossier--->
             <label for="customRange3" class="form-label">progression</label>
-              <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3" value="{{ $dossier->statutDossier }}">
+              <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3" value="">
                         <div class="spinner-grow text-warning" role="status">
                          <span class="visually-hidden">Loading...</span>
                         </div>
@@ -228,7 +220,7 @@
         <div class="row">
             <div class="col">
             <label for="example-text-input" class="form-control-label text-lg">Désignation</label>
-              <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="{{ $dossier->nomDossier }}">
+              <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="">
             </div>
             <div class="col">
                 <label for="example-text-input" class="form-control-label text-lg">Type de dossiers</label>
@@ -244,11 +236,11 @@
             
             <div class="col">
                 <label for="example-text-input" class="form-control-label text-lg">Déclarant </label>
-                <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="{{ $dossier->declarantDossier }}">
+                <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="">
             </div>
             <div class="col">
                  <label for="example-text-input" class="form-control-label text-lg">N° IFU</label>
-              <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" value="{{ $dossier->ifuDossier  }}">
+              <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" value="">
             </div>
             
         </div>
@@ -256,11 +248,11 @@
         <div class="row">
             <div class="col">
                 <label for="example-text-input" class="form-control-label text-lg">Agrément</label>
-                <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="{{ $dossier->agrementDossier}}">
+                <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="">
             </div>
             <div class="col">
              <label for="example-text-input" class="form-control-label text-lg">Destinataire</label>
-                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" value="{{ $dossier->destinataireDossier}}">
+                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" value="">
             </div>
             
         </div>
@@ -268,13 +260,13 @@
         <div class="row">
             <div class="">
                 <label for="exampleFormControlTextarea1" class="form-label text-lg">Elements de requêtte</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" >{{ $dossier->elementRequeteDossier }}</textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" ></textarea>
             </div>
         </div>
         <div class="row">
             <div class="">
                 <label for="exampleFormControlTextarea1" class="form-label text-lg">Textes de référence</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" >{{ $dossier->texteReferenceDossier }}</textarea>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" ></textarea>
             </div>
         </div>
         <div class="row">

@@ -55,7 +55,8 @@ Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class)
 Route::resource('/tempsTraitements', TempsTraitementController::class);
 Route::resource('/niveauTraitements', NiveauTraitementController::class);
 
-Route::get('/validateurs/filtrer', 'DossierValidateurController@index')->name('FiltrerValidateur');
+Route::get('/adminDossiers/filtrer', 'DossierAdminController@index')->name('FiltrerAdmin');
+Route::get('/validateurs /filtrer', 'DossierValidateurController@index')->name('FiltrerValidateur');
 Route::get('/dossiers/filtrer', 'DossierController@index')->name('filtreDemandeur');
 Route::get('/users/filtrer', 'UserController@index')->name('Filtrer');
 Route::resource('/users', UserController::class);  
@@ -65,6 +66,7 @@ Route::resource('/services', ServiceController::class);
 Route::resource('/typeDossiers', TypeDossierController::class);
 Route::resource('/dossiers', DossierController::class);
 Route::resource('/validateurs', DossierValidateurController::class);
+///Route::get('/validateurs/show', [DossierValidateurController::class,'show'])->name('valide');
 Route::resource('/adminDossiers', DossierAdminController::class);
 
 

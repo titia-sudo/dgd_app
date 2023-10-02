@@ -23,11 +23,34 @@ class DossierAdminController extends Controller
 
 
 
-    public function index()
+    public function index(Request $request)
     {
         //
-        $dossiers = Dossier::latest()->paginate(5);
-        return view('dossierAdmin.index',compact('dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
+        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
+        $dateCreation = $request->input('dateCreation', '');
+        $ifu = $request->input('ifu', '');
+        $declarant=$request->input('declarant', '');
+        $statut=$request->input('statut', '');
+        
+     
+         $query = Dossier::query();
+        // Appliquez le filtre en fonction de la date de création
+        if (!empty($dateCreation)) {
+           $query->whereDate('dossiers.created_at', '=', $dateCreation); 
+       }
+       if (!empty($ifu)) {
+            $query->where('dossiers.ifuDossier', '=', $ifu); 
+        }
+        if (!empty($declarant)) {
+            $query->where('dossiers.declarantDossier', '=', $declarant); 
+        }
+        if (!empty($statut)) {
+            $query->where('dossiers.statutDossier', '=', $statut); 
+        }
+
+        $dossiers = $query->paginate(5);
+        return view('dossierAdmin.index',compact('dateCreation','recents', 'ifu','declarant','statut','dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
+     
     }
 
     /**

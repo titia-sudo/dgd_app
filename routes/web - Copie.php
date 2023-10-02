@@ -58,7 +58,7 @@ Route::resource('/directions', DirectionController::class);
 Route::resource('/services', ServiceController::class);
 Route::resource('/typeDossiers', TypeDossierController::class);
 Route::resource('/demandeurDossiers', DossierController::class);
-Route::resource('/validateurs', DossierValidateurController::class);
+Route::resource('/validateurs ', DossierValidateurController::class);
 Route::resource('/adminDossiers', DossierAdminController::class);
 
 
