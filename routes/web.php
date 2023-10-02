@@ -56,7 +56,7 @@ Route::resource('/tempsTraitements', TempsTraitementController::class);
 Route::resource('/niveauTraitements', NiveauTraitementController::class);
 
 Route::get('/adminDossiers/filtrer', 'DossierAdminController@index')->name('FiltrerAdmin');
-Route::get('/validateurs /filtrer', 'DossierValidateurController@index')->name('FiltrerValidateur');
+Route::get('/validateurs/filtrer', 'DossierValidateurController@index')->name('FiltrerValidateur');
 Route::get('/dossiers/filtrer', 'DossierController@index')->name('filtreDemandeur');
 Route::get('/users/filtrer', 'UserController@index')->name('Filtrer');
 Route::resource('/users', UserController::class);  
