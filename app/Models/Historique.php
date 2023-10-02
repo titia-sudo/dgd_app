@@ -13,6 +13,7 @@ class Historique extends Model
 
     protected $table = 'historique';
     protected $guarded = [];
+    public $timestamps = true;
 
     protected $fillable=[
         'id',
@@ -24,27 +25,6 @@ class Historique extends Model
         'idUser'
     ];
 
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function ($dossier) {
-            // Vous pouvez remplacer cela par l'utilisateur approprié
-            $userId = auth()->id();
-
-            // Créez une nouvelle entrée dans la table d'historique
-            Historique::create([
-                'actionHistorique' => 'Nouveau dossier créé : ' . $dossier->nom,
-                'statutHistorique' => $dossier->statutHistorique,
-               // 'commentaireAction' => $historique->commentaireAction,
-                'dateAction' => now(),
-                'idDossier' => $dossier->id,
-                'idUser' => auth()->id(),
-            ]);
-            //dd('Historique created');
-        });
-        
-    }
 
 
     public function dossier():BelongsTo

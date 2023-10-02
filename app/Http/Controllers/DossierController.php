@@ -101,11 +101,13 @@ class DossierController extends Controller
             Historique::create([
                 'actionHistorique' => 'Création de dossier',
                 'statutHistorique' => 'Nouveau dossier créé : ' . $dossier->nomDossier,
+                'commentaireAction' => '',
+                'dateAction' => $dossier->created_at,
                 'idDossier' => $dossier->id,
                 'idUser' => auth()->id(),
                 // ... (autres champs d'historique que vous souhaitez enregistrer)
             ]);
-            return redirect()->route('demandeurDossiers.index')->with('success','le dossier a été créé avec succes.');
+            return redirect()->route('dossiers.index')->with('success','le dossier a été créé avec succes.');
         } else {
             // Gérez l'erreur si la création du dossier a échoué
             return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la création du dossier.');
