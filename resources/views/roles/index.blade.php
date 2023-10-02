@@ -193,7 +193,7 @@
                     @endforeach
                 </tbody>
             </table>
-            {!! $directions->links() !!}
+            {!! $roles->links() !!}
         </div>
     </div>
 </div>

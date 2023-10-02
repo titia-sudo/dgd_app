@@ -16,7 +16,7 @@ return [
             'utilisateur' => 'c,r,u,d',
             'role' => 'c,r,u,d',
             'dossier' => 'c,r,u,d',
-            'type-Dossier'=>'c,r,u,d',
+            'type-dossier'=>'c,r,u,d',
             'unite-temps-traitement'=>'c,r,u,d',
             'service'=>'c,r,u,d',
             'direction'=>'c,r,u,d',
