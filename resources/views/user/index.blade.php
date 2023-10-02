@@ -101,10 +101,15 @@
                 </div>
                 </div>
         @endif
+          <!-- DataTales Example -->
+    <div class="row text-center mt-5">
+        <h4 class="m-0 font-weight-bold text-black">Liste des utilisateurs</h4>
+    </div>
+<hr>
         <!-- partie   alerte-->
 
         <form method="GET" action="{{ route('Filtrer') }}" id="filtrageUser">
-       <div class="row shadow mt-6 ">
+       <div class="row shadow mt-2 p-2 ">
         <div class="col-md-2">
                 <div>
                     <h5>FILTRE :</h5>
@@ -142,7 +147,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-2 mt-5">
                 <button type="submit" class="btn btn-primary">Rechercher</button>
             </div>
         </div>
@@ -152,11 +157,7 @@
     <!-- partie   contenu de l'administation-->
 <div class="container-fluid">
 
-  <!-- DataTales Example -->
-    <div class="row text-center mt-5">
-        <h4 class="m-0 font-weight-bold text-black">Liste des utilisateurs</h4>
-    </div>
-<hr>
+
         
         <div class="pull-right">
                 <a class="btn btn-success" href="{{ route('users.create') }}">Nouveau</a>

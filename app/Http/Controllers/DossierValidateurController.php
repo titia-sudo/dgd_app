@@ -9,7 +9,6 @@ use App\Models\Dossier;
 use App\Models\Historique;
 use App\Models\TypeDossier;
 use Illuminate\Http\Request;
-use App\Events\DossierCreated;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Event;
 
@@ -97,7 +96,7 @@ class DossierValidateurController extends Controller
         //dd($dossiers);
         Dossier::create($request->all());
    
-        return redirect()->route('validateurs.index')->with('success','dossier created successfully.');
+        return redirect()->route('validateurs .index')->with('success','dossier created successfully.');
     }
 
     /**
@@ -108,7 +107,7 @@ class DossierValidateurController extends Controller
      */
     public function show(Dossier $dossier)
     {
-       
+       //dd($dossier);
         $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
