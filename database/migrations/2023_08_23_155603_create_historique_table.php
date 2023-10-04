@@ -21,12 +21,16 @@ return new class extends Migration
             $table->timestamp('dateAction');
             $table->unsignedBiginteger('idDossier')->unsigned();
             $table->unsignedBiginteger('idUser')->unsigned();
+            $table->unsignedBiginteger('idNiveauTraitement')->unsigned();
 
             $table->foreign('idDossier')->references('id')
                  ->on('dossiers')->onDelete('cascade');
                  
             $table->foreign('idUser')->references('id')
                 ->on('users')->onDelete('cascade');
+            
+            $table->foreign('idNiveauTraitement')->references('id')
+                ->on('NiveauTraitement')->onDelete('cascade');
 
             $table->timestamps();
         });

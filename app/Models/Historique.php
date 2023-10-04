@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use App\Models\NiveauTraitement;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Support\Facades\Auth;
 
 class Historique extends Model
 {
@@ -35,5 +36,10 @@ class Historique extends Model
     public function user():BelongsTo
     {
         return $this->belongsTo(User::class, 'idUser');
+    }
+
+    public function niveauTraitement():BelongsTo
+    {
+        return $this->belongsTo(NiveauTraitement::class, 'idUser');
     }
 }
