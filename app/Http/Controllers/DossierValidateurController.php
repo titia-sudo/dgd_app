@@ -50,7 +50,18 @@ class DossierValidateurController extends Controller
             $query->where('dossiers.statutDossier', '=', $statut); 
         }
 
-       
+       //Pour récupérer les dossiers créés par l'utilisateur connecté :
+       $dossiersCrees = Dossier::where('idUser', auth()->user()->id);
+
+       //Pour récupérer les dossiers en attente de validation dans le niveau de traitement de l'utilisateur :
+       $dossiersEnAttente = Historique::where('idNiveauTraitement', auth()->user()->niveau_traitement_id)
+           ->where('statutHistorique', 'En attente de validation')->select('idDossier'); // Récupère uniquement les IDs des dossiers
+
+       //Pour fusionner les deux et récupérer les dossiers paginés :
+       $dossiers = Dossier::whereIn('id', $dossiersCrees->union($dossiersEnAttente)->pluck('id'))
+           ->orderBy('created_at', 'desc')
+           ->paginate(5);
+
         $dossiers = $query->paginate(5);
         return view('dossierValidateur.index',compact('dateCreation','recents', 'ifu','declarant','statut','dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -112,9 +123,6 @@ class DossierValidateurController extends Controller
             // Gérez l'erreur si la création du dossier a échoué
             return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la création du dossier.');
         }
-        Dossier::create($request->all());
-       
-        return redirect()->route('validateurs.index')->with('success','Dossier a été créé avec succès.');
     }
 
     /**
@@ -126,7 +134,7 @@ class DossierValidateurController extends Controller
     public function show(Dossier $dossier)
     {
           //dd($dossier);
-         $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
+        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
@@ -250,6 +258,64 @@ class DossierValidateurController extends Controller
         //
         $dossier->delete();
         return redirect()->route('validateurs.index')->with('success','dossier supprimé avec succès');
+    }
+
+    public function dossiersEnAttente()
+    {
+        // Récupérez les dossiers en attente de validation pour l'utilisateur actuel
+        $dossiersEnAttente = Historique::where('idNiveauTraitement', auth()->user()->niveau_traitement_id)
+            ->where('statutHistorique', 'En attente de validation')
+            ->get();
+
+        // Retournez la vue avec les dossiers en attente
+        return view('dossiers.en-attente', compact('dossiersEnAttente'));
+    }
+
+    public function valider(Historique $dossierHistorique)
+    {
+        // Mettez à jour le statut du dossier dans l'historique
+        $dossierHistorique->update(['statutHistorique' => 'Validé']);
+
+        // Redirigez l'utilisateur vers la liste des dossiers en attente
+        return redirect()->route('dossiers.en-attente')->with('success', 'Dossier validé avec succès.');
+    }
+
+    public function rejeter(Historique $dossierHistorique)
+    {
+        // Mettez à jour le statut du dossier
+        $dossierHistorique->update(['statutHistorique' => 'Rejeté']);
+
+    }
+
+    public function validerDossier(Request $request, Dossier $dossier)
+    {
+        // Vérifier si l'utilisateur a les permissions pour valider ce dossier
+        // ...
+        // Assurez-vous que le dossier a un typeDossier associé
+        if ($dossier->typeDossier) {
+
+        // Récupérer le niveau de traitement actuel
+        $niveauTraitementActuel = $dossier->niveauTraitement;
+
+        // Récupérer le niveau de traitement suivant pour ce type de dossier
+        $niveauTraitementSuivant = $niveauTraitementActuel->typeDossier->getNextNiveauTraitement($niveauTraitementActuel);
+
+        // Mettre à jour l'entrée dans la table Historique avec le nouveau niveau de traitement
+        Historique::create([
+            'actionHistorique' => $dossier->nomDossier,
+            'statutHistorique' => 'En attente de validation',
+            'commentaireAction' => '',
+            'dateAction' => $dossier->created_at,
+            'idDossier' => $dossier->id,
+            'idNiveauTraitement' => $niveauTraitementSuivant->id,
+            'idUser' => auth()->user()->id,
+            // ... (autres champs d'historique que vous souhaitez enregistrer)
+        ]);
+
+        return response()->json(['message' => 'Dossier en attente de validation au niveau suivant.']);
+        } else {
+            return response()->json(['error' => 'Ce dossier n\'est pas associé à un type de dossier.']);
+        }
     }
 }
 

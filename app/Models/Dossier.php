@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\TypeDossier;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Dossier extends Model
 {
@@ -40,12 +42,12 @@ class Dossier extends Model
 
     public function user():BelongsTo
     {
-        return $this->belongsTo(Profil::class, 'idUser');
+        return $this->belongsTo(User::class, 'idUser');
     }
 
     public function typeDossier():BelongsTo
     {
-        return $this->belongsTo(Service::class, 'idTypeDossier');
+        return $this->belongsTo(TypeDossier::class, 'idTypeDossier');
     }
 
    // public function annee():BelongsTo

@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Dossier;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class TypeDossier extends Model
 {
@@ -18,6 +20,6 @@ class TypeDossier extends Model
 
     public function dossiers() : HasMany 
         { 
-            return $this->hasMany(TypeDossier::class); 
+            return $this->hasMany(Dossier::class); 
         }
 }

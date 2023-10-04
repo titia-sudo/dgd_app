@@ -75,11 +75,12 @@
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value=""></textarea>
             </div>
         </div>
-
-        
+        <div class="row">
+            <a class="btn btn-primary" href="{{ route('dossiers.valider', ['dossier' => $dossier->id]) }}">Valider ce dossier</a>
+            <a class="btn btn-info" href="{{ route('dossiers.rejeter', ['dossier' => $dossier->id]) }}">Rejeter ce dossier</a>
         </div>
 
-          </div>
+        </div>
 
       </div>
   </div>

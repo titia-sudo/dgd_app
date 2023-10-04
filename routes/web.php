@@ -75,6 +75,9 @@ Route::get('/validateurs/dossiers/delete', [DossierValidateurController::class,'
 Route::get('/validateurs/dossiers/edit/{dossier}', [DossierValidateurController::class,'edit'])->name('validateurs.edit');
 Route::get('/validateurs/dossiers/show/{dossier}', [DossierValidateurController::class,'show'])->name('validateurs.show');
 
+Route::get('/dossiers/{dossier}/valider', 'DossierValidateurController@validerDossier')->name('dossiers.valider');
+Route::get('/dossiers/{dossier}/rejeter', 'DossierValidateurController@rejeter')->name('dossiers.rejeter');
+
 //les routes de depmandeurs dossiers
 Route::get('/demandeurs/dossiers/index', [DossierController::class,'index'])->name('demandeurs.index');
 Route::get('/demandeurs/dossiers/create', [DossierController::class,'create'])->name('demandeurs.create');

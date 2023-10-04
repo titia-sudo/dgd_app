@@ -50,8 +50,11 @@ class DossierController extends Controller
             $query->where('dossiers.statutDossier', '=', $statut); 
         }
 
-       
-        $dossiers = $query->paginate(5);
+        $dossiersCrees = Dossier::where('idUser', auth()->user()->id)->get();
+        //dd($dossiersCrees);
+        // Fusionnez les deux requêtes
+        $dossiers = $dossiersCrees->toQuery()->paginate(5);
+
         return view('dossierDemandeur.index',compact('dateCreation','recents', 'ifu','declarant','statut','dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
@@ -250,5 +253,32 @@ class DossierController extends Controller
         //
         $dossier->delete();
         return redirect()->route('demandeurs.index')->with('success','dossier supprimé avec succès');
+    }
+
+    public function dossiersEnAttente()
+    {
+        // Récupérez les dossiers en attente de validation pour l'utilisateur actuel
+        $dossiersEnAttente = Historique::where('idNiveauTraitement', auth()->user()->idNiveauTraitement)
+            ->where('statutHistorique', 'En attente de validation')
+            ->get();
+
+        // Retournez la vue avec les dossiers en attente
+        return view('dossiers.en-attente', compact('dossiersEnAttente'));
+    }
+
+    public function valider(Historique $dossierHistorique)
+    {
+        // Mettez à jour le statut du dossier dans l'historique
+        $dossierHistorique->update(['statutHistorique' => 'Validé']);
+
+        // Redirigez l'utilisateur vers la liste des dossiers en attente
+        return redirect()->route('dossiers.en-attente')->with('success', 'Dossier validé avec succès.');
+    }
+
+    public function rejeter(Historique $dossierHistorique)
+    {
+        // Mettez à jour le statut du dossier
+        $dossierHistorique->update(['statutHistorique' => 'Rejeté']);
+
     }
 }
