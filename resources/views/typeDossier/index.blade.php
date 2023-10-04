@@ -186,14 +186,14 @@
                     <td>
                         <form action="{{ route('typeDossiers.destroy',$typeDossier->id) }}" method="POST">
    
-                            <a class="btn btn-info" href="{{ route('typeDossiers.show',$typeDossier->id) }}">Show</a>
+                            <a class="btn btn-info" href="{{ route('typeDossiers.show',$typeDossier->id) }}">voir plus</a>
     
-                            <a class="btn btn-primary" href="{{ route('typeDossiers.edit',$typeDossier->id) }}">Edit</a>
+                            <a class="btn btn-primary" href="{{ route('typeDossiers.edit',$typeDossier->id) }}">modifier</a>
    
                             @csrf
                             @method('DELETE')
       
-                                <button type="submit" class="btn btn-danger">Delete</button>
+                                <button type="submit" class="btn btn-danger">supprimer</button>
                         </form>
                             </td>
                         </tr>

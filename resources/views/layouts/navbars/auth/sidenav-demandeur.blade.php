@@ -17,7 +17,7 @@
         <div class=" mx-2">
 
             <div>
-                <a  class=" nav-link {{ Route::currentRouteName() == 'creation de compte' ? 'active' : '' }}" href="{{ route('dossiers.index') }}">
+                <a  class=" nav-link {{ Route::currentRouteName() == 'creation de compte' ? 'active' : '' }}" href="{{ route('demandeurs.index') }}">
                        <i class="fa fa-home icon-lg"></i>
                         <span class="font-weight-bold text-lg" >Accueil</span>
                 </a>
@@ -28,7 +28,7 @@
                 <div class="mt-4">
                 @foreach ($recents as $recent)
                     <ul class="list-group">
-                        <a class="list-group-item  text-primary " href="{{ route('dossiers.show',$recent->id) }}" ><h6 class="text-primary">{{ $recent->nomDossier }}</h6></a>
+                        <a class="list-group-item  text-primary " href="{{ route('demandeurs.show',$recent->id) }}" ><h6 class="text-primary">{{ $recent->nomDossier }}</h6></a>
                     </ul>
                     @endforeach
                 </div>
@@ -37,7 +37,7 @@
                     <div>
                      <a href="#ecom">
                         <i class="fa fa-folder icon-lg"></i>
-                          <a href="{{ route('dossiers.create') }}" class="nav-link-text font-weight-bold text-primary">Nouveau dossier</a>
+                          <a href="{{ route('demandeurs.create') }}" class="nav-link-text font-weight-bold text-primary">Nouveau dossier</a>
                      </a>
                     </div>
         </div>

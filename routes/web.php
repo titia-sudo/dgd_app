@@ -64,10 +64,35 @@ Route::resource('/profils', ProfilController::class);
 Route::resource('/directions', DirectionController::class);
 Route::resource('/services', ServiceController::class);
 Route::resource('/typeDossiers', TypeDossierController::class);
-Route::resource('/dossiers', DossierController::class);
-Route::resource('/validateurs', DossierValidateurController::class);
-///Route::get('/validateurs/show', [DossierValidateurController::class,'show'])->name('valide');
-Route::resource('/adminDossiers', DossierAdminController::class);
+
+
+//les routes du validateurs dossiers
+Route::get('/validateurs/dossiers/index', [DossierValidateurController::class,'index'])->name('validateurs.index');
+Route::get('/validateurs/dossiers/create', [DossierValidateurController::class,'create'])->name('validateurs.create');
+Route::post('/validateurs/dossiers/store', [DossierValidateurController::class,'store'])->name('validateurs.store');
+Route::get('/validateurs/dossiers/update', [DossierValidateurController::class,'update'])->name('validateurs.update');
+Route::get('/validateurs/dossiers/delete', [DossierValidateurController::class,'delete'])->name('validateurs.destroy');
+Route::get('/validateurs/dossiers/edit/{dossier}', [DossierValidateurController::class,'edit'])->name('validateurs.edit');
+Route::get('/validateurs/dossiers/show/{dossier}', [DossierValidateurController::class,'show'])->name('validateurs.show');
+
+//les routes de depmandeurs dossiers
+Route::get('/demandeurs/dossiers/index', [DossierController::class,'index'])->name('demandeurs.index');
+Route::get('/demandeurs/dossiers/create', [DossierController::class,'create'])->name('demandeurs.create');
+Route::post('/demandeurs/dossiers/store', [DossierController::class,'store'])->name('demandeurs.store');
+Route::get('/demandeurs/dossiers/update', [DossierController::class,'update'])->name('demandeurs.update');
+Route::get('/demandeurs/dossiers/delete', [DossierController::class,'delete'])->name('demandeurs.destroy');
+Route::get('/demandeurs/dossiers/edit/{dossier}', [DossierController::class,'edit'])->name('demandeurs.edit');
+Route::get('/demandeurs/dossiers/show/{dossier}', [DossierController::class,'show'])->name('demandeurs.show');
+
+//les routes de admin dossiers
+Route::get('/admin/dossiers/index', [DossierAdminController::class,'index'])->name('admin.dossiers.index');
+Route::get('/admin/dossiers/create', [DossierAdminController::class,'create'])->name('admin.dossiers.create');
+Route::post('/admin/dossiers/store', [DossierAdminController::class,'store'])->name('admin.dossiers.store');
+Route::get('/admin/dossiers/update', [DossierAdminController::class,'update'])->name('admin.dossiers.update');
+Route::get('/admin/dossiers/delete', [DossierAdminController::class,'delete'])->name('admin.dossiers.destroy');
+Route::get('/admin/dossiers/edit/{dossier}', [DossierAdminController::class,'edit'])->name('admin.dossiers.edit');
+Route::get('/admin/dossiers/show/{dossier}', [DossierAdminController::class,'show'])->name('admin.dossiers.show');
+
 
 
 //Route::put('/dossiers/{id}/update/{idUser}', [DossierController::class, 'update'])->name('dossiers.update');
@@ -80,7 +105,7 @@ All Normal Users Routes List
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:demandeur'])->group(function () {
   
-    Route::get('/demandeurHome', [DossierController::class, 'index'])->name('demandeurHome');
+    Route::get('/demandeurHome', [DossierController::class, 'index']);
 });
 
 /*------------------------------------------

@@ -142,12 +142,13 @@
             </div>
             
         </form>
-    </div>
-<!-------fin gestion des filtres-------->
-        <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('adminDossiers.create') }}"> Nouveau</a>
+        <div class="pull-left">
+                <a class="btn btn-success" href="{{ route('admin.dossiers.create') }}"> Nouveau</a>
             </div>
         </div>
+    </div>
+<!-------fin gestion des filtres-------->
+        
 
     <div class="card-body shadow">
         <div class="table-responsive">
@@ -188,7 +189,11 @@
                         <td>{{ $dossier->destinataireDossier }}</td>
                         <td>{{ $dossier->statutDossier }}</td>
                         <td>
-                        <a class="btn btn-primary" href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers" >Détails</a>
+                        <form action="{{ route('admin.dossiers.destroy',$dossier->id) }}" method="POST">
+                            <a class="btn btn-info" href="{{ route('admin.dossiers.show',$dossier->id) }}">voir plus</a>
+                            <a class="btn btn-primary" href="{{ route('admin.dossiers.edit',$dossier->id) }}">modifier</a>
+                        </form>
+                    </td>
                         </td>
                     </tr>
                  @endforeach

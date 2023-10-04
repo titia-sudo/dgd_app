@@ -19,13 +19,13 @@
             </ul>
             </div>
          @endif
-        <div class="row shadow mt-2">
-        <div class=" text-center mt-7 mb-3">
+        <div class="row shadow mt-7">
+        <div class="pull-right">
+              <a class="btn btn-primary" href="{{ route('validateurs.index') }}"> Retour</a>
+          </div>
+        <div class=" text-center mb-3">
             <h4 class="m-0 font-weight-bold text-black">Nouveau dossier</h4>
          </div>
-         <div class="pull-right">
-            <a class="btn btn-primary" href="{{ route('validateurs.index') }}"> Retour</a>
-        </div>
         <form action="{{ route('validateurs.store') }}" method="POST">
         @csrf
         <hr>
@@ -82,10 +82,10 @@
             </div>
         </div>
        <div class="row mt-3">
-         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button class="btn btn-secondary me-md-2" type="submit">Enregistrer</button>
-            <button class="btn btn-primary" type="submit">Soumettre</button>
-         </div>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                <button class="btn btn-secondary me-md-2" name="action" type="submit" value="brouillon">Enregistrer</button>
+                <button class="btn btn-primary" type="submit" name="action" value="soumettre">Soumettre</button>
+            </div>
        </div>
 
        

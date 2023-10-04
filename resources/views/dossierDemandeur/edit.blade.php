@@ -10,7 +10,7 @@
             <!-- DataTales Example -->
         <div class="row shadow mt-7">
         <div class="pull-right">
-              <a class="btn btn-primary" href="{{ route('dossiers.index') }}"> Retour</a>
+              <a class="btn btn-primary" href="{{ route('demandeurs.index') }}"> Retour</a>
           </div>
           
         <div class=" text-center">
@@ -46,7 +46,7 @@
     @endif
         <div class="row"> 
             
-        <form action="{{ route('dossiers.update',$dossier->id) }}" method="POST">
+        <form action="{{ route('demandeurs.update',$dossier->id) }}" method="POST">
         @csrf
         @method('PUT')
    

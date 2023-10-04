@@ -181,7 +181,7 @@
                         <td>{{ $role->name }}</td>
                         <td>
                         <form action="{{ route('roles.destroy', ['id' => $role->id]) }}" method="POST">
-                                <a class="btn btn-info" href="{{ route('roles.show', ['id' => $role->id]) }}">Afficher</a>
+                                <a class="btn btn-info" href="{{ route('roles.show', ['id' => $role->id]) }}">voir plus</a>
                                 <a class="btn btn-primary" href="{{ route('roles.edit',['id' => $role->id]) }}">Modifier</a>
                             @csrf
                             @method('DELETE')

@@ -185,14 +185,14 @@
                             <td>
                                 <form action="{{ route('niveauTraitements.destroy',$niveauTraitement->id) }}" method="POST">
    
-                                    <a class="btn btn-info" href="{{ route('niveauTraitements.show',$niveauTraitement->id) }}">Show</a>
+                                    <a class="btn btn-info" href="{{ route('niveauTraitements.show',$niveauTraitement->id) }}">voir plus</a>
     
-                                    <a class="btn btn-primary" href="{{ route('niveauTraitements.edit',$niveauTraitement->id) }}">Edit</a>
+                                    <a class="btn btn-primary" href="{{ route('niveauTraitements.edit',$niveauTraitement->id) }}">modifier</a>
    
                                     @csrf
                                     @method('DELETE')
       
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger">supprimer</button>
                                 </form>
                             </td>
                         </tr>

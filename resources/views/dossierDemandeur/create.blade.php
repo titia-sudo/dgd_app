@@ -21,12 +21,12 @@
          @endif
         <div class="row shadow mt-7">
         <div class="pull-right">
-              <a class="btn btn-primary" href="{{ route('dossiers.index') }}"> Retour</a>
+              <a class="btn btn-primary" href="{{ route('demandeurs.index') }}"> Retour</a>
           </div>
         <div class=" text-center mb-3">
             <h4 class="m-0 font-weight-bold text-black">Nouveau dossier</h4>
          </div>
-        <form action="{{ route('dossiers.store') }}" method="POST">
+        <form action="{{ route('demandeurs.store') }}" method="POST">
         @csrf
         <hr>
         <div class="row">

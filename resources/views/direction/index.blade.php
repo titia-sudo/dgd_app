@@ -185,14 +185,14 @@
                             <td>
                         <form action="{{ route('directions.destroy',$direction->id) }}" method="POST">
    
-                                <a class="btn btn-info" href="{{ route('directions.show',$direction->id) }}">Show</a>
+                                <a class="btn btn-info" href="{{ route('directions.show',$direction->id) }}">voir plus</a>
     
-                                <a class="btn btn-primary" href="{{ route('directions.edit',$direction->id) }}">Edit</a>
+                                <a class="btn btn-primary" href="{{ route('directions.edit',$direction->id) }}">modifier</a>
    
                             @csrf
                             @method('DELETE')
       
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">supprimer</button>
                         </form>
                             </td>
                         </tr>

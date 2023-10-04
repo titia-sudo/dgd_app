@@ -65,7 +65,7 @@ class UserController extends Controller
 
        //dd($dateCreation, $roleId, $serviceId, $idDirection, $query->toSql());
         // Paginez les résultats
-        $users = $query->paginate(10); // Vous pouvez ajuster le nombre d'utilisateurs par page
+        $users = $query->paginate(7); // Vous pouvez ajuster le nombre d'utilisateurs par page
     
         // Affichez la vue avec les utilisateurs filtrés
         return view('user.index', compact('dateCreation', 'roleId', 'users', 'roles', 'serviceId', 'idDirection', 'services', 'directions'))->with('i', ($request->input('page', 1) - 1) * 10);

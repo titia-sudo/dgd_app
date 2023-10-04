@@ -182,14 +182,14 @@
                             <td>
                                 <form action="{{ route('services.destroy',$service->id) }}" method="POST">
    
-                                    <a class="btn btn-info" href="{{ route('services.show',$service->id) }}">Show</a>
+                                    <a class="btn btn-info" href="{{ route('services.show',$service->id) }}">voir plus</a>
     
-                                    <a class="btn btn-primary" href="{{ route('services.edit',$service->id) }}">Edit</a>
+                                    <a class="btn btn-primary" href="{{ route('services.edit',$service->id) }}">modifier</a>
    
                                     @csrf
                                     @method('DELETE')
       
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger">supprimer</button>
                                 </form>
                             </td>
                         </tr>

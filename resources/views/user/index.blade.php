@@ -159,10 +159,10 @@
 
 
         
-        <div class="pull-right">
+        <!-- <div class="pull-left">
                 <a class="btn btn-success" href="{{ route('users.create') }}">Nouveau</a>
             </div>
-        </div>
+        </div>-->
 
     <div class="card-body shadow">
         <div class="table-responsive">
@@ -198,14 +198,14 @@
                                 <td>
                                     <form action="{{ route('users.destroy',$user->id) }}" method="POST">
    
-                                    <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">Show</a>
+                                    <a class="btn btn-info" href="{{ route('users.show',$user->id) }}">voir plus</a>
     
-                                    <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">Edit</a>
+                                    <a class="btn btn-primary" href="{{ route('users.edit',$user->id) }}">modifier</a>
    
                                         @csrf
                                         @method('DELETE')
       
-                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                    <button type="submit" class="btn btn-danger">supprimer</button>
                                     </form>
                                 </td>
                             </tr>

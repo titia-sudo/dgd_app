@@ -44,7 +44,7 @@
     @endif
         <div class="row"> 
             
-        <form action="{{ route('dossiers.update',$dossier->id) }}" method="POST">
+        <form action="{{ route('admin.dossiers.update',$dossier->id) }}" method="POST">
         @csrf
         @method('PUT')
    

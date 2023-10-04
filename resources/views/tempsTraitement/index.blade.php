@@ -186,14 +186,14 @@
                             <td>
                         <form action="{{ route('tempsTraitements.destroy',$tempsTraitement->id) }}" method="POST">
    
-                            <a class="btn btn-info" href="{{ route('tempsTraitements.show',$tempsTraitement->id) }}">Show</a>
+                            <a class="btn btn-info" href="{{ route('tempsTraitements.show',$tempsTraitement->id) }}">voir plus</a>
     
-                            <a class="btn btn-primary" href="{{ route('tempsTraitements.edit',$tempsTraitement->id) }}">Edit</a>
+                            <a class="btn btn-primary" href="{{ route('tempsTraitements.edit',$tempsTraitement->id) }}">modifier</a>
    
                             @csrf
                             @method('DELETE')
       
-                            <button type="submit" class="btn btn-danger">Delete</button>
+                            <button type="submit" class="btn btn-danger">supprimer</button>
                         </form>
                             </td>
                         </tr>

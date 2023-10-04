@@ -7,18 +7,23 @@
     <!-- partie   contenu de l'administation-->
 <div class="container-fluid">
 
+  <!-- DataTales Example -->
+ 
+    <div class="card-body shadow">
+    <div class="container-fluid">
+
 <!-- DataTales Example -->
   <div class="row text-center mt-7">
       <h4 class="m-0 font-weight-bold text-black">Détails dossiers</h4>
   </div>
 <hr>
-  <div class="row shadow">
+  <div class="row shadow mt-2">
            <div class="pull-right">
               <a class="btn btn-primary" href="{{ route('validateurs.index') }}"> Retour</a>
           </div>
   </div>
 
-      <div class="container mt-2 shadow-lg  col-9  p-4 bg-body rounded ">
+      <div class="container mt-6 shadow-lg  col-9  p-5 bg-body rounded ">
       <div class="row mb-6">
        
       <div class="row">
@@ -79,9 +84,11 @@
       </div>
   </div>
 </div>
+    </div>
 </div>
 <!---fin datable exmple---->
 
+</div>
 
 <style>
 
@@ -99,3 +106,7 @@
         @include('layouts.footers.auth.footer')
     </div>
 @endsection
+
+
+
+

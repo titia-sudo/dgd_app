@@ -19,7 +19,7 @@
 <hr>
   <div class="row shadow mt-2">
            <div class="pull-right">
-              <a class="btn btn-primary" href="{{ route('dossiers.index') }}"> Retour</a>
+              <a class="btn btn-primary" href="{{ route('admin.dossiers.index') }}"> Retour</a>
           </div>
 
       
@@ -97,7 +97,3 @@
         @include('layouts.footers.auth.footer')
     </div>
 @endsection
-
-
-
-

@@ -107,14 +107,14 @@ class DossierController extends Controller
                 'idUser' => auth()->id(),
                 // ... (autres champs d'historique que vous souhaitez enregistrer)
             ]);
-            return redirect()->route('dossiers.index')->with('success','le dossier a été créé avec succes.');
+            return redirect()->route('demandeurs.index')->with('success','le dossier a été créé avec succes.');
         } else {
             // Gérez l'erreur si la création du dossier a échoué
             return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la création du dossier.');
         }
         Dossier::create($request->all());
        
-        return redirect()->route('dossiers.index')->with('success','Dossier a été créé avec succès.');
+        return redirect()->route('demandeurs.index')->with('success','Dossier a été créé avec succès.');
     }
 
     /**
@@ -141,7 +141,7 @@ class DossierController extends Controller
      */
     public function edit(Dossier $dossier)
     {
-        //
+       
         $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
@@ -187,7 +187,7 @@ class DossierController extends Controller
             // Ajoutez d'autres informations spécifiques ici
         ]);
   
-        return redirect()->route('dossiers.index')->with('success','dossier mis à jour');
+        return redirect()->route('demandeurs.index')->with('success','dossier mis à jour');
     }
 
     /**
@@ -241,7 +241,7 @@ class DossierController extends Controller
         $dossier->save();
 
         // Redirigez l'utilisateur vers une page de confirmation ou de suivi
-        return redirect()->route('dossiers.index')->with('success','dossier mis à jour');
+        return redirect()->route('demandeurs.index')->with('success','dossier mis à jour');
     }
     
     
@@ -249,6 +249,6 @@ class DossierController extends Controller
     {
         //
         $dossier->delete();
-        return redirect()->route('dossiers.index')->with('success','dossier supprimé avec succès');
+        return redirect()->route('demandeurs.index')->with('success','dossier supprimé avec succès');
     }
 }

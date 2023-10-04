@@ -94,11 +94,11 @@
                         <td>{{ $dossier->destinataireDossier }}</td>
                         <td>{{ $dossier->statutDossier }}</td>
                         <td>
-                        <form action="{{ route('dossiers.destroy',$dossier->id) }}" method="POST">
+                        <form action="{{ route('demandeurs.destroy',$dossier->id) }}" method="POST">
    
-                            <a class="btn btn-info" href="{{ route('dossiers.show',$dossier->id) }}">Show</a>
+                            <a class="btn btn-info" href="{{ route('demandeurs.show',$dossier->id) }}">voir plus</a>
     
-                            <a class="btn btn-primary" href="{{ route('dossiers.edit',$dossier->id) }}">Edit</a>
+                            <a class="btn btn-primary" href="{{ route('demandeurs.edit',$dossier->id) }}">modifier</a>
                             </form>
                         </td>
                     </tr>

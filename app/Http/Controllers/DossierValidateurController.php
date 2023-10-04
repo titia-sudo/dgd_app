@@ -14,8 +14,7 @@ use Illuminate\Support\Facades\Event;
 
 class DossierValidateurController extends Controller
 {
-    
-     /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -28,7 +27,7 @@ class DossierValidateurController extends Controller
 
     public function index(Request $request)
     {
-        //
+
         $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $dateCreation = $request->input('dateCreation', '');
         $ifu = $request->input('ifu', '');
@@ -51,6 +50,7 @@ class DossierValidateurController extends Controller
             $query->where('dossiers.statutDossier', '=', $statut); 
         }
 
+       
         $dossiers = $query->paginate(5);
         return view('dossierValidateur.index',compact('dateCreation','recents', 'ifu','declarant','statut','dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
@@ -67,7 +67,7 @@ class DossierValidateurController extends Controller
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annees = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossierValidateur.create', compact('users','recents', 'typeDossiers'));
+        return view('dossierValidateur.create', compact('users', 'recents','typeDossiers'));
     }
 
     /**
@@ -80,7 +80,7 @@ class DossierValidateurController extends Controller
     {
         //
         //$request->idUser = Auth::user()->id;
-        $dossiers = $request->validate([
+        $dossier = $request->validate([
         'nomDossier' => 'required',
         'declarantDossier' => 'required',
         'ifuDossier' => 'required',
@@ -91,12 +91,30 @@ class DossierValidateurController extends Controller
         'statutDossier' => '',
         'idUser' => '',
         'idTypeDossier' => 'required',
-        'idAnnee' => ''
+       // 'idAnnee' => ''
         ]);
         //dd($dossiers);
+        $dossier= Dossier::create($request->all());
+
+        if ($dossier) {
+            // Enregistrez l'historique après la création du dossier
+            Historique::create([
+                'actionHistorique' => 'Création de dossier',
+                'statutHistorique' => 'Nouveau dossier créé : ' . $dossier->nomDossier,
+                'commentaireAction' => '',
+                'dateAction' => $dossier->created_at,
+                'idDossier' => $dossier->id,
+                'idUser' => auth()->id(),
+                // ... (autres champs d'historique que vous souhaitez enregistrer)
+            ]);
+            return redirect()->route('validateurs.index')->with('success','le dossier a été créé avec succes.');
+        } else {
+            // Gérez l'erreur si la création du dossier a échoué
+            return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la création du dossier.');
+        }
         Dossier::create($request->all());
-   
-        return redirect()->route('validateurs .index')->with('success','dossier created successfully.');
+       
+        return redirect()->route('validateurs.index')->with('success','Dossier a été créé avec succès.');
     }
 
     /**
@@ -107,12 +125,12 @@ class DossierValidateurController extends Controller
      */
     public function show(Dossier $dossier)
     {
-       //dd($dossier);
-        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
+          //dd($dossier);
+         $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
-        return view('dossierValidateur.show',compact('dossier', 'recents','users','typeDossiers'));
+        return view('dossierValidateur.show',compact('dossier','recents', 'users','typeDossiers'));
     }
 
     /**
@@ -123,12 +141,12 @@ class DossierValidateurController extends Controller
      */
     public function edit(Dossier $dossier)
     {
-      
-       
-            $dossier = Dossier::find($dossier);
-            return response()->json($dossier);
-
-    
+        
+        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
+        $users = User::orderBy('firstname', 'ASC')->get();
+        $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
+        //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
+        return view('dossierValidateur.edit',compact('dossier','recents', 'users','typeDossiers'));
     }
 
     /**
@@ -155,7 +173,19 @@ class DossierValidateurController extends Controller
             'idAnnee' => ''
         ]);
   
+        // Sauvegardez les données du dossier mises à jour
         $dossier->update($request->all());
+
+        // Créez une entrée d'historique
+        Historique::create([
+            'idUser' => auth()->id(), // L'utilisateur actuel
+            'actionHistorique' => 'Mise à jour du dossier', // Action effectuée (peut être personnalisée)
+            'statutHistorique' => $dossier->statutDossier, // Nouveau statut
+            'commentaireAction' => $request->input('commentaireAction'), // Commentaire (ajoutez-le si nécessaire)
+            'dateAction' => now(), // Date et heure de l'action actuelle
+            'idDossier' => $dossier->id, // ID du dossier mis à jour
+            // Ajoutez d'autres informations spécifiques ici
+        ]);
   
         return redirect()->route('validateurs.index')->with('success','dossier mis à jour');
     }
@@ -166,7 +196,53 @@ class DossierValidateurController extends Controller
      * @param  \App\Models\Dossier  $dossier
      * @return \Illuminate\Http\Response
      */
-    
+        public function submit(Request $request)
+    {
+        // Validez les données du formulaire de soumission
+        $this->validate($request, [
+            // Définissez les règles de validation appropriées ici
+            'nomDossier' => 'required',
+            'declarantDossier' => 'required',
+            'ifuDossier' => 'required',
+            'agrementDossier' => 'required',
+            'destinataireDossier' => 'required',
+            'elementRequeteDossier' => 'required',
+            'texteReferenceDossier' => 'required',
+            'statutDossier' => '',
+           // 'idUser' => '',
+            'idTypeDossier' => 'required',
+        ]);
+
+        
+        // Enregistrez les données du dossier dans la base de données
+        $dossier = new Dossier();
+        // Remplissez les champs du dossier avec les données du formulaire
+        $dossier->nomDossier = $request->input('nomDossier');
+        $dossier->declarantDossier = $request->input('declarantDossier');
+        $dossier->ifuDossier = $request->input('ifuDossier');
+        $dossier->agrementDossier = $request->input('agrementDossier');
+        $dossier->destinataireDossier = $request->input('destinataireDossier');
+        $dossier->elementRequeteDossier = $request->input('elementRequeteDossier');
+        $dossier->texteReferenceDossier = $request->input('texteReferenceDossier');
+        $dossier->declarantDossier = $request->input('declarantDossier');
+        $dossier->idUser = $request->input('idUser');
+        $dossier->idTypeDossier = $request->input('idTypeDossier');
+
+        // Vérifiez la valeur du bouton "action"
+        if ($request->input('action') === 'brouillon') 
+        {
+            $dossier->statutDossier = 'brouillon';
+        } elseif ($request->input('action') === 'soumettre') {
+
+                // Définissez le statut du dossier pour indiquer qu'il est soumis
+                $dossier->statutDossier = 'soumis';
+        }
+        // Enregistrez le dossier
+        $dossier->save();
+
+        // Redirigez l'utilisateur vers une page de confirmation ou de suivi
+        return redirect()->route('validateurs.index')->with('success','dossier mis à jour');
+    }
     
     
      public function destroy(Dossier $dossier)
@@ -176,3 +252,5 @@ class DossierValidateurController extends Controller
         return redirect()->route('validateurs.index')->with('success','dossier supprimé avec succès');
     }
 }
+
+
