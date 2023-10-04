@@ -27,8 +27,8 @@ class DossierValidateurController extends Controller
 
     public function index(Request $request)
     {
-
-        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
+        $online=auth()->user()->id;
+        $recents = Dossier::where('idUser','=',$online)->orderBy('created_at', 'desc')->limit(5)->get();
         $dateCreation = $request->input('dateCreation', '');
         $ifu = $request->input('ifu', '');
         $declarant=$request->input('declarant', '');
@@ -63,7 +63,8 @@ class DossierValidateurController extends Controller
     public function create()
     {
         //
-        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
+        $online=auth()->user()->id;
+        $recents = Dossier::where('idUser','=',$online)->orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annees = Annee::orderBy('nomAnnee', 'ASC')->get();
@@ -125,8 +126,8 @@ class DossierValidateurController extends Controller
      */
     public function show(Dossier $dossier)
     {
-          //dd($dossier);
-         $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
+        $online=auth()->user()->id;
+        $recents = Dossier::where('idUser','=',$online)->orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
@@ -142,7 +143,8 @@ class DossierValidateurController extends Controller
     public function edit(Dossier $dossier)
     {
         
-        $recents = Dossier::orderBy('created_at', 'desc')->limit(5)->get();
+        $online=auth()->user()->id;
+        $recents = Dossier::where('idUser','=',$online)->orderBy('created_at', 'desc')->limit(5)->get();
         $users = User::orderBy('firstname', 'ASC')->get();
         $typeDossiers = TypeDossier::orderBy('designationTypeDossier', 'ASC')->get();
         //$annee = Annee::orderBy('nomAnnee', 'ASC')->get();
