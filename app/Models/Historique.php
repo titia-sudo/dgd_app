@@ -40,6 +40,6 @@ class Historique extends Model
 
     public function niveauTraitement():BelongsTo
     {
-        return $this->belongsTo(NiveauTraitement::class, 'idUser');
+        return $this->belongsTo(NiveauTraitement::class, 'idNiveauTraitement');
     }
 }

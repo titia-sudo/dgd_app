@@ -30,7 +30,7 @@ return new class extends Migration
                 ->on('users')->onDelete('cascade');
             
             $table->foreign('idNiveauTraitement')->references('id')
-                ->on('NiveauTraitement')->onDelete('cascade');
+                ->on('niveauTraitements')->onDelete('cascade');
 
             $table->timestamps();
         });

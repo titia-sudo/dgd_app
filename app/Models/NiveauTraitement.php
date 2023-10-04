@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use App\Models\TempsTraitement;
 use App\Models\User;
+use App\Models\TempsTraitement;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class NiveauTraitement extends Model
 {
@@ -30,5 +31,10 @@ class NiveauTraitement extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'users_niveautraitements', 'idUser', 'idNiveauTraitement');
+    }
+
+    public function historique() : HasMany 
+    { 
+        return $this->hasMany(Historique::class, 'idHistorique'); 
     }
 }
