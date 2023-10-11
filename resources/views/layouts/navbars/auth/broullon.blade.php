@@ -869,3 +869,25 @@ nav{
         @include('layouts.footers.auth.footer')
     </div>
 @endsection
+
+
+
+<div class="col-sm-4 col-md-4 col-lg-4 ">
+            <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+                <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+                    <div class="text-white"> Bienvenue, {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</div>
+                    <div class="dropdown ">
+
+                        <i class="fa fa-angle-down " style="font-size:20px;color:white"></i>
+                        <img src="/../img/profile3.jpeg" class="rounded-circle fa fa-user-circle  btn btn-secondary dropdown-toggle" style="height: 65px; max-width: 65px;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false" alt="...">
+
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class=" dropdown-item ">
+                                    Log out</a></li>
+                            <li><a href="" class="dropdown-item">Profile</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
