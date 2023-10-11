@@ -15,11 +15,13 @@ return new class extends Migration
     {
         Schema::create('niveautraitement_typedossier', function (Blueprint $table) {
             $table->id();
+            $table->string('ordreNiveau');
             $table->unsignedBiginteger('idNiveauTraitement')->unsigned();
             $table->unsignedBiginteger('idTypeDossier')->unsigned();
 
             $table->foreign('idNiveauTraitement')->references('id')
                  ->on('niveauTraitements')->onDelete('cascade');
+
             $table->foreign('idTypeDossier')->references('id')
                 ->on('typeDossiers')->onDelete('cascade');
 

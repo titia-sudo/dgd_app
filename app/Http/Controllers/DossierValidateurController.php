@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use Illuminate\View\View;
 use Auth;
 use App\Models\User;
 use App\Models\Annee;
 use App\Models\Dossier;
+use Illuminate\View\View;
 use App\Models\Historique;
 use App\Models\TypeDossier;
 use Illuminate\Http\Request;
+use App\Models\NiveauTraitement;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Event;
 
@@ -293,20 +294,25 @@ class DossierValidateurController extends Controller
     {
         // Vérifier si l'utilisateur a les permissions pour valider ce dossier
         // ...
+        $commentaire = $request->input('commentaire');
         // Assurez-vous que le dossier a un typeDossier associé
         if ($dossier->typeDossier) {
 
         // Récupérer le niveau de traitement actuel
         $niveauTraitementActuel = $dossier->niveauTraitement;
-
         // Récupérer le niveau de traitement suivant pour ce type de dossier
-        $niveauTraitementSuivant = $niveauTraitementActuel->typeDossier->getNextNiveauTraitement($niveauTraitementActuel);
+        $typeDossier = $dossier->typeDossier;
+
+        $niveauTraitementSuivant = NiveauTraitement::where('idTypeDossier', $typeDossier->id)
+        ->where('ordreNiveau', '>', $niveauTraitementActuel->ordreNiveau)
+        ->orderBy('ordreNiveau', 'asc')
+        ->first();
 
         // Mettre à jour l'entrée dans la table Historique avec le nouveau niveau de traitement
         Historique::create([
             'actionHistorique' => $dossier->nomDossier,
             'statutHistorique' => 'En attente de validation',
-            'commentaireAction' => '',
+            'commentaireAction' => $commentaire,
             'dateAction' => $dossier->created_at,
             'idDossier' => $dossier->id,
             'idNiveauTraitement' => $niveauTraitementSuivant->id,
@@ -314,7 +320,7 @@ class DossierValidateurController extends Controller
             // ... (autres champs d'historique que vous souhaitez enregistrer)
         ]);
 
-        return response()->json(['message' => 'Dossier en attente de validation au niveau suivant.']);
+        return redirect()->route('validateurs.index')->with('success', 'Dossier validé avec succès.');
         } else {
             return response()->json(['error' => 'Ce dossier n\'est pas associé à un type de dossier.']);
         }

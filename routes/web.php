@@ -17,8 +17,10 @@ use App\Http\Controllers\NiveauController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UserProfileController;
 use App\Http\Controllers\TypeDossiersController;
+use App\Http\Controllers\TypeDossierController;
 use App\Http\Controllers\TempsTraitementController;
 use App\Http\Controllers\UniteTempsTraitementController;
+use App\Http\Controllers\NiveauTraitementController;
 
 use App\Http\Controllers\DossierValidateurController;
 use App\Http\Controllers\DossierAdminController;
@@ -53,7 +55,11 @@ Route::get('/roles/show/{id}', 'RoleController@show')->name('roles.show');
 
 Route::resource('/uniteTempsTraitements', UniteTempsTraitementController::class);
 Route::resource('/tempsTraitements', TempsTraitementController::class);
+
+
 Route::resource('/niveauTraitements', NiveauTraitementController::class);
+Route::get('/afficherType/{niveauTraitement}', 'NiveauTraitementController@afficherType')->name('niveauTraitements.afficherType');
+Route::post('/associer', 'NiveauTraitementController@associerType')->name('niveauTraitements.associerType');
 
 Route::get('/adminDossiers/filtrer', 'DossierAdminController@index')->name('FiltrerAdmin');
 Route::get('/validateurs/filtrer', 'DossierValidateurController@index')->name('FiltrerValidateur');
@@ -63,8 +69,14 @@ Route::resource('/users', UserController::class);
 Route::resource('/profils', ProfilController::class);
 Route::resource('/directions', DirectionController::class);
 Route::resource('/services', ServiceController::class);
-Route::resource('/typeDossiers', TypeDossierController::class);
 
+Route::get('/typeDossiers/index', 'TypeDossierController@index')->name('typeDossiers.index');
+Route::get('/typeDossiers/create', 'TypeDossierController@create')->name('typeDossiers.create');
+Route::post('/typeDossiers/store', 'TypeDossierController@store')->name('typeDossiers.store');
+Route::get('/typeDossiers/edit', 'TypeDossierController@edit')->name('typeDossiers.edit');
+Route::get('/typeDossiers/update', 'TypeDossierController@update')->name('typeDossiers.update');
+Route::get('/typeDossiers/show', 'TypeDossierController@show')->name('typeDossiers.show');
+Route::get('/typeDossiers/destroy', 'TypeDossierController@destroy')->name('typeDossiers.destroy');
 
 //les routes du validateurs dossiers
 Route::get('/validateurs/dossiers/index', [DossierValidateurController::class,'index'])->name('validateurs.index');

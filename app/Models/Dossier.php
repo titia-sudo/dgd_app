@@ -50,6 +50,11 @@ class Dossier extends Model
         return $this->belongsTo(TypeDossier::class, 'idTypeDossier');
     }
 
+    public function niveauTraitement()
+    {
+        return $this->belongsTo(NiveauTraitement::class, 'idNiveauTraitement');
+    }
+
    // public function annee():BelongsTo
     //{
        // return $this->belongsTo(Annee::class, 'idAnnee');

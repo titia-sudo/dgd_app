@@ -32,7 +32,6 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
                                             class="nav-link text-white font-weight-bold px-0">
-                                            <p>Bienvenue, {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</p>
                                             <i class="fa fa-user me-lg"></i>
                                             <span class="d-sm-inline d-none">Déconnexion</span>
                                         </a>

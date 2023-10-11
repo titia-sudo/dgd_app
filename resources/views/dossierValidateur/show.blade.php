@@ -69,15 +69,20 @@
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" >{{ $dossier->texteReferenceDossier }}</textarea>
             </div>
         </div>
+        <form action="{{ route('dossiers.validerDossier', ['dossier' => $dossier->id]) }}" method="POST">
+            @csrf
+            <button type="submit">Valider</button>
+        </form>
+        <form action="{{ route('dossiers.rejeter', ['dossier' => $dossier->id]) }}" method="POST">
+            @csrf
+            <button type="submit">Rejeter</button>
+        </form>
+        <!-- Champ de Commentaire (affiché uniquement lors de la validation) -->
         <div class="row">
-            <div class="">
-                <label for="exampleFormControlTextarea1" class="form-label text-lg">Appréciations</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value=""></textarea>
+            <div id="commentaire" style="display: none;"class="form-label text-lg">
+                <label for="commentaire">Commentaire :</label>
+                <textarea name="commentaire" class="form-control"></textarea>
             </div>
-        </div>
-        <div class="row">
-            <a class="btn btn-primary" href="{{ route('dossiers.valider', ['dossier' => $dossier->id]) }}">Valider ce dossier</a>
-            <a class="btn btn-info" href="{{ route('dossiers.rejeter', ['dossier' => $dossier->id]) }}">Rejeter ce dossier</a>
         </div>
 
         </div>
@@ -103,10 +108,23 @@
 }
 
 </style>
+
        
         @include('layouts.footers.auth.footer')
     </div>
 @endsection
+
+<!-- Script pour afficher le champ de commentaire lors de la validation -->
+<script>
+    document.getElementById('btn-valider').addEventListener('click', function() {
+        document.getElementById('commentaire').style.display = 'block';
+    });
+
+    // Optionnel : Masquer le champ de commentaire lors du rejet (s'il est affiché)
+    document.getElementById('btn-rejeter').addEventListener('click', function() {
+        document.getElementById('commentaire').style.display = 'none';
+    });
+</script>
 
 
 

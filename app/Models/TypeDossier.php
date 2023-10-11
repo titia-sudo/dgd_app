@@ -22,4 +22,10 @@ class TypeDossier extends Model
         { 
             return $this->hasMany(Dossier::class); 
         }
+
+    public function niveauxTraitement()
+    {
+        return $this->belongsToMany(NiveauTraitement::class, 'niveauTraitement_typeDossier', 'idTypeDossier', 'idNiveauTraitement')
+                    ->orderBy('niveauTraitement_typeDossier.ordreNiveau');
+    }
 }

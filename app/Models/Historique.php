@@ -27,7 +27,6 @@ class Historique extends Model
     ];
 
 
-
     public function dossier():BelongsTo
     {
         return $this->belongsTo(Dossier::class, 'idDossier');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TypeDossier;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TypeDossierController extends Controller
 {
@@ -45,11 +46,13 @@ class TypeDossierController extends Controller
             'designationTypeDossier' => 'required',
             'nombreNiveauTraitement' => 'required',
         ]);
-        
+
         TypeDossier::create($request->all());
-         
+        
+        
         return redirect()->route('typeDossiers.index')
                         ->with('success','Le type de dossier a été enregistré avec succes.');
+        
     }
 
     /**

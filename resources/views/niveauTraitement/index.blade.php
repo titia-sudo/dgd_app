@@ -187,7 +187,10 @@
    
                                     <a class="btn btn-info" href="{{ route('niveauTraitements.show',$niveauTraitement->id) }}">voir plus</a>
     
-                                    <a class="btn btn-primary" href="{{ route('niveauTraitements.edit',$niveauTraitement->id) }}">modifier</a>
+                                    <a class="btn btn-primary" href="{{ route('niveauTraitements.edit',$niveauTraitement->id) }}">Modifier</a>
+
+                                    <a class="btn btn-primary" href="{{ route('niveauTraitements.afficherType',$niveauTraitement->id) }}">Associer</a>
+                                    <!-- <button class="btn btn-primary associer-btn" data-id="{{ $niveauTraitement->id }}">Associer</button> -->
    
                                     @csrf
                                     @method('DELETE')
@@ -208,4 +211,5 @@
        
         @include('layouts.footers.auth.footer')
     </div>
+    
 @endsection

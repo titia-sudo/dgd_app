@@ -37,4 +37,12 @@ class NiveauTraitement extends Model
     { 
         return $this->hasMany(Historique::class, 'idHistorique'); 
     }
+
+    public function typeDossiers()
+    {
+        return $this->belongsToMany(TypeDossier::class, 'niveautraitement_typedossier', 'idNiveauTraitement', 'idTypeDossier')
+                                    ->withPivot('ordreNiveau');
+    }
+
+
 }

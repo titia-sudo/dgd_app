@@ -10,6 +10,8 @@ use App\Models\TempsTraitement;
 use App\Models\NiveauTraitement;
 use Illuminate\Support\Facades\DB;
 use App\Models\UniteTempsTraitement;
+use App\Models\TypeDossier;
+use App\Models\NiveauTraitement_TypeDossier;
 use Illuminate\Http\RedirectResponse;
 
 class NiveauTraitementController extends Controller
@@ -60,7 +62,8 @@ class NiveauTraitementController extends Controller
             'idTempsTraitement' =>  'required',
             'users' => 'required|array',
         ]);
-    
+        $roleId = auth()->user()->role_id;
+        //dd($roleId);
         // Créez d'abord le niveau de traitement
         $niveauTraitement = NiveauTraitement::create([
             'nomNiveau' => $request->input('nomNiveau'),
@@ -75,6 +78,7 @@ class NiveauTraitementController extends Controller
                 DB::table('users_niveautraitements')->insert([
                     'idNiveauTraitement'=>$niveauTraitement->id,
                     'idUser'=>$user,
+                    'role_id'=>$roleId
                 ]);
                 
             }
@@ -148,6 +152,46 @@ class NiveauTraitementController extends Controller
 
         return redirect()->route('niveauTraitements.index')
         ->with('success','niveauTraitement a été mis à jour avec succès');
+    }
+
+
+
+    public function afficherType(Request $request, NiveauTraitement $niveauTraitement ):View
+    {
+        $TypeDoss = TypeDossier::all();
+        //dd($niveauTraitement);
+        return view('niveauTraitement.associer', compact('TypeDoss', 'niveauTraitement'));
+    }
+
+    
+    public function associerType(Request $request)
+    {
+        //Validez les données reçues depuis la requête.
+        $request->validate([
+            'idNiveauTraitement' => 'required|exists:niveauTraitements,id',
+            'idTypeDossier' => 'required|exists:typeDossiers,id',
+        ]);
+        // dd($request->idNiveauTraitement);
+        // Trouver le prochain ordre disponible pour ce type de dossier et ce niveau de traitement
+        $ordreNiveau = NiveauTraitement_TypeDossier::where('idNiveauTraitement', $request->idNiveauTraitement)
+        ->where('idTypeDossier', $request->idTypeDossier)
+        ->max('ordreNiveau') + 1;
+        
+        // Assurez-vous que l'ordre est au moins 1
+        $ordreNiveau = max(1, $ordreNiveau);
+
+        // Enregistrez l'association avec l'ordre dans la table pivot.
+        NiveauTraitement_TypeDossier::create([
+            'idNiveauTraitement' => $request->idNiveauTraitement,
+            'idTypeDossier' => $request->idTypeDossier,
+            'ordreNiveau' => $ordreNiveau,
+        ]);
+
+        //Réponse réussie.
+        return redirect()->route('niveauTraitements.index')
+        ->with('success','Ce niveauTraitement a été associé avec succès');
+       
+
     }
 
     /**

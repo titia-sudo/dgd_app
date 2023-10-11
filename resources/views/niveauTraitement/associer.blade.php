@@ -110,47 +110,33 @@
         
         <!-- DataTales Example -->
         <div class="row shadow-lg mt-5">
-            <div class="col-2 text-start">
-            
-                <a class="btn btn-primary" href="{{ route('typeDossiers.index') }}"> Retour</a>
-            </div>
             <div class="col-10">
-                 <h4 class="m-0 font-weight-bold text-black">Ajout de type de dossiers</h4><br>
+                 <h4 class="m-0 font-weight-bold text-black">Associer Type de dossier</h4><br>
             </div>
-            
         </div>
         <hr>
-            <form action="{{ route('typeDossiers.store') }}" method="POST">
+            <form action="{{ route('niveauTraitements.associerType') }}" method="POST">
             @csrf
                     <div class="container shadow col-9 p-6 ">
                         <div class="row ">
                             <div class="col-xs-12 col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <strong>Designation:</strong>
-                                    <input type="text" name="designationTypeDossier" class="form-control" placeholder="libelle type dossier">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Nombre Niveau Traitement:</strong>
-                                    <input type="text" name="nombreNiveauTraitement" class="form-control" placeholder="l'unité de temps de traitement">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Niveaux de Traitement :</strong>
-                                    <select name="niveauTraitements[]" id="niveauTraitements" class="form-control" multiple>
-                                    <option value="" selected>Veuillez choisir...</option>
-                                        @foreach($niveauTraitements as $niveauTraitement)
-                                            <option value="{{ $niveauTraitement->id }}">{{ $niveauTraitement->nomNiveau }}</option>
+                                    <strong>Type de dossier:</strong>
+                                    <select name="idTypeDossier" id="idTypeDossier" class="form-control">
+                                        <option value="" selected>Veuillez choisir...</option>
+                                        @foreach($TypeDoss as $TypeDoss)
+                                        <option value="{{ $TypeDoss->id }}">{{ $TypeDoss->designationTypeDossier }}</option>
                                         @endforeach
                                     </select>
                                 </div>
+                                
+                                <input type="hidden" name="idNiveauTraitement" id="idNiveauTraitement" value="{{$niveauTraitement->id }}">
+                               
                             </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-12 text-end">
-                                <button type="submit" class="btn btn-primary">Enregister</button>
-                            </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 text-end">
+                                    <a class="btn btn-primary" href="{{ route('niveauTraitements.index') }}">Retour</a>
+                                    <button type="submit" data-id="{{ $niveauTraitement->id }}" class="btn btn-primary associer-btn">Associer</button>
+                                 </div>
                         </div>
                     </div>
                 </form>
@@ -158,7 +144,13 @@
     </div>
 
 </div>
+
+
        
         @include('layouts.footers.auth.footer')
+
     </div>
+
+    
 @endsection
+
