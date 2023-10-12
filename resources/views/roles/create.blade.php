@@ -106,52 +106,55 @@
         <!-- fin de la partie   alerte-->
 
     <!-- partie   contenu de l'administation-->
-    <div class="container-fluid ">
         
-        <!-- DataTales Example -->
-        <div class="row shadow-lg mt-5">
-            <div class="col-2 text-start">
-            
-                <a class="btn btn-primary" href="{{ route('roles.index') }}">Liste des roles</a>
-            </div>
-            <div class="col-10">
-                 <h4 class="m-0 font-weight-bold text-black">Créer un rôle</h4><br>
-            </div>
-            
-        </div>
-        <hr>
-            <form action="{{ route('roles.store') }}" method="POST">
-            @csrf
-                    <div class="container shadow col-9 p-6 ">
-                        <div class="row ">
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Designation:</strong>
-                                    <input type="text" name="name" placeholder="Name" class="form-control">
-                                </div>
+    <div class="content-wrapper">
+        <!-- Content -->
+
+        <div class="container-xxl flex-grow-1 container-p-y mt-3">
+            <h5 class="py-3 mb-4"><span class="text-muted fw-light">Parametre/</span> Ajout de roles</h4>
+
+                <!-- Basic Layout -->
+                <div class="row">
+                    <div class="col-xl">
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <a class="btn btn-primary" href="{{ route('roles.index') }}"> Retour</a>
+                                <small class="text-muted float-end">Rôles</small>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Permissions:</strong>
-                                    <br>
+                            <div class="card-body">
+                            <form action="{{ route('roles.store') }}" method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-fullname">
+                                            <h6>Designation:</h6>
+                                        </label>
+                                        <input type="text" name="name" placeholder="Name" class="form-control">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-fullname">
+                                            <h6>Permissions:</h6>
+                                        </label>
+                                        <br>
                                          @foreach($permission as $value)
                                             <label>
                                                 <input type="checkbox" name="permission[]" value="{{ $value->id }}">
                                                     {{ $value->name }}
                                             </label>
                                         @endforeach
-                                </div>
-                            </div>
+                                    </div>
+                                    <div class="text-end">
+                                        <button type="reset" class="btn btn-secondary">Annuler</button>
+                                        <button type="submit" class="btn btn-primary">Enregister</button>
+                                    </div>
 
-                                <div class="col-xs-12 col-sm-12 col-md-12 text-end">
-                                    <button type="submit" class="btn btn-primary">Enregister</button>
-                                 </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </form>
-    
-    </div>
 
+                </div>
+        </div>
+        <!-- / Content -->
 </div>
        
         @include('layouts.footers.auth.footer')

@@ -1,13 +1,9 @@
 <!-- Navbar -->
-
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl
         {{ str_contains(Request::url(), 'virtual-reality') == true ? ' mt-3 mx-3 bg-primary' : '' }}" id="navbarBlur" data-scroll="false">
 
     <div class="d-flex justify-content-between">
-
-
     </div>
-
     <div class="container-fluid py-1 px-3 ">
 
         <div class=" align-left col-sm-4 col-md-4 col-lg-4">
@@ -19,17 +15,15 @@
                 <h6 class="font-weight-bolder text-white mb-0">{{ $title }}</h6>
             </nav>
         </div>
-
         <div class=" col-sm-6 col-md-4 col-lg-4 ">
             <h3 class="font-weight-bolder text-white mb-0">ADMINISTRATION</h3>
         </div>
-
         <div class="col-sm-4 col-md-4 col-lg-4 ">
-
             <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                 <div class="ms-md-auto pe-md-3 d-flex align-items-center">
                     <div class="text-white">
-                        <p><i class=" fw-bold "> Bienvenue</i></p><p> {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</p>
+                        <p><i class=" fw-bold ">Bienvenue</i></p>
+                        <p> {{ auth()->user()->firstname }} {{ auth()->user()->lastname }}</p>
                     </div>
                 </div>
                 <div class="dropdown">
@@ -52,10 +46,6 @@
 
             </div>
         </div>
-
-
-
-
     </div>
 </nav>
 <!-- End Navbar -->

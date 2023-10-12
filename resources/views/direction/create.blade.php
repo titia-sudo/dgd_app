@@ -103,49 +103,53 @@
                 </ul>
             </div>
         @endif
+
         <!-- fin de la partie   alerte-->
 
     <!-- partie   contenu de l'administation-->
-    <div class="container-fluid ">
-        
-        <!-- DataTales Example -->
-        <div class="row shadow-lg mt-5">
-            <div class="col-2 text-start">
-            
-                <a class="btn btn-primary" href="{{ route('directions.index') }}">Liste des directions</a>
-            </div>
-            <div class="col-10">
-                 <h4 class="m-0 font-weight-bold text-black">Ajout de directions</h4><br>
-            </div>
-            
-        </div>
-        <hr>
-            <form action="{{ route('directions.store') }}" method="POST">
-            @csrf
-                    <div class="container shadow col-9 p-6 ">
-                        <div class="row ">
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Nom direction:</strong>
-                                    <input type="text" name="nomDirection" class="form-control" placeholder="nom direction">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>sigleDirection:</strong>
-                                    <input type="text" name="sigleDirection" class="form-control" placeholder="sigle de la direction">
-                                </div>
-                            </div>
 
-                                <div class="col-xs-12 col-sm-12 col-md-12 text-end">
-                                    <button type="submit" class="btn btn-primary">Enregister</button>
-                                 </div>
+    <div class="content-wrapper">
+        <!-- Content -->
+
+        <div class="container-xxl flex-grow-1 container-p-y mt-3">
+            <h5 class="py-3 mb-4"><span class="text-muted fw-light">Parametre/</span> Ajout de directions</h4>
+
+                <!-- Basic Layout -->
+                <div class="row">
+                    <div class="col-xl">
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <a class="btn btn-primary" href="{{ route('directions.index') }}"> Retour</a>
+                                <small class="text-muted float-end">Directions</small>
+                            </div>
+                            <div class="card-body">
+                            <form action="{{ route('directions.store') }}" method="POST">
+                                    @csrf
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-fullname">
+                                            <h6>Nom direction:</h6>
+                                        </label>
+                                        <input type="text" name="nomDirection" class="form-control" placeholder="nom direction">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-fullname">
+                                            <h6>Sigle direction:</h6>
+                                        </label>
+                                        <input type="text" name="sigleDirection" class="form-control" placeholder="sigle de la direction">
+                                    </div>
+                                    <div class="text-end">
+                                        <button type="reset" class="btn btn-secondary">Annuler</button>
+                                        <button type="submit" class="btn btn-primary">Enregister</button>
+                                    </div>
+
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </form>
-    
-    </div>
 
+                </div>
+        </div>
+        <!-- / Content -->
 </div>
        
         @include('layouts.footers.auth.footer')

@@ -73,9 +73,9 @@ Route::resource('/services', ServiceController::class);
 Route::get('/typeDossiers/index', 'TypeDossierController@index')->name('typeDossiers.index');
 Route::get('/typeDossiers/create', 'TypeDossierController@create')->name('typeDossiers.create');
 Route::post('/typeDossiers/store', 'TypeDossierController@store')->name('typeDossiers.store');
-Route::get('/typeDossiers/edit', 'TypeDossierController@edit')->name('typeDossiers.edit');
+Route::get('/typeDossiers/edit/{typeDossier}', 'TypeDossierController@edit')->name('typeDossiers.edit');
 Route::get('/typeDossiers/update', 'TypeDossierController@update')->name('typeDossiers.update');
-Route::get('/typeDossiers/show', 'TypeDossierController@show')->name('typeDossiers.show');
+Route::get('/typeDossiers/show/{typeDossier}', 'TypeDossierController@show')->name('typeDossiers.show');
 Route::get('/typeDossiers/destroy', 'TypeDossierController@destroy')->name('typeDossiers.destroy');
 
 //les routes du validateurs dossiers

@@ -105,50 +105,49 @@
     @endif
         <!-- partie   alerte-->
     <!-- partie   contenu de l'administation-->
-<div class="container-fluid">
+    <div class="content-wrapper">
+        <!-- Content -->
 
-  <!-- DataTales Example -->
-    <div class="row text-center mt-5">
-        <h4 class="m-0 font-weight-bold text-black">Editer le type de dossier</h4>
-    </div>
-<hr>
-    <div class="row shadow mt-2">
-             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('typeDossiers.index') }}"> Retour</a>
-            </div>
+        <div class="container-xxl flex-grow-1 container-p-y mt-3">
+            <h5 class="py-3 mb-4"><span class="text-muted fw-light">Parametre/</span> modification type de dossier</h4>
 
-        
-    </div>
-
-    <div class="container mt-6 shadow-lg  col-9  p-5 bg-body rounded ">
-                        <div class="row mb-6">
-            <form action="{{ route('typeDossiers.update',$typeDossier->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-   
+                <!-- Basic Layout -->
                 <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Designation:</strong>
-                            <input type="text" name="designationTypeDossier" value="{{ $typeDossier->designationTypeDossier }}" class="form-control" placeholder="Name">
+                    <div class="col-xl">
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <a class="btn btn-primary" href="{{ route('typeDossiers.index') }}"> Retour</a>
+                                <small class="text-muted float-end">Type de dossiers</small>
+                            </div>
+                            <div class="card-body">
+                            <form action="{{ route('typeDossiers.update',$typeDossier->id) }}" method="POST">
+                                    @csrf
+                                    @method('PUT')
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-fullname">
+                                            <h6>Designation:</h6>
+                                        </label>
+                                        <input type="text" name="designationTypeDossier" value="{{ $typeDossier->designationTypeDossier }}" class="form-control" placeholder="Name">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label" for="basic-default-fullname">
+                                            <h6>Nombre de niveau de traitements:</h6>
+                                        </label>
+                                        <input type="text" name="nombreNiveauTraitement" value="{{ $typeDossier->nombreNiveauTraitement }}" class="form-control" placeholder="Name">
+                                    </div>
+                                    <div class="text-end">
+                                        <button type="reset" class="btn btn-secondary">Annuler</button>
+                                        <button type="submit" class="btn btn-primary">Enregister</button>
+                                    </div>
+
+                                </form>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <strong>nombre Niveau de Traitement:</strong>
-                        <input type="text" name="nombreNiveauTraitement" value="{{ $typeDossier->nombreNiveauTraitement }}" class="form-control" placeholder="Name">
-                    </div>
-
-                    <div class="col-xs-12 col-sm-12 col-md-12 text-end">
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    </div>
                 </div>
-   
-            </form>
-
         </div>
-    </div>
-</div>
+        <!-- / Content -->
 
 </div>
        
