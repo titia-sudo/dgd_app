@@ -116,7 +116,7 @@
                 <a class="btn btn-primary" href="{{ route('profils.index') }}"> Retour</a>
             </div>
             <div class="col-10">
-                 <h4 class="m-0 font-weight-bold text-black">Ajout de profils</h4><br>
+                 <h4 class="m-0 font-weight-bold text-black">Ajout de profils</h5><br>
             </div>
             
         </div>

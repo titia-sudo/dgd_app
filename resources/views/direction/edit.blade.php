@@ -107,7 +107,7 @@
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y mt-3">
-            <h5 class="py-3 mb-4"><span class="text-muted fw-light">Parametre/</span> modification directions</h4>
+            <h5 class="py-3 mb-4"><span class="text-muted fw-light">Parametre/</span> modification directions</h5>
 
                 <!-- Basic Layout -->
                 <div class="row">
@@ -118,7 +118,7 @@
                                 <small class="text-muted float-end">Directions</small>
                             </div>
                             <div class="card-body">
-                            <form action="{{ route('directions.update',$direction->id) }}" method="POST">
+                                <form action="{{ route('directions.update',$direction->id) }}" method="POST">
                                     @csrf
                                     @method('PUT')
                                     <div class="mb-3">
@@ -145,8 +145,8 @@
                 </div>
         </div>
         <!-- / Content -->
-</div>
+    </div>
 
-@include('layouts.footers.auth.footer')
+    @include('layouts.footers.auth.footer')
 </div>
 @endsection

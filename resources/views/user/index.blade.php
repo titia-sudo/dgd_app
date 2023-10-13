@@ -104,7 +104,7 @@
     @endif
     <!-- DataTales Example -->
     <div class="row text-center mt-5">
-        <h4 class="m-0 font-weight-bold text-black">Liste des utilisateurs</h4>
+        <h4 class="m-0 font-weight-bold text-black">Liste des utilisateurs</h5>
     </div>
     <hr>
     <!-- partie   alerte-->

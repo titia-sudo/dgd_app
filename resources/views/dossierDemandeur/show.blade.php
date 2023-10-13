@@ -1,112 +1,74 @@
-
 @extends('layouts.app-user', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav-user', ['title' => 'Dashboard'])
-    
-    <!-- partie   contenu de l'administation-->
+@include('layouts.navbars.auth.topnav-user', ['title' => 'Dashboard'])
+
+<!-- partie   contenu de l'administation-->
 <div class="container-fluid">
 
-  <!-- DataTales Example -->
- 
-    <div class="card-body shadow">
-    <div class="container-fluid">
+    <div class="content-wrapper">
+        <!-- Content -->
 
-<!-- DataTales Example -->
-  <div class="row text-center mt-7">
-      <h4 class="m-0 font-weight-bold text-black">Détails dossiers</h4>
-  </div>
-<hr>
-  <div class="row shadow mt-2">
-           <div class="pull-right">
-              <a class="btn btn-primary" href="{{ route('demandeurs.index') }}"> Retour</a>
-          </div>
-  </div>
+        <div class="container-xxl flex-grow-1 container-p-y mt-3">
+            <h5 class="py-3 mb-4"><span class="text-muted fw-light">Dossier/</span> Détails du dossier</h5>
 
-      <div class="container mt-6 shadow-lg  col-9  p-5 bg-body rounded ">
-      <div class="row mb-6">
-       
-      <div class="row">
-            <div class="col">
-            <label for="example-text-input" class="form-control-label text-lg">Désignation</label>
-              <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="{{ $dossier->nomDossier }}">
+            <!-- Basic Layout -->
+            <div class="row">
+                <div class="col-xl">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <a class="btn btn-primary" href="{{ route('demandeurs.index') }}"> Retour</a>
+                            <small class="text-muted float-end">Détails dossiers</small>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">
+                                    <h6>Nom dossier:</h6>
+                                </label>
+                                {{ $dossier->nomDossier }}
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">
+                                    <h6>Déclarant:</h6>
+                                </label>
+                                {{ $dossier->declarantDossier }}
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">
+                                    <h6>IFU:</h6>
+                                </label>
+                                {{ $dossier->ifuDossier }}
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">
+                                    <h6>Statut:</h6>
+                                </label>
+                                {{ $dossier->statutDossier }}
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">
+                                    <h6>Utilisateur:</h6>
+                                </label>
+                                @foreach($users as $user)
+                                {{ $user->idUser }}
+                                @endforeach
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="basic-default-fullname">
+                                    <h6>Type de dossier:</h6>
+                                </label>
+                                @foreach($typeDossiers as $typeDossier)
+                                {{ $typeDossier->designationTypeDossier }}
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row"> 
-            
-            <div class="col">
-                <label for="example-text-input" class="form-control-label text-lg">Déclarant </label>
-                <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="{{ $dossier->declarantDossier }}">
-            </div>
-            <div class="col">
-                 <label for="example-text-input" class="form-control-label text-lg">N° IFU</label>
-              <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" value="{{ $dossier->ifuDossier  }}">
-            </div>
-            
-        </div>
-
-        <div class="row">
-            <div class="col">
-                <label for="example-text-input" class="form-control-label text-lg">Agrément</label>
-                <input type="text" class="form-control" placeholder="First name" aria-label="First name" value="{{ $dossier->agrementDossier}}">
-            </div>
-            <div class="col">
-             <label for="example-text-input" class="form-control-label text-lg">Destinataire</label>
-                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name" value="{{ $dossier->destinataireDossier}}">
-            </div>
-            
-        </div>
-
-        <div class="row">
-            <div class="">
-                <label for="exampleFormControlTextarea1" class="form-label text-lg">Elements de requêtte</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" >{{ $dossier->elementRequeteDossier }}</textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="">
-                <label for="exampleFormControlTextarea1" class="form-label text-lg">Textes de référence</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" >{{ $dossier->texteReferenceDossier }}</textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="">
-                <label for="exampleFormControlTextarea1" class="form-label text-lg">Appréciations</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" value=""></textarea>
-            </div>
-        </div>
-
-        
-        </div>
-
-          </div>
-
-      </div>
-  </div>
-</div>
+        <!-- / Content -->
     </div>
+
+    @include('layouts.footers.auth.footer')
 </div>
-<!---fin datable exmple---->
-
-</div>
-
-<style>
-
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
-
-.card{
-    padding: 1.5em .5em .5em;
-    border-radius: 10em;
-    text-align: center;
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);
-}
-
-</style>
-       
-        @include('layouts.footers.auth.footer')
-    </div>
 @endsection
-
-
-
-

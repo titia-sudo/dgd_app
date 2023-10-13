@@ -109,7 +109,7 @@
 
   <!-- DataTales Example -->
     <div class="row text-center mt-7">
-        <h4 class="m-0 font-weight-bold text-black">Ajout d'une unité de temps de traitement</h4><br>
+        <h4 class="m-0 font-weight-bold text-black">Ajout d'une unité de temps de traitement</h5><br>
     </div>
                 <form action="{{ route('uniteTempsTraitements.store') }}" method="POST">
                 @csrf

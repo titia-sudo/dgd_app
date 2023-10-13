@@ -8,7 +8,7 @@
 
   <!-- DataTales Example -->
     <div class="row text-center mt-7">
-        <h4 class="m-0 font-weight-bold text-black">Liste des dossiers</h4>
+        <h4 class="m-0 font-weight-bold text-black">Liste des dossiers</h5>
     </div>
     <hr>
 
