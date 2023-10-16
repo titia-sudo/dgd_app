@@ -96,7 +96,7 @@ class DossierAdminController extends Controller
         //dd($dossiers);
         Dossier::create($request->all());
    
-        return redirect()->route('adminDossiers.index')->with('success','dossier created successfully.');
+        return redirect()->route('admin.dossiers.index')->with('success','dossier created successfully.');
     }
 
     /**
@@ -138,7 +138,7 @@ class DossierAdminController extends Controller
      */
     public function update(Request $request, Dossier $dossier)
     {
-        //
+        //dd($dossier);
         $request->validate([
             'nomDossier' => 'required',
             'declarantDossier' => 'required',
@@ -155,7 +155,7 @@ class DossierAdminController extends Controller
   
         $dossier->update($request->all());
   
-        return redirect()->route('adminDossiers.index')->with('success','dossier mis à jour');
+        return redirect()->route('admin.dossiers.index')->with('success','dossier mis à jour');
     }
 
     /**
@@ -197,6 +197,6 @@ class DossierAdminController extends Controller
     {
         //
         $dossier->delete();
-        return redirect()->route('adminDossiers.index')->with('success','dossier supprimé avec succès');
+        return redirect()->route('admin.dossiers.index')->with('success','dossier supprimé avec succès');
     }
 }

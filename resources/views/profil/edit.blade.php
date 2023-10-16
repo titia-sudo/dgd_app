@@ -110,7 +110,7 @@
 
   <!-- DataTales Example -->
     <div class="row text-center mt-5">
-        <h4 class="m-0 font-weight-bold text-black">Editer le profil</h4>
+        <h4 class="m-0 font-weight-bold text-black">Editer le profil</h5>
     </div>
 <hr>
     <div class="row shadow mt-2">

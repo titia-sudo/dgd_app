@@ -46,8 +46,8 @@ Auth::routes(['login' => false, 'verify' => false]);
 
 
 Route::get('/roles/index', 'RoleController@index')->name('roles.index')->middleware('permission:role-lire');
-Route::get('/roles/create', 'RoleController@create')->name('roles.create')->middleware('permission:role-creer');
-Route::get('/roles/update', 'RoleController@update')->name('roles.update')->middleware('permission:role-modifier');
+Route::post('/roles/create', 'RoleController@create')->name('roles.create')->middleware('permission:role-creer');
+Route::post('/roles/update/{id}', 'RoleController@update')->name('roles.update')->middleware('permission:role-modifier');
 Route::get('/roles/delete', 'RoleController@destroy')->name('roles.destroy')->middleware('permission:role-supprimer');
 Route::get('/roles/store', 'RoleController@store')->name('roles.store');
 Route::get('/roles/edit/{id}', 'RoleController@edit')->name('roles.edit');
@@ -73,16 +73,16 @@ Route::resource('/services', ServiceController::class);
 Route::get('/typeDossiers/index', 'TypeDossierController@index')->name('typeDossiers.index');
 Route::get('/typeDossiers/create', 'TypeDossierController@create')->name('typeDossiers.create');
 Route::post('/typeDossiers/store', 'TypeDossierController@store')->name('typeDossiers.store');
-Route::get('/typeDossiers/edit', 'TypeDossierController@edit')->name('typeDossiers.edit');
-Route::get('/typeDossiers/update', 'TypeDossierController@update')->name('typeDossiers.update');
-Route::get('/typeDossiers/show', 'TypeDossierController@show')->name('typeDossiers.show');
+Route::get('/typeDossiers/edit/{typeDossier}', 'TypeDossierController@edit')->name('typeDossiers.edit');
+Route::post('/typeDossiers/update/{typeDossier}', 'TypeDossierController@update')->name('typeDossiers.update');
+Route::get('/typeDossiers/show/{typeDossier}', 'TypeDossierController@show')->name('typeDossiers.show');
 Route::get('/typeDossiers/destroy', 'TypeDossierController@destroy')->name('typeDossiers.destroy');
 
 //les routes du validateurs dossiers
 Route::get('/validateurs/dossiers/index', [DossierValidateurController::class,'index'])->name('validateurs.index');
 Route::get('/validateurs/dossiers/create', [DossierValidateurController::class,'create'])->name('validateurs.create');
 Route::post('/validateurs/dossiers/store', [DossierValidateurController::class,'store'])->name('validateurs.store');
-Route::get('/validateurs/dossiers/update', [DossierValidateurController::class,'update'])->name('validateurs.update');
+Route::post('/validateurs/dossiers/update/{dossier}', [DossierValidateurController::class,'update'])->name('validateurs.update');
 Route::get('/validateurs/dossiers/delete', [DossierValidateurController::class,'delete'])->name('validateurs.destroy');
 Route::get('/validateurs/dossiers/edit/{dossier}', [DossierValidateurController::class,'edit'])->name('validateurs.edit');
 Route::get('/validateurs/dossiers/show/{dossier}', [DossierValidateurController::class,'show'])->name('validateurs.show');
@@ -94,7 +94,7 @@ Route::get('/dossiers/{dossier}/rejeter', 'DossierValidateurController@rejeter')
 Route::get('/demandeurs/dossiers/index', [DossierController::class,'index'])->name('demandeurs.index');
 Route::get('/demandeurs/dossiers/create', [DossierController::class,'create'])->name('demandeurs.create');
 Route::post('/demandeurs/dossiers/store', [DossierController::class,'store'])->name('demandeurs.store');
-Route::get('/demandeurs/dossiers/update', [DossierController::class,'update'])->name('demandeurs.update');
+Route::post('/demandeurs/dossiers/update/{dossier}', [DossierController::class,'update'])->name('demandeurs.update');
 Route::get('/demandeurs/dossiers/delete', [DossierController::class,'delete'])->name('demandeurs.destroy');
 Route::get('/demandeurs/dossiers/edit/{dossier}', [DossierController::class,'edit'])->name('demandeurs.edit');
 Route::get('/demandeurs/dossiers/show/{dossier}', [DossierController::class,'show'])->name('demandeurs.show');
@@ -103,7 +103,7 @@ Route::get('/demandeurs/dossiers/show/{dossier}', [DossierController::class,'sho
 Route::get('/admin/dossiers/index', [DossierAdminController::class,'index'])->name('admin.dossiers.index');
 Route::get('/admin/dossiers/create', [DossierAdminController::class,'create'])->name('admin.dossiers.create');
 Route::post('/admin/dossiers/store', [DossierAdminController::class,'store'])->name('admin.dossiers.store');
-Route::get('/admin/dossiers/update', [DossierAdminController::class,'update'])->name('admin.dossiers.update');
+Route::post('/admin/dossiers/update/{dossier}', [DossierAdminController::class,'update'])->name('admin.dossiers.update');
 Route::get('/admin/dossiers/delete', [DossierAdminController::class,'delete'])->name('admin.dossiers.destroy');
 Route::get('/admin/dossiers/edit/{dossier}', [DossierAdminController::class,'edit'])->name('admin.dossiers.edit');
 Route::get('/admin/dossiers/show/{dossier}', [DossierAdminController::class,'show'])->name('admin.dossiers.show');

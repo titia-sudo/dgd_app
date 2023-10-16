@@ -135,10 +135,10 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        $roles = Role::all(); 
         //$profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
-        return view('user.show',compact('user', 'services'));
+        return view('user.show',compact('user', 'roles','services'));
     }
 
     /**

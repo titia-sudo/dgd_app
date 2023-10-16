@@ -1,162 +1,158 @@
-
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
-    <div class="container-fluid py-4">
-        <div class="row">
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card shadow-xl " style="background-color:#3498DB;"  >
-                    <div class="card-body p-3">
-                        <div class="row text-white ">
-                            <div class="col-8">
-                                <div class="numbers">
-                                    <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS</p>
-                                    <h2 class="font-weight-bolder text-white">
-                                        286
-                                    </h2>
-                                    
-                                </div>
+@include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card shadow-xl " style="background-color:#3498DB;">
+                <div class="card-body p-3">
+                    <div class="row text-white ">
+                        <div class="col-8">
+                            <div class="numbers">
+                                <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS</p>
+                                <h2 class="font-weight-bolder text-white">
+                                    286
+                                </h2>
+
                             </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape  shadow-primary text-center rounded-circle">
-                                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-                                </div>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div class="icon icon-shape  shadow-primary text-center rounded-circle">
+                                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card bg-success shadow-xl">
-                    <div class="card-body p-3">
-                        <div class="row text-white">
-                            <div class="col-8">
-                                <div class="numbers">
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card bg-success shadow-xl">
+                <div class="card-body p-3">
+                    <div class="row text-white">
+                        <div class="col-8">
+                            <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS VALIDES</p>
-                                    <h2 class="font-weight-bolder text-white">
-                                        260
-                                    </h2>
-                                    
-                                </div>
+                                <h2 class="font-weight-bolder text-white">
+                                    260
+                                </h2>
+
                             </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape  shadow-danger text-center rounded-circle">
-                                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
-                                </div>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div class="icon icon-shape  shadow-danger text-center rounded-circle">
+                                <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                <div class="card bg-danger shadow-xl">
-                    <div class="card-body p-3">
-                        <div class="row text-white">
-                            <div class="col-8">
-                                <div class="numbers">
+        </div>
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+            <div class="card bg-danger shadow-xl">
+                <div class="card-body p-3">
+                    <div class="row text-white">
+                        <div class="col-8">
+                            <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS REJETES</p>
-                                    <h2 class="font-weight-bolder text-white">
-                                        15
-                                    </h2>
-                                </div>
+                                <h2 class="font-weight-bolder text-white">
+                                    15
+                                </h2>
                             </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape  shadow-success text-center rounded-circle">
-                                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-                                </div>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div class="icon icon-shape  shadow-success text-center rounded-circle">
+                                <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-sm-6">
-                <div class="card bg-warning shadow-xl">
-                    <div class="card-body p-3">
-                        <div class="row text-white">
-                            <div class="col-8">
-                                <div class="numbers">
+        </div>
+        <div class="col-xl-3 col-sm-6">
+            <div class="card bg-warning shadow-xl">
+                <div class="card-body p-3">
+                    <div class="row text-white">
+                        <div class="col-8">
+                            <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS EN COURS</p>
-                                    <h2 class="font-weight-bolder text-white">
-                                        11
-                                    </h2>
-                                </div>
+                                <h2 class="font-weight-bolder text-white">
+                                    11
+                                </h2>
                             </div>
-                            <div class="col-4 text-end">
-                                <div class="icon icon-shape  shadow-warning text-center rounded-circle">
-                                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-                                </div>
+                        </div>
+                        <div class="col-4 text-end">
+                            <div class="icon icon-shape  shadow-warning text-center rounded-circle">
+                                <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- partie   alerte-->
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
+    </div>
+    <!-- partie   alerte-->
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
-        <!-- partie   alerte-->
+    <!-- partie   alerte-->
     <!-- partie   contenu de l'administation-->
-<div class="container-fluid">
 
-  <!-- DataTales Example -->
-    <div class="row text-center mt-5">
-        <h4 class="m-0 font-weight-bold text-black">Editer services</h4>
-    </div>
-<hr>
-    <div class="row shadow mt-2">
-             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('services.index') }}"> Retour</a>
-            </div>
+    <div class="content-wrapper">
+        <!-- Content -->
 
-        
-    </div>
+        <div class="container-xxl flex-grow-1 container-p-y mt-3">
+            <h5 class="py-3 mb-4"><span class="text-muted fw-light">Parametre/</span> modification services</h5>
 
-    <div class="container mt-6 shadow-lg  col-9  p-5 bg-body rounded ">
-        <div class="row mb-6">
-            <form action="{{ route('services.update',$service->id) }}" method="POST">
-                @csrf
-                @method('PUT')
-   
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <strong>Nom Service:</strong>
-                            <input type="text" name="nomService" value="{{ $service->nomService }}" class="form-control" placeholder="Name">
+            <!-- Basic Layout -->
+            <div class="row">
+                <div class="col-xl">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <a class="btn btn-primary" href="{{ route('services.index') }}"> Retour</a>
+                            <small class="text-muted float-end">Servicess</small>
                         </div>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-12">
-                        <div class="form-group">
-                            <option value="" selected>Veuillez choisir...</option>
-                                <select name="idDirection" id="idDirection" class="form-control">
-                                    @foreach($directions as $direction)
-                                    <option value="{{ $direction->id }}">{{ $direction->nomDirection }}</option>
-                                    @endforeach
-                                </select>
-                        </div>
-                    </div>
+                        <div class="card-body">
+                            <form action="{{ route('services.update',$service->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-fullname">
+                                        <h6>Nom Service:</h6>
+                                    </label>
+                                    <input type="text" name="nomService" value="{{ $service->nomService }}" class="form-control" placeholder="Name">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-fullname">
+                                        <h6>Directions:</h6>
+                                    </label>
+                                    <select name="idDirection" id="idDirection" class="form-control">
+                                        @foreach($directions as $direction)
+                                        <option value="{{ $direction->id }}">{{ $direction->nomDirection }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="text-end">
+                                    <button type="reset" class="btn btn-secondary">Annuler</button>
+                                    <button type="submit" class="btn btn-primary">Enregister</button>
+                                </div>
 
-                    <div class="col-xs-12 col-sm-12 col-md-12 text-end">
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
-   
-            </form>
-
+            </div>
         </div>
+        <!-- / Content -->
     </div>
-</div>
 
+    @include('layouts.footers.auth.footer')
 </div>
-       
-        @include('layouts.footers.auth.footer')
-    </div>
 @endsection
