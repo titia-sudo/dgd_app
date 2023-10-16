@@ -117,7 +117,7 @@
                 <div class="col-xl">
                     <div class="card mb-4">
                         <div class="card-header d-flex justify-content-between align-items-center">
-                            <a class="btn btn-primary" href="{{ route('niveauTraitements.index') }}"> Retour</a>
+                            
                             <small class="text-muted float-end">Associer Type de dossier</small>
                         </div>
                         <div class="card-body">
@@ -140,7 +140,7 @@
                                     </label>
                                 </div>
                                 <div class="text-end">
-                                    <button type="reset" class="btn btn-secondary">Annuler</button>
+                                    <a class="btn btn-primary" href="{{ route('niveauTraitements.index') }}"> Retour</a>
                                     <button type="submit" class="btn btn-primary">Enregister</button>
                                 </div>
 

@@ -303,7 +303,7 @@ class DossierValidateurController extends Controller
         $niveauTraitementSuivant = $dossier->typeDossier->niveauTraitement()
         //dd($niveauTraitementSuivant);
             ->wherePivot('ordreNiveau', '>', $niveauTraitementActuel->niveauTraitement->pivot->ordreNiveau)
-            ->where('ordreNiveau', '>', $niveauTraitementActuel->niveauTraitement->pivot->ordreNiveau)
+            //->where('ordreNiveau', '>', $niveauTraitementActuel->niveauTraitement->pivot->ordreNiveau)
             ->orderBy('ordreNiveau', 'asc')
             ->first();
 
