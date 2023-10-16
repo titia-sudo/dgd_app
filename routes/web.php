@@ -87,7 +87,7 @@ Route::get('/validateurs/dossiers/delete', [DossierValidateurController::class,'
 Route::get('/validateurs/dossiers/edit/{dossier}', [DossierValidateurController::class,'edit'])->name('validateurs.edit');
 Route::get('/validateurs/dossiers/show/{dossier}', [DossierValidateurController::class,'show'])->name('validateurs.show');
 
-Route::get('/dossiers/{dossier}/valider', 'DossierValidateurController@validerDossier')->name('dossiers.valider');
+Route::post('/dossiers/{dossier}/valider', 'DossierValidateurController@validerDossier')->name('dossiers.validerDossier');
 Route::get('/dossiers/{dossier}/rejeter', 'DossierValidateurController@rejeter')->name('dossiers.rejeter');
 
 //les routes de depmandeurs dossiers
@@ -108,7 +108,8 @@ Route::get('/admin/dossiers/delete', [DossierAdminController::class,'delete'])->
 Route::get('/admin/dossiers/edit/{dossier}', [DossierAdminController::class,'edit'])->name('admin.dossiers.edit');
 Route::get('/admin/dossiers/show/{dossier}', [DossierAdminController::class,'show'])->name('admin.dossiers.show');
 
-
+//Chart routes
+Route::get('/get-dossiers-data', 'DossierAdminController@getDossiersData');
 
 //Route::put('/dossiers/{id}/update/{idUser}', [DossierController::class, 'update'])->name('dossiers.update');
 Route::resource('/historique', HistoriqueController::class);

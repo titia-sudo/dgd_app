@@ -136,18 +136,6 @@
                                     <input type="text" name="nombreNiveauTraitement" class="form-control" placeholder="l'unité de temps de traitement">
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12">
-                                <div class="form-group">
-                                    <strong>Niveaux de Traitement :</strong>
-                                    <select name="niveauTraitements[]" id="niveauTraitements" class="form-control" multiple>
-                                    <option value="" selected>Veuillez choisir...</option>
-                                        @foreach($niveauTraitements as $niveauTraitement)
-                                            <option value="{{ $niveauTraitement->id }}">{{ $niveauTraitement->nomNiveau }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
-
                             <div class="col-xs-12 col-sm-12 col-md-12 text-end">
                                 <button type="submit" class="btn btn-primary">Enregister</button>
                             </div>

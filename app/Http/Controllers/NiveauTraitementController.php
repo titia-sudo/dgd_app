@@ -173,8 +173,7 @@ class NiveauTraitementController extends Controller
         ]);
         // dd($request->idNiveauTraitement);
         // Trouver le prochain ordre disponible pour ce type de dossier et ce niveau de traitement
-        $ordreNiveau = NiveauTraitement_TypeDossier::where('idNiveauTraitement', $request->idNiveauTraitement)
-        ->where('idTypeDossier', $request->idTypeDossier)
+        $ordreNiveau = NiveauTraitement_TypeDossier::where('idTypeDossier', $request->idTypeDossier)
         ->max('ordreNiveau') + 1;
         
         // Assurez-vous que l'ordre est au moins 1

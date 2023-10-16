@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Dossier;
-use App\Models\User;
-use App\Models\TypeDossier;
-use App\Models\Annee;
-use Illuminate\Http\Request;
+use Log;
 use Auth;
+use App\Models\User;
+use App\Models\Annee;
+use App\Models\Dossier;
+use App\Models\Historique;
+use App\Models\TypeDossier;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class DossierAdminController extends Controller
@@ -161,7 +164,33 @@ class DossierAdminController extends Controller
      * @param  \App\Models\Dossier  $dossier
      * @return \Illuminate\Http\Response
      */
+    public function getDossiersData()
+    {
+            $data = DB::table('historique')
+                ->select(DB::raw('EXTRACT(MONTH FROM updated_at) as month, EXTRACT(YEAR FROM updated_at) as year, COUNT(*) as count'))
+                ->groupBy(DB::raw('EXTRACT(YEAR FROM updated_at)'), DB::raw('EXTRACT(MONTH FROM updated_at)'))
+                ->get();
     
+            // Traitement des données pour les adapter au format attendu par le graphique
+            $months = []; // Tableau pour stocker les noms des mois
+            $numbers = []; // Tableau pour stocker les nombres de dossiers
+
+            foreach ($data as $row) {
+                $monthName = date('M', mktime(0, 0, 0, $row->month, 1)); // $row->month contient le numéro du mois
+                $months[] = $monthName; // Ajoute le nom du mois au tableau des mois
+
+            // Ajoutez le nombre de dossiers à $numbers
+            $numbers[] = $row->count;
+            }
+            //Log::info('Months: ' . json_encode($months));
+            //Log::info('Numbers: ' . json_encode($numbers));
+            // Retournez les données sous forme de tableau associatif
+            return response()->json([
+                'months' => $months,
+                'numbers' => $numbers
+            ]);
+    }
+
     
     
      public function destroy(Dossier $dossier)

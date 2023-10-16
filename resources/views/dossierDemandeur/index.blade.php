@@ -84,7 +84,7 @@
                     </tr>
                 </tfoot>
                 <tbody>
-                 @foreach ($dossiers as $dossier)
+                    @foreach ($dossiersFiltres as $dossier)
                     <tr>
                         <td>{{ ++$i }}</td>
                         <td>{{ $dossier->nomDossier }}</td>
@@ -105,7 +105,7 @@
                  @endforeach
                 </tbody>
             </table>
-            {!! $dossiers->links() !!}
+            {!! $dossiersFiltres->links() !!}
         </div>
     </div>
 </div>

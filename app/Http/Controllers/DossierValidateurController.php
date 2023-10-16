@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Auth;
 use App\Models\User;
+use App\Models\NiveauTraitement_TypeDossier;
 use App\Models\Annee;
 use App\Models\Dossier;
 use Illuminate\View\View;
@@ -287,44 +288,49 @@ class DossierValidateurController extends Controller
     {
         // Mettez à jour le statut du dossier
         $dossierHistorique->update(['statutHistorique' => 'Rejeté']);
-
     }
+
 
     public function validerDossier(Request $request, Dossier $dossier)
-    {
-        // Vérifier si l'utilisateur a les permissions pour valider ce dossier
-        // ...
-        $commentaire = $request->input('commentaire');
-        // Assurez-vous que le dossier a un typeDossier associé
-        if ($dossier->typeDossier) {
+{
+    // Vérifiez si le dossier est associé à un type de dossier
+    if ($dossier->typeDossier) {
+        // Obtenez le niveau de traitement actuel à partir de la table Historique
+        $niveauTraitementActuel = $dossier->historique->sortByDesc('dateAction')->first()->niveauTraitement;
+        
 
-        // Récupérer le niveau de traitement actuel
-        $niveauTraitementActuel = $dossier->niveauTraitement;
-        // Récupérer le niveau de traitement suivant pour ce type de dossier
-        $typeDossier = $dossier->typeDossier;
+        // Recherchez le niveau de traitement suivant dans la table NiveauTraitement
+        $niveauTraitementSuivant = $dossier->typeDossier->niveauTraitement()
+        //dd($niveauTraitementSuivant);
+            ->wherePivot('ordreNiveau', '>', $niveauTraitementActuel->niveauTraitement->pivot->ordreNiveau)
+            ->where('ordreNiveau', '>', $niveauTraitementActuel->niveauTraitement->pivot->ordreNiveau)
+            ->orderBy('ordreNiveau', 'asc')
+            ->first();
 
-        $niveauTraitementSuivant = NiveauTraitement::where('idTypeDossier', $typeDossier->id)
-        ->where('ordreNiveau', '>', $niveauTraitementActuel->ordreNiveau)
-        ->orderBy('ordreNiveau', 'asc')
-        ->first();
+        if ($niveauTraitementSuivant) {
+            // Mettez à jour l'entrée dans la table Historique avec le nouveau niveau de traitement
+            Historique::create([
+                'actionHistorique' => $dossier->nomDossier,
+                'statutHistorique' => 'En attente de validation',
+                'commentaireAction' => $request->input('commentaire'), // Utilisez la valeur du champ commentaire du formulaire
+                'dateAction' => now(), // Utilisez la date et l'heure actuelles
+                'idDossier' => $dossier->id,
+                'idNiveauTraitement' => $niveauTraitementSuivant->id,
+                'idUser' => auth()->user()->id,
+                // ... (autres champs d'historique que vous souhaitez enregistrer)
+            ]);
 
-        // Mettre à jour l'entrée dans la table Historique avec le nouveau niveau de traitement
-        Historique::create([
-            'actionHistorique' => $dossier->nomDossier,
-            'statutHistorique' => 'En attente de validation',
-            'commentaireAction' => $commentaire,
-            'dateAction' => $dossier->created_at,
-            'idDossier' => $dossier->id,
-            'idNiveauTraitement' => $niveauTraitementSuivant->id,
-            'idUser' => auth()->user()->id,
-            // ... (autres champs d'historique que vous souhaitez enregistrer)
-        ]);
-
-        return redirect()->route('validateurs.index')->with('success', 'Dossier validé avec succès.');
+            return redirect()->route('validateurs.index')->with('success', 'Dossier validé avec succès.');
         } else {
-            return response()->json(['error' => 'Ce dossier n\'est pas associé à un type de dossier.']);
+            // Le dossier n'a pas de niveau de traitement suivant
+            return redirect()->route('validateurs.index')->with('error', 'Ce dossier n\'a pas de niveau de traitement suivant.');
         }
+    } else {
+        // Le dossier n'est pas associé à un type de dossier
+        return redirect()->route('validateurs.index')->with('error', 'Ce dossier n\'est pas associé à un type de dossier.');
     }
 }
+    
+    }
 
 

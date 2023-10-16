@@ -19,7 +19,8 @@ class NiveauTraitement extends Model
     protected $fillable=[
         'id',
         'nomNiveau',
-        'idTempsTraitement'
+        'idTempsTraitement',
+        'ordreNiveau'
     ];
 
 
@@ -41,7 +42,12 @@ class NiveauTraitement extends Model
     public function typeDossiers()
     {
         return $this->belongsToMany(TypeDossier::class, 'niveautraitement_typedossier', 'idNiveauTraitement', 'idTypeDossier')
-                                    ->withPivot('ordreNiveau');
+                ->withPivot('ordreNiveau');
+    }
+
+    public function dossiers()
+    {
+        return $this->hasMany(Dossier::class, 'idDossier');
     }
 
 

@@ -23,13 +23,14 @@ class Historique extends Model
         'commentaireAction',
         'dateAction',
         'idDossier',
+        'idNiveauTraitement',
         'idUser'
     ];
 
 
     public function dossier():BelongsTo
     {
-        return $this->belongsTo(Dossier::class, 'idDossier');
+        return $this->belongsTo(Dossier::class, 'idDossier', 'id');
     }
 
     public function user():BelongsTo

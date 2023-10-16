@@ -50,13 +50,14 @@ class DossierController extends Controller
         if (!empty($statut)) {
             $query->where('dossiers.statutDossier', '=', $statut); 
         }
-
-        $dossiersCrees = Dossier::where('idUser', auth()->user()->id)->get();
+            
+        //$dossiersCrees = Dossier::where('idUser', auth()->user()->id)->get();
+        $query->where('idUser', auth()->user()->id);
         //dd($dossiersCrees);
         // Fusionnez les deux requêtes
-        $dossiers = $dossiersCrees->toQuery()->paginate(5);
+        $dossiersFiltres = $query->paginate(5);
 
-        return view('dossierDemandeur.index',compact('dateCreation','recents', 'ifu','declarant','statut','dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('dossierDemandeur.index',compact('dateCreation','recents', 'ifu','declarant','statut','dossiersFiltres'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
