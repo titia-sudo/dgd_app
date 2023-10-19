@@ -37,7 +37,6 @@ use App\Http\Controllers\DossierController;
 |
 */
 
-
 Route::get('/', function () {
     return view('auth.login');
 });

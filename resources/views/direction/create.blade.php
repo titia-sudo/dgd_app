@@ -3,94 +3,7 @@
 @section('content')
 @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
 <div class="container-fluid py-4">
-    <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="card shadow-xl " style="background-color:#3498DB;">
-                <div class="card-body p-3">
-                    <div class="row text-white ">
-                        <div class="col-8">
-                            <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS</p>
-                                <h2 class="font-weight-bolder text-white">
-                                    286
-                                </h2>
-
-                            </div>
-                        </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape  shadow-primary text-center rounded-circle">
-                                <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="card bg-success shadow-xl">
-                <div class="card-body p-3">
-                    <div class="row text-white">
-                        <div class="col-8">
-                            <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS VALIDES</p>
-                                <h2 class="font-weight-bolder text-white">
-                                    260
-                                </h2>
-
-                            </div>
-                        </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape  shadow-danger text-center rounded-circle">
-                                <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-            <div class="card bg-danger shadow-xl">
-                <div class="card-body p-3">
-                    <div class="row text-white">
-                        <div class="col-8">
-                            <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS REJETES</p>
-                                <h2 class="font-weight-bolder text-white">
-                                    15
-                                </h2>
-                            </div>
-                        </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape  shadow-success text-center rounded-circle">
-                                <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xl-3 col-sm-6">
-            <div class="card bg-warning shadow-xl">
-                <div class="card-body p-3">
-                    <div class="row text-white">
-                        <div class="col-8">
-                            <div class="numbers">
-                                <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS EN COURS</p>
-                                <h2 class="font-weight-bolder text-white">
-                                    11
-                                </h2>
-                            </div>
-                        </div>
-                        <div class="col-4 text-end">
-                            <div class="icon icon-shape  shadow-warning text-center rounded-circle">
-                                <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    @include('layouts.topnavbande')
     <!-- la partie   alerte-->
     @if ($errors->any())
     <div class="alert alert-danger">
@@ -113,40 +26,40 @@
         <div class="container-xxl flex-grow-1 container-p-y mt-3">
             <h5 class="py-3 mb-4"><span class="text-muted fw-light">Parametre/</span> Ajout de directions</h5>
 
-                <!-- Basic Layout -->
-                <div class="row">
-                    <div class="col-xl">
-                        <div class="card mb-4">
-                            <div class="card-header d-flex justify-content-between align-items-center">
-                                <a class="btn btn-primary" href="{{ route('directions.index') }}"> Retour</a>
-                                <small class="text-muted float-end">Directions</small>
-                            </div>
-                            <div class="card-body">
-                                <form action="{{ route('directions.store') }}" method="POST">
-                                    @csrf
-                                    <div class="mb-3">
-                                        <label class="form-label" for="basic-default-fullname">
-                                            <h6>Nom direction:</h6>
-                                        </label>
-                                        <input type="text" name="nomDirection" class="form-control" placeholder="nom direction">
-                                    </div>
-                                    <div class="mb-3">
-                                        <label class="form-label" for="basic-default-fullname">
-                                            <h6>Sigle direction:</h6>
-                                        </label>
-                                        <input type="text" name="sigleDirection" class="form-control" placeholder="sigle de la direction">
-                                    </div>
-                                    <div class="text-end">
-                                        <button type="reset" class="btn btn-secondary">Annuler</button>
-                                        <button type="submit" class="btn btn-primary">Enregister</button>
-                                    </div>
+            <!-- Basic Layout -->
+            <div class="row">
+                <div class="col-xl">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <a class="btn btn-primary" href="{{ route('directions.index') }}"> Retour</a>
+                            <small class="text-muted float-end">Directions</small>
+                        </div>
+                        <div class="card-body">
+                            <form action="{{ route('directions.store') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-fullname">
+                                        <h6>Nom direction:</h6>
+                                    </label>
+                                    <input type="text" name="nomDirection" class="form-control" placeholder="nom direction">
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label" for="basic-default-fullname">
+                                        <h6>Sigle direction:</h6>
+                                    </label>
+                                    <input type="text" name="sigleDirection" class="form-control" placeholder="sigle de la direction">
+                                </div>
+                                <div class="text-end">
+                                    <button type="reset" class="btn btn-secondary">Annuler</button>
+                                    <button type="submit" class="btn btn-primary">Enregister</button>
+                                </div>
 
-                                </form>
-                            </div>
+                            </form>
                         </div>
                     </div>
-
                 </div>
+
+            </div>
         </div>
         <!-- / Content -->
     </div>
