@@ -171,26 +171,38 @@ class NiveauTraitementController extends Controller
             'idNiveauTraitement' => 'required|exists:niveauTraitements,id',
             'idTypeDossier' => 'required|exists:typeDossiers,id',
         ]);
+        $TypeDoss = TypeDossier::all();
+        $niveauTraitement = NiveauTraitement::find($request->idNiveauTraitement);
+
+        // Vérifiez si le niveauTraitement est déjà associé à un type
+            $associationExistante = NiveauTraitement_TypeDossier::where('idNiveauTraitement', $request->idNiveauTraitement)
+            ->where('idTypeDossier', $request->idTypeDossier)
+            ->exists();
+
+        if ($associationExistante) {
+            // Le niveauTraitement est déjà associé à ce type
+            return view('niveauTraitement.associer', compact('TypeDoss', 'niveauTraitement'))->withErrors(['Ce niveau de traitement est déjà associé à un type de dossier']);
+        }
+            // return view('niveauTraitement.associer', compact('TypeDoss', 'niveauTraitement'))
+            // ->with('error','Ce niveau de traitement est déjà associé à un type de dossier');
         // dd($request->idNiveauTraitement);
         // Trouver le prochain ordre disponible pour ce type de dossier et ce niveau de traitement
-        $ordreNiveau = NiveauTraitement_TypeDossier::where('idTypeDossier', $request->idTypeDossier)
-        ->max('ordreNiveau') + 1;
-        
-        // Assurez-vous que l'ordre est au moins 1
-        $ordreNiveau = max(1, $ordreNiveau);
+            $ordreNiveau = NiveauTraitement_TypeDossier::where('idTypeDossier', $request->idTypeDossier)
+            ->max('ordreNiveau') + 1;
+            
+            // Assurez-vous que l'ordre est au moins 1
+            $ordreNiveau = max(1, $ordreNiveau);
 
-        // Enregistrez l'association avec l'ordre dans la table pivot.
-        NiveauTraitement_TypeDossier::create([
-            'idNiveauTraitement' => $request->idNiveauTraitement,
-            'idTypeDossier' => $request->idTypeDossier,
-            'ordreNiveau' => $ordreNiveau,
-        ]);
+            // Enregistrez l'association avec l'ordre dans la table pivot.
+            NiveauTraitement_TypeDossier::create([
+                'idNiveauTraitement' => $request->idNiveauTraitement,
+                'idTypeDossier' => $request->idTypeDossier,
+                'ordreNiveau' => $ordreNiveau,
+            ]);
 
-        //Réponse réussie.
-        return redirect()->route('niveauTraitements.index')
-        ->with('success','Ce niveauTraitement a été associé avec succès');
-       
-
+            //Réponse réussie.
+            return redirect()->route('niveauTraitements.index')
+            ->with('success','Ce niveauTraitement a été associé avec succès');
     }
 
     /**
