@@ -34,7 +34,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    
+
     /**
      * Create a new controller instance.
      *
@@ -55,12 +55,12 @@ class LoginController extends Controller
     public function login(Request $request):RedirectResponse
     {
         $input = $request->all();
-     
+
         $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required',
         ]);
-     
+
         if(auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
         {
             $user = auth()->user();

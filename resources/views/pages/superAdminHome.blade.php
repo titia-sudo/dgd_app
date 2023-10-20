@@ -1,271 +1,101 @@
-@extends('layouts.app-user', ['class' => 'g-sidenav-show bg-gray-100'])
+@extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav-user', ['title' => 'Dashboard'])
-    
+@include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
+<div class="container-fluid py-4">
+    @include('layouts.topnavbande')
     <!-- partie   contenu de l'administation-->
-<div class="container-fluid">
+    <div class="row mt-6 mb-6">
 
-  <!-- DataTales Example -->
-    <div class="row text-center mt-7">
-        <h4 class="m-0 font-weight-bold text-black">Liste des dossiers</h4>
-    </div>
-    <hr>
-
-    <div class="row shadow mt-3">
-       <div class="col-sm-3 col-md-3">
-            <div>
-                    <h5>FILTRE :</h5>
-            </div>
-        </div>
-        <div class="col-sm-3 col-md-3 ">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label> <h6>Date</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </label>
+        <!-- partie  de la courbe des donnees -->
+        <div class="col-xl-8 col-lg-6">
+            <div class="card shadow-inner mb-4">
+                <canvas id="dossiersChart" width="400" height="200"></canvas>
             </div>
         </div>
 
-        <div class="col-sm-3 col-md-3">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label><h6>Statut</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </label>
+        <!-- partie  du diagramme  circulaire -->
+        <div class="col-xl-4 col-lg-6">
+            <div class="card shadow-inner mb-4">
+                <canvas id="dossierscamemberChart" width="400" height="200"></canvas>
             </div>
         </div>
-
-        <div class="col-sm-3 col-md-3">
-            <div class="dataTables_length select" id="dataTable_length">
-                <label><h6>Type</h6>
-                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select>
-                </label>
-            </div>
-        </div>
-
-        
     </div>
 
-    <div class="card-body shadow">
-        <div class="table-responsive">
-            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                    <tr>
-                        <th><h6>Designation</h6></th>
-                        <th><h6>Type de dossiers</h6></th>
-                        <th><h6>Date de création</h6></th>
-                        <th><h6>Statut</h6></th>
-                        <th><h6>Actions</h6></th>
-                     
-                    </tr>
-                </thead>
-                <tfoot>
-                    <tr>
-                    <th><h6>Designation</h6></th>
-                        <th><h6>Type de dossiers</h6></th>
-                        <th><h6>Date de création</h6></th>
-                        <th><h6>Statut</h6></th>
-                        <th><h6>Actions</h6></th>
-                    </tr>
-                </tfoot>
-                <tbody>
-                    <tr>
-                        <td>Tiger Nixon</td>
-                        <td>System Architect</td>
-                        <td>2011/01/25</td>
-                        <td>61</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                       
-                    </tr>
-                    <tr>
-                        <td>Garrett Winters</td>
-                        <td>Accountant</td>
-                        <td>2011/01/25</td>
-                        <td>63</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                    </tr>
-                    
-                    <tr>
-                        <td>Michael Silva</td>
-                        <td>Marketing Designer</td>
-                        <td>2011/01/25</td>
-                        <td>66</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>Paul Byrd</td>
-                        <td>Chief Financial Officer (CFO)</td>
-                        <td>2011/01/25</td>
-                        <td>64</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                    </tr>
-                   
-                        <td>Sakura Yamamoto</td>
-                        <td>Support Engineer</td>
-                        <td>2011/01/25</td>
-                        <td>37</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                    </tr>
-                  
-                    <tr>
-                        <td>Shad Decker</td>
-                        <td>Regional Director</td>
-                        <td>2011/01/25</td>
-                        <td>51</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>Michael Bruce</td>
-                        <td>Javascript Developer</td>
-                        <td>2011/01/25</td>
-                        <td>29</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                    </tr>
-                    <tr>
-                        <td>Donna Snider</td>
-                        <td>Customer Support</td>
-                        <td>2011/01/25</td>
-                        <td>27</td>
-                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modalDetails-dossiers"  class="text-primary">Détails</a></td>
-                        
-                        
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+    @include('layouts.footers.auth.footer')
 </div>
-<!---fin datable exmple---->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{{ asset('js/chart.js') }}"></script>
 
-<!-- Modal -->
-<div class="modal fade" id="modalDetails-dossiers" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalDetails-dossiersLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="modalDetails-dossiersLabel text-center">Details du dossier</h5>
-            <!---gestion de la progression du tratement du dossier--->
-            <label for="customRange3" class="form-label">progression</label>
-              <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange3">
-                        <div class="spinner-grow text-warning" role="status">
-                         <span class="visually-hidden">Loading...</span>
-                        </div>
-                           
-                        <button type="button"  class="btn-close btn-danger bg-danger" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-            <div class="modal-body">
-                <div class="row shadow mt-2">
-        
-        <div class="row">
-            <div class="col">
-            <label for="example-text-input" class="form-control-label text-lg">Désignation</label>
-              <input type="text" class="form-control" placeholder="First name" aria-label="First name">
-            </div>
-            <div class="col">
-                <label for="example-text-input" class="form-control-label text-lg">Type de dossiers</label>
-                    <select class="form-select" aria-label="multiple select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                    </select>     
-            </div>   
-        </div>
-        <div class="row"> 
-            
-            <div class="col">
-                <label for="example-text-input" class="form-control-label text-lg">Déclarant </label>
-                <input type="text" class="form-control" placeholder="First name" aria-label="First name">
-            </div>
-            <div class="col">
-                 <label for="example-text-input" class="form-control-label text-lg">N° IFU</label>
-              <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
-            </div>
-            
-        </div>
 
-        <div class="row">
-            <div class="col">
-                <label for="example-text-input" class="form-control-label text-lg">Agrément</label>
-                <input type="text" class="form-control" placeholder="First name" aria-label="First name">
-            </div>
-            <div class="col">
-             <label for="example-text-input" class="form-control-label text-lg">Destinataire</label>
-                <input type="text" class="form-control" placeholder="Last name" aria-label="Last name">
-            </div>
-            
-        </div>
+<script>
+    // Code JavaScript pour la requête AJAX et le graphique Chart.js
+    $.ajax({
+        url: '/get-dossiers-data', // L'URL de votre route Laravel
+        type: 'GET',
+        dataType: 'json',
 
-        <div class="row">
-            <div class="">
-                <label for="exampleFormControlTextarea1" class="form-label text-lg">Elements de requêtte</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="">
-                <label for="exampleFormControlTextarea1" class="form-label text-lg">Textes de référence</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-        </div>
-        <div class="row">
-            <div class="">
-                <label for="exampleFormControlTextarea1" class="form-label text-lg">Appréciations</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-            </div>
-        </div>
+        success: function(data) {
+            // Ici, 'data' contient les données des dossiers au format JSON
+            // Utilisez ces données pour créer votre graphique avec Chart.js
+            console.log(data);
+            // Exemple de code pour créer un graphique en ligne avec Chart.js
+            var ctx = document.getElementById('dossiersChart').getContext('2d');
+            var myChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: data.months, // Assurez-vous que votre réponse JSON contient un tableau de mois
+                    datasets: [{
+                        label: 'Nombre de dossiers',
+                        data: data.numbers, // Assurez-vous que votre réponse JSON contient un tableau de nombres
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            // Pie Chart
+            var pieCtx = document.getElementById('dossierscamemberChart').getContext('2d');
+            var pieChart = new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: data.months,
+                    datasets: [{
+                        label: 'Nombre de dossiers',
+                        data: data.numbers,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                }
+            });
+        },
+        error: function(error) {
+            console.error(error);
+        }
+    });
+</script>
 
-        
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button class="btn btn-secondary me-md-2" type="button">Enregistrer</button>
-            <button class="btn btn-primary" type="button">Soumettre</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-----end modal section--->
-</div>
-
-<style>
-
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap');
-
-.card{
-    padding: 1.5em .5em .5em;
-    border-radius: 10em;
-    text-align: center;
-    box-shadow: 0 5px 10px rgba(0,0,0,.2);
-}
-
-</style>
-       
-        @include('layouts.footers.auth.footer')
-    </div>
 @endsection
-
-
-
-

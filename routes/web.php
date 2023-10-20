@@ -64,7 +64,7 @@ Route::get('/adminDossiers/filtrer', 'DossierAdminController@index')->name('Filt
 Route::get('/validateurs/filtrer', 'DossierValidateurController@index')->name('FiltrerValidateur');
 Route::get('/dossiers/filtrer', 'DossierController@index')->name('filtreDemandeur');
 Route::get('/users/filtrer', 'UserController@index')->name('Filtrer');
-Route::resource('/users', UserController::class);  
+Route::resource('/users', UserController::class);
 Route::resource('/profils', ProfilController::class);
 Route::resource('/directions', DirectionController::class);
 Route::resource('/services', ServiceController::class);
@@ -119,7 +119,7 @@ All Normal Users Routes List
 --------------------------------------------
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:demandeur'])->group(function () {
-  
+
     Route::get('/demandeurHome', [DossierController::class, 'index']);
 });
 
@@ -129,28 +129,28 @@ All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:validateur'])->group(function () {
-  
+
     Route::get('/validatorHome', [DossierValidateurController::class, 'index']);
 });
-  
+
 /*------------------------------------------
 --------------------------------------------
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:administrateur'])->group(function () {
-  
+
     Route::get('/admin', [HomeController::class, 'adminHome'])->name('homeAdmin');
 });
-  
+
 /*------------------------------------------
 --------------------------------------------
 All Admin Routes List
 --------------------------------------------
 --------------------------------------------*/
 Route::middleware(['auth', 'user-access:super-administrateur'])->group(function () {
-  
-    Route::get('/superAdminHome', [HomeController::class, 'superAdminHome']);
+
+    Route::get('/superAdminHome', [HomeController::class, 'superAdminHome'])->name('HomeSuperAdmin');
 });
 
 
@@ -167,7 +167,7 @@ All Normal Users Routes List
 //Route::get('/export_users', [UserController::class,'export_user'])->name('userPDF');
 //lien vers les CRUD
 
- 
+
 Route::get('/creation', [UniteTempsTraitementController::class,'create'])->name('creation');
 
 Route::get('/user/Creation', [RegisterController::class, 'create'])->name('dashboard-cr-users');
@@ -198,12 +198,12 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/rtl', [PageController::class, 'rtl'])->name('rtl');
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
 	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
-	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static'); 
+	Route::get('/profile-static', [PageController::class, 'profile'])->name('profile-static');
 	Route::get('/sign-in-static', [PageController::class, 'signin'])->name('sign-in-static');
-	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static'); 
+	Route::get('/sign-up-static', [PageController::class, 'signup'])->name('sign-up-static');
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-	
+
 
 
  });

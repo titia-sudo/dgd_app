@@ -16,10 +16,18 @@
             <div class="menu" id="menu1">
                 <ul>
                     <li>
+
+                        @if(auth()->user()->HasRole('super-administrateur'))
+                        <a href="{{route('HomeSuperAdmin') }}">
+                            <i class="fa fa-home"></i>
+                            <span>Tableau de bord</span>
+                        </a>
+                        @else
                         <a href="{{route('homeAdmin') }}">
                             <i class="fa fa-home"></i>
                             <span>Tableau de bord</span>
                         </a>
+                        @endif
                     </li>
 
                     <li class="slide">
@@ -116,30 +124,6 @@
                             </li>
                         </ul>
                     </li>
-
-                    <li class="slide">
-                        <a class="side-menu__item" data-bs-toggle="slide">
-                            <i class="fa fa-chart"></i>
-                            <span>chart</span>
-                            <i class="fa fa-angle-right"></i>
-                        </a>
-                        <ul class="sub-menu">
-                            <li>
-                                <p>pie chart</p>
-                            </li>
-                            <li>
-                                <p>line chart </p>
-                            </li>
-                            <li>
-                                <p>bar chart</p>
-                            </li>
-                            <li>
-                                <p>histogram bar </p>
-                            </li>
-
-                        </ul>
-                    </li>
-
                 </ul>
             </div>
         </div>
@@ -212,21 +196,21 @@
     });
 });
 */
-"use strict";
+        "use strict";
 
-let navlist = document.querySelectorAll('.navlist');
+        let navlist = document.querySelectorAll('.navlist');
 
-for (let i = 0; i < navlist.length; i++) {
-	navlist[i].addEventListener('click', function() {
-		for (let x = 0; x < navlist.length; x++) {
-			if (navlist[x] == this) {
-				navlist[x].classList.add('active');
-			} else {
-				navlist[x].classList.remove('active');
-			}
-		}
-	});
-}
+        for (let i = 0; i < navlist.length; i++) {
+            navlist[i].addEventListener('click', function() {
+                for (let x = 0; x < navlist.length; x++) {
+                    if (navlist[x] == this) {
+                        navlist[x].classList.add('active');
+                    } else {
+                        navlist[x].classList.remove('active');
+                    }
+                }
+            });
+        }
     </script>
 
     <style type="text/css">
@@ -398,9 +382,6 @@ for (let i = 0; i < navlist.length; i++) {
             margin-bottom: 20px;
             border-bottom: 2px solid #f6f6f6;
         }
-
-
-
     </style>
 
 
