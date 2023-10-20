@@ -110,7 +110,9 @@
                                     @csrf
                                     @method('DELETE')
 
+                                    @if(auth()->user()->hasRole('super-administrateur'))
                                     <button type="submit" class="btn btn-danger">supprimer</button>
+                                    @endif
                                 </form>
                             </td>
                         </tr>
