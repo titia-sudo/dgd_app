@@ -53,10 +53,18 @@ class DossierValidateurController extends Controller
             $query->where('dossiers.statutDossier', '=', $statut); 
         }
 
-        //Pour récupérer les dossiers créés par l'utilisateur connecté :
+        // Récupérer les dossiers créés par l'utilisateur connecté
         $dossiersCrees = Dossier::where('idUser', auth()->user()->id);
 
-        $dossiers = $dossiersCrees->where('statutDossier', '!=', 'validé')->get();
+        // Récupérer les dossiers dans le niveau de traitement de l'utilisateur connecté
+        $dossiersDansNiveauTraitement = Dossier::whereHas('historique', function($query) {
+            $query->where('idNiveauTraitement', auth()->user()->niveauTraitement->id);
+        });
+
+        // Fusionner les deux requêtes avec la condition 'orWhere'
+        $dossiers = $dossiersCrees->orWhere(function($query) use ($dossiersDansNiveauTraitement) {
+            $query->mergeBindings($dossiersDansNiveauTraitement->getQuery());
+        })->where('statutDossier', '!=', 'validé')->get();
 
         $dossiers = $query->paginate(5);
         return view('dossierValidateur.index',compact('dateCreation','recents', 'ifu','declarant','statut','dossiers'))->with('i', (request()->input('page', 1) - 1) * 5);

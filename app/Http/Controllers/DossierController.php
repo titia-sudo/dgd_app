@@ -131,7 +131,7 @@ class DossierController extends Controller
             
                 // Enregistrez l'historique avec le statut 'brouillon'
                 Historique::create([
-                    'actionHistorique' => $dossier->nomDossier,
+                    'actionHistorique' => $action,
                     'statutHistorique' => 'brouillon',
                     'commentaireAction' => '',
                     'dateAction' => now(),
@@ -140,7 +140,7 @@ class DossierController extends Controller
                     'idNiveauTraitement' => $niveauTraitement->id, // Assurez-vous d'obtenir le bon niveau de traitement ici
                 ]);
     
-                return redirect()->route('demandeurs.index')->with('success', 'Le dossier a été enregistré en tant que brouillon.');
+                return redirect()->route('demandeurs.index')->with('success', 'Le dossier'.$dossier->nomDossier.' a été enregistré en tant que brouillon.');
             }
             // Si l'action est "Soumettre"
             elseif ($action === 'soumettre') {
@@ -156,7 +156,7 @@ class DossierController extends Controller
                     'idNiveauTraitement' => $niveauTraitement->id, // Assurez-vous d'obtenir le bon niveau de traitement ici
                 ]);
     
-                return redirect()->route('demandeurs.index')->with('success', 'Le dossier a été soumis avec succès.');
+                return redirect()->route('demandeurs.index')->with('success', 'Le dossier '.$dossier->nomDossier.' a été soumis avec succès.');
             }
             // Si l'action n'est ni "Enregistrer" ni "Soumettre"
             else {
