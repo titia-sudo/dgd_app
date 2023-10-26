@@ -6,19 +6,19 @@
 <!-- partie   contenu de l'administation-->
 <div class="container">
 
- 
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Whoops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-        @endif
 
-        
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+
     <div class="content-wrapper">
         <!-- Content -->
         <div class="container-xxl flex-grow-1 container-p-y mt-3">
@@ -32,7 +32,7 @@
                             <small class="text-muted float-end">dossier</small>
                         </div>
                         <div class="card-body">
-                        <form action="{{ route('validateurs.update',[($dossier->id)]) }}" method="POST">
+                            <form action="{{ route('validateurs.update',[($dossier->id)]) }}" method="POST">
                                 @csrf
                                 @method('post')
                                 <div class="row">
@@ -110,8 +110,8 @@
             </div>
         </div>
         <!-- / Content -->
-</div>
+    </div>
 
-@include('layouts.footers.auth.footer')
+    @include('layouts.footers.auth.footer')
 </div>
 @endsection
