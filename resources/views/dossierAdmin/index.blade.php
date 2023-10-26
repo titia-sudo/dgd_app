@@ -3,7 +3,7 @@
 @section('content')
 @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
 <div class="container-fluid py-4">
-@include('layouts.topnavbande') 
+    @include('layouts.topnavbande')
     <!-- partie   alerte-->
     @if ($message = Session::get('success'))
     <div class="alert alert-success">
