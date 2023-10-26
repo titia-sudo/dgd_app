@@ -21091,7 +21091,7 @@ function wheel(i) {
         }
       }
       // if deltaX && horizontal scrollable
-      if (deltaX && style.overflowX.match(/(scroll|auto)/)) {
+    /*  if (deltaX && style.overflowX.match(/(scroll|auto)/)) {
         var maxScrollLeft = cursor.scrollWidth - cursor.clientWidth;
         if (maxScrollLeft > 0) {
           if (
@@ -21105,7 +21105,7 @@ function wheel(i) {
 
       cursor = cursor.parentNode;
     }
-
+*/
     return false;
   }
 

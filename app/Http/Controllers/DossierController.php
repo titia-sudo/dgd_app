@@ -125,7 +125,7 @@ class DossierController extends Controller
         // Vérifiez si le niveau de traitement existe
         if ($niveauTraitement) {
             // Créez le dossier
-            $dossier = Dossier::create($dossier);
+           // $dossier = Dossier::create($dossier);
 
             if ($action === 'brouillon') {
             
@@ -137,7 +137,7 @@ class DossierController extends Controller
                     'dateAction' => now(),
                     'idDossier' => $dossier->id,
                     'idUser' => auth()->id(),
-                    'idNiveauTraitement' => null, // Assurez-vous d'obtenir le bon niveau de traitement ici
+                    'idNiveauTraitement' => $niveauTraitement->id, // Assurez-vous d'obtenir le bon niveau de traitement ici
                 ]);
     
                 return redirect()->route('demandeurs.index')->with('success', 'Le dossier a été enregistré en tant que brouillon.');
@@ -153,7 +153,7 @@ class DossierController extends Controller
                     'dateAction' => now(),
                     'idDossier' => $dossier->id,
                     'idUser' => auth()->id(),
-                    'idNiveauTraitement' => null, // Assurez-vous d'obtenir le bon niveau de traitement ici
+                    'idNiveauTraitement' => $niveauTraitement->id, // Assurez-vous d'obtenir le bon niveau de traitement ici
                 ]);
     
                 return redirect()->route('demandeurs.index')->with('success', 'Le dossier a été soumis avec succès.');
