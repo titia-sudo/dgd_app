@@ -298,6 +298,10 @@ class DossierValidateurController extends Controller
 
     public function traiterDossier(Request $request, Dossier $dossier)
     {
+        // Vérifiez si le dossier a atteint son dernier niveau de traitement
+    if ($dossier->statutFinal === 'Validé') {
+        return redirect()->route('validateurs.index')->with('error', 'Ce dossier a déjà été validé au dernier niveau de traitement.');
+    }
         
         // Vérifiez si le dossier est associé à un type de dossier
         if ($dossier->typeDossier) {

@@ -39,7 +39,7 @@
                                     <label class="form-label" for="basic-default-fullname">
                                         <h6>Designation::</h6>
                                     </label>
-                                    <input type="text" name="nombreTempsTraitement" class="form-control" placeholder="Temps de traitement">
+                                    <input type="text" name="nomNiveau" class="form-control" placeholder="Temps de traitement">
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label" for="basic-default-company">

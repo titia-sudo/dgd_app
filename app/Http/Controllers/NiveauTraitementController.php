@@ -78,7 +78,6 @@ class NiveauTraitementController extends Controller
                 DB::table('users_niveautraitements')->insert([
                     'idNiveauTraitement'=>$niveauTraitement->id,
                     'idUser'=>$user,
-                    'role_id'=>$roleId
                 ]);
                 
             }
