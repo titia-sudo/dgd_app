@@ -26,7 +26,7 @@ class UserSeeder extends Seeder
                'lastname' => 'Tatiana',
                'email'=>'SuperAdmin@super.com',
                'profil'=> 0,
-               'password'=> Hash::make('password'),
+               'password'=> 'password',
                'idService'=>1
            ],
            [
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
                'lastname' => 'Admin',
                'email' => 'admin@argon.com',
                'profil' => 0,
-               'password' => Hash::make('password'),
+               'password' => 'password',
                'idService'=>1
            ], 
            [
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
                'lastname' => 'Francine',
                'email'=>'Validateur@it.com',
                'profil'=>0,
-               'password'=> Hash::make('password'),
+               'password'=> 'password',
                'idService'=>1
             ],
             [
@@ -53,7 +53,7 @@ class UserSeeder extends Seeder
                'lastname' => 'Ouedraogo',
                'email'=>'Demandeur@it2.com',
                'profil'=>0,
-               'password'=> Hash::make('password'),
+               'password'=> 'password',
                'idService'=>1
             ],
            ];
@@ -63,15 +63,15 @@ class UserSeeder extends Seeder
            foreach ($users as $user) {
                 $newUser = User::create($user);
                 // Attachez les rôles aux utilisateurs en fonction du nom d'utilisateur
-            // if ($newUser->username === 'SuperAdmin User') {
-            //     $newUser->attachRole('super-administrateur');
-            // } elseif ($newUser->username === 'admin') {
-            //     $newUser->attachRole('administrateur');
-            // } elseif ($newUser->username === 'validateur') {
-            //     $newUser->attachRole('validateur');
-            // } elseif ($newUser->username === 'demandeur') {
-            //     $newUser->attachRole('demandeur');
-            // }
+            if ($newUser->username === 'SuperAdmin User') {
+                $newUser->attachRole('super-administrateur');
+            } elseif ($newUser->username === 'admin') {
+                $newUser->attachRole('administrateur');
+            } elseif ($newUser->username === 'validateur') {
+                $newUser->attachRole('validateur');
+            } elseif ($newUser->username === 'demandeur') {
+                $newUser->attachRole('demandeur');
+            }
            }  
 
    

@@ -22,7 +22,7 @@ class PermissionUserSeeder extends Seeder
          DB::table('permission_user')->insert([
             'permission_id' => 1, // Remplacez par l'ID de la permission
             'user_id' => 1, // Remplacez par l'ID de l'utilisateur
-            'user_type' => 'App\\User', // Remplacez par le modèle de l'utilisateur
+            'user_type' => 'App\Models\User', // Remplacez par le modèle de l'utilisateur
         ]);
     }
 }

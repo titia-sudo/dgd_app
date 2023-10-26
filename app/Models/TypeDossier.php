@@ -25,7 +25,7 @@ class TypeDossier extends Model
 
     public function niveauTraitement()
     {
-        return $this->belongsToMany(NiveauTraitement::class, 'niveauTraitement_typeDossier', 'idTypeDossier', 'idNiveauTraitement')
+        return $this->belongsToMany(NiveauTraitement::class, 'niveautraitement_typedossier', 'idTypeDossier', 'idNiveauTraitement')
                     ->withPivot('ordreNiveau');
     }
 }

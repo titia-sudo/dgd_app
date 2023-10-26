@@ -22,7 +22,8 @@ return new class extends Migration
             $table->string('destinataireDossier');
             $table->string('elementRequeteDossier');
             $table->string('texteReferenceDossier');
-            $table->enum('statutDossier', ['Enregistré','Cree','Validé','Rejetté'])->default('Cree');
+            $table->enum('statutDossier', ['brouillon','soumis','en_cours', 'en_attente','valide', 'rejete'])->default('en_attente')->comment('Statut du dossier : en_attente, valide, brouillon, en_cours, soumis, rejete');
+            $table->enum('statutFinal', ['Validé','Rejeté']);
             $table->unsignedBiginteger('idUser')->unsigned();
             $table->unsignedBiginteger('idTypeDossier')->unsigned();
             //$table->unsignedBiginteger('idAnnee')->unsigned();

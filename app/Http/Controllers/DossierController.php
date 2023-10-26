@@ -8,6 +8,7 @@ use App\Models\Annee;
 use App\Models\Dossier;
 use App\Models\Historique;
 use App\Models\TypeDossier;
+use App\Models\NiveauTraitement_TypeDossier;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Event;
@@ -83,9 +84,10 @@ class DossierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $action = $request->input('action'); // Obtenez la valeur de l'action du formulaire
+
         //$request->idUser = Auth::user()->id;
-        $dossier = $request->validate([
+        $dossierData = $request->validate([
         'nomDossier' => 'required',
         'declarantDossier' => 'required',
         'ifuDossier' => 'required',
@@ -93,33 +95,84 @@ class DossierController extends Controller
         'destinataireDossier' => 'required',
         'elementRequeteDossier' => 'required',
         'texteReferenceDossier' => 'required',
-        'statutDossier' => '',
+        //'statutDossier' => $statutDossier,
         'idUser' => '',
         'idTypeDossier' => 'required',
-       // 'idAnnee' => ''
         ]);
         //dd($dossiers);
-        $dossier= Dossier::create($request->all());
+        // Déterminez le statut du dossier en fonction de l'action
+        $statutDossier = ($action === 'brouillon') ? 'brouillon' : 'soumis';
 
-        if ($dossier) {
-            // Enregistrez l'historique après la création du dossier
-            Historique::create([
-                'actionHistorique' => 'Création de dossier',
-                'statutHistorique' => 'Nouveau dossier créé : ' . $dossier->nomDossier,
-                'commentaireAction' => '',
-                'dateAction' => $dossier->created_at,
-                'idDossier' => $dossier->id,
-                'idUser' => auth()->id(),
-                // ... (autres champs d'historique que vous souhaitez enregistrer)
-            ]);
-            return redirect()->route('demandeurs.index')->with('success','le dossier a été créé avec succes.');
+        // Ajoutez le statut du dossier aux données à enregistrer
+        $dossierData['statutDossier'] = $statutDossier;
+
+        //Création de dossier
+        $dossier = Dossier::create($dossierData);
+        // Si l'action est "Enregistrer"
+        
+        // Récupérez le plus petit idNiveauTraitement associé à ce type de dossier
+        $idTypeDossier = $request->input('idTypeDossier');
+        $typeDossier = TypeDossier::find($idTypeDossier);
+        //dd($typeDossier);
+
+        // Vérifiez si le type de dossier existe
+        if ($typeDossier) {
+            // Récupérez le niveau de traitement associé au type de dossier
+            $niveauTraitement = $typeDossier->niveauTraitement()
+                ->orderBy('ordreNiveau', 'asc')
+                ->first();
+
+        // Vérifiez si le niveau de traitement existe
+        if ($niveauTraitement) {
+            // Créez le dossier
+            $dossier = Dossier::create($dossier);
+
+            if ($action === 'brouillon') {
+            
+                // Enregistrez l'historique avec le statut 'brouillon'
+                Historique::create([
+                    'actionHistorique' => $dossier->nomDossier,
+                    'statutHistorique' => 'brouillon',
+                    'commentaireAction' => '',
+                    'dateAction' => now(),
+                    'idDossier' => $dossier->id,
+                    'idUser' => auth()->id(),
+                    'idNiveauTraitement' => null, // Assurez-vous d'obtenir le bon niveau de traitement ici
+                ]);
+    
+                return redirect()->route('demandeurs.index')->with('success', 'Le dossier a été enregistré en tant que brouillon.');
+            }
+            // Si l'action est "Soumettre"
+            elseif ($action === 'soumettre') {
+    
+                // Enregistrez l'historique avec le statut 'brouillon'
+                Historique::create([
+                    'actionHistorique' => $dossier->nomDossier,
+                    'statutHistorique' => 'soumis',
+                    'commentaireAction' => '',
+                    'dateAction' => now(),
+                    'idDossier' => $dossier->id,
+                    'idUser' => auth()->id(),
+                    'idNiveauTraitement' => null, // Assurez-vous d'obtenir le bon niveau de traitement ici
+                ]);
+    
+                return redirect()->route('demandeurs.index')->with('success', 'Le dossier a été soumis avec succès.');
+            }
+            // Si l'action n'est ni "Enregistrer" ni "Soumettre"
+            else {
+                // Gérez cette situation comme vous le souhaitez (redirection vers une autre page, message d'erreur, etc.)
+                return redirect()->route('demandeurs.index')->with('error', 'Action non valide.');
+            }
+
+                return redirect()->route('demandeurs.index')->with('success', 'Le dossier' .$dossier->nomDossier. ' a été créé avec succès.');
         } else {
-            // Gérez l'erreur si la création du dossier a échoué
-            return redirect()->back()->with('error', 'Une erreur s\'est produite lors de la création du dossier.');
+            // Le type de dossier n'a pas de niveau de traitement associé
+            return redirect()->back()->with('error', 'Ce type de dossier n\'a pas de niveau de traitement associé.');
         }
-        Dossier::create($request->all());
-       
-        return redirect()->route('demandeurs.index')->with('success','Dossier a été créé avec succès.');
+    } else {
+        // Le type de dossier n'existe pas
+        return redirect()->back()->with('error', 'Le type de dossier sélectionné n\'existe pas.');
+    }
     }
 
     /**
@@ -194,7 +247,7 @@ class DossierController extends Controller
             // Ajoutez d'autres informations spécifiques ici
         ]);
   
-        return redirect()->route('demandeurs.index')->with('success','dossier mis à jour');
+        return redirect()->route('demandeurs.index')->with('success','Le dossier '.$dossier->nomDossier. ' a été mis à jour');
     }
 
     /**
@@ -256,33 +309,6 @@ class DossierController extends Controller
     {
         //
         $dossier->delete();
-        return redirect()->route('demandeurs.index')->with('success','dossier supprimé avec succès');
-    }
-
-    public function dossiersEnAttente()
-    {
-        // Récupérez les dossiers en attente de validation pour l'utilisateur actuel
-        $dossiersEnAttente = Historique::where('idNiveauTraitement', auth()->user()->idNiveauTraitement)
-            ->where('statutHistorique', 'En attente de validation')
-            ->get();
-
-        // Retournez la vue avec les dossiers en attente
-        return view('dossiers.en-attente', compact('dossiersEnAttente'));
-    }
-
-    public function valider(Historique $dossierHistorique)
-    {
-        // Mettez à jour le statut du dossier dans l'historique
-        $dossierHistorique->update(['statutHistorique' => 'Validé']);
-
-        // Redirigez l'utilisateur vers la liste des dossiers en attente
-        return redirect()->route('dossiers.en-attente')->with('success', 'Dossier validé avec succès.');
-    }
-
-    public function rejeter(Historique $dossierHistorique)
-    {
-        // Mettez à jour le statut du dossier
-        $dossierHistorique->update(['statutHistorique' => 'Rejeté']);
-
+        return redirect()->route('demandeurs.index')->with('success','Le dossier ' .$dossier->nomDossier. ' a été supprimé avec succès');
     }
 }

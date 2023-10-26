@@ -45,6 +45,7 @@
                                     <div class="col">
                                         <label for="example-text-input" class="form-control-label text-lg">Type de dossiers</label>
                                         <select name="idTypeDossier" id="idTypeDossier" class="form-control">
+                                            <option value="">Veuillez selectionner ...</option>
                                             @foreach($typeDossiers as $typeDossier)
                                             <option value="{{ $typeDossier->id }}">{{ $typeDossier->designationTypeDossier }}</option>
                                             @endforeach
@@ -56,11 +57,11 @@
 
                                     <div class="col">
                                         <label for="example-text-input" class="form-control-label text-lg">Déclarant </label>
-                                        <input type="text" name="declarantDossier" class="form-control" placeholder="Saisissez le nom du declarant">
+                                        <input type="text" name="declarantDossier" class="form-control" placeholder="Saisissez le nom du declarant" required>
                                     </div>
                                     <div class="col">
                                         <label for="example-text-input" class="form-control-label text-lg">N° IFU</label>
-                                        <input type="text" name="ifuDossier" class="form-control" placeholder="Saisissez le numero IFU">
+                                        <input type="text" name="ifuDossier" class="form-control" placeholder="Saisissez le numero IFU" required>
                                     </div>
 
                                 </div>
@@ -68,11 +69,11 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="example-text-input" class="form-control-label text-lg">Agrément</label>
-                                        <input type="text" name="agrementDossier" class="form-control" placeholder="Saisissez votre agrement">
+                                        <input type="text" name="agrementDossier" class="form-control" placeholder="Saisissez votre agrement" required>
                                     </div>
                                     <div class="col">
                                         <label for="example-text-input" class="form-control-label text-lg">Destinataire</label>
-                                        <input type="text" name="destinataireDossier" class="form-control" placeholder="Saisissez les informations du destinataire">
+                                        <input type="text" name="destinataireDossier" class="form-control" placeholder="Saisissez les informations du destinataire" required>
                                     </div>
 
                                 </div>
@@ -80,13 +81,13 @@
                                 <div class="row">
                                     <div class="">
                                         <label for="exampleFormControlTextarea1" class="form-label text-lg">Elements de requêtte</label>
-                                        <textarea name="elementRequeteDossier" class="form-control" placeholder="Saisissez votre requete"></textarea>
+                                        <textarea name="elementRequeteDossier" class="form-control" placeholder="Saisissez votre requete" required></textarea>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="">
                                         <label for="exampleFormControlTextarea1" class="form-label text-lg">Textes de référence</label>
-                                        <textarea name="texteReferenceDossier" class="form-control" placeholder="saisissez les textes de reference"></textarea>
+                                        <textarea name="texteReferenceDossier" class="form-control" placeholder="saisissez les textes de reference" required></textarea>
                                     </div>
                                 </div>
                                 <div class="row mt-3">

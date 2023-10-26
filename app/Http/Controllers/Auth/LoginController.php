@@ -65,7 +65,7 @@ class LoginController extends Controller
         {
             $user = auth()->user();
 
-            //dd($user->hasRole('demandeurHome'));
+            //dd($user);
 
             if ($user->hasRole('administrateur')) {
                 return redirect('/admin');
@@ -78,7 +78,8 @@ class LoginController extends Controller
             }
         }else{
             return redirect()->route('login')
-                ->with('error','Email-Address And Password Are Wrong.');
+            ->withErrors(['email' => 'Email incorrect.',
+                            'password' => 'Mot de passe incorrect.']);
         }
     }
 

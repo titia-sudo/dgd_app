@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use Illuminate\Notifications\Notifiable;
 
 use App\Models\User;
 use App\Models\TypeDossier;
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Dossier extends Model
 {
     use HasFactory;
+    use Notifiable;
+
     protected $table = 'dossiers';
     protected $guarded = [];
 
@@ -37,6 +40,7 @@ class Dossier extends Model
         'statutDossier',
         'idUser',
         'idTypeDossier',
+        'statutFinal',
        // 'idAnnee'
     ];
 

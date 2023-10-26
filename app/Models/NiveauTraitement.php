@@ -19,8 +19,7 @@ class NiveauTraitement extends Model
     protected $fillable=[
         'id',
         'nomNiveau',
-        'idTempsTraitement',
-        'ordreNiveau'
+        'idTempsTraitement'
     ];
 
 
