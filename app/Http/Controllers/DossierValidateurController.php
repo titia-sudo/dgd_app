@@ -323,7 +323,7 @@ class DossierValidateurController extends Controller
         if ($request->has('valider')) {
             $statutHistorique = 'valide';
         } elseif ($request->has('rejeter')) {
-            $statutHistorique = 'Rejeté';
+            $statutHistorique = 'rejete';
         }
 
         $commentaireAction = $request->input('commentaireAction');
@@ -345,14 +345,14 @@ class DossierValidateurController extends Controller
             if ($niveauTraitementSuivant->pivot->ordreNiveau == $ordreNiveauActuel) {
                 if ($statutHistorique == 'valide') {
                     $dossier->update(['statutDossier' => 'valide']);
-                } elseif ($statutHistorique == 'Rejeté') {
+                } elseif ($statutHistorique == 'rejete') {
                     $dossier->update(['statutDossier' => 'rejete']);
                 }
 
-                return redirect()->route('validateurs.index')->with('success', 'le dossier ' . $dossier->nomDossier . ' a été ' . $statutHistorique . ' validé avec succès.');
+                return redirect()->route('validateurs.index')->with('success', 'le dossier ' . $dossier->nomDossier . ' a été ' . $statutHistorique . ' avec succès.');
             }
 
-            return redirect()->route('validateurs.index')->with('success', 'le dossier ' . $dossier->nomDossier . ' a été ' . $statutHistorique . ' validé avec succès.');
+            return redirect()->route('validateurs.index')->with('success', 'le dossier ' . $dossier->nomDossier . ' a été ' . $statutHistorique . ' avec succès.');
         } elseif ($dossier->statutDossier == 'en_cours') {
             Historique::create([
                 'actionHistorique' => $dossier->nomDossier,
@@ -365,11 +365,11 @@ class DossierValidateurController extends Controller
             ]);
             if ($statutHistorique == 'valide') {
                 $dossier->update(['statutDossier' => 'valide']);
-            } elseif ($statutHistorique == 'Rejeté') {
+            } elseif ($statutHistorique == 'rejete') {
                 $dossier->update(['statutDossier' => 'rejete']);
             }
 
-            return redirect()->route('validateurs.index')->with('success', 'le dossier ' . $dossier->nomDossier . ' a été ' . $statutHistorique . ' validé avec succès.');
+            return redirect()->route('validateurs.index')->with('success', 'le dossier ' . $dossier->nomDossier . ' a été ' . $statutHistorique . ' avec succès.');
         } else {
             // Le dossier n'a pas de niveau de traitement suivant
             return redirect()->route('validateurs.index')->with('error', 'Ce dossier n\'a pas de niveau de traitement suivant.');

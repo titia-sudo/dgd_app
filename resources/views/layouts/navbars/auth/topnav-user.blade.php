@@ -54,7 +54,13 @@
         </div>
         <div class="">
             <div class="p-4 text-white text-left rounded-circle bg-success" style="height: 75px; max-width: 75px;">
-                <h5 class="text-white">24</h5>
+                <h5 class="text-white">
+                {{
+                \App\Models\Dossier::where('idUser', auth()->user()->id)
+                    ->where('statutDossier', 'valide')
+                    ->count()
+                }}
+                </h5>
             </div>
         </div>
         <div class="text-justify mt-4">
@@ -62,7 +68,13 @@
         </div>
         <div class="">
             <div class="p-4 text-white text-center rounded-circle bg-danger" style="height: 75px; max-width: 75px;">
-                <h5 class="text-white ">55</h5>
+                <h5 class="text-white ">
+                {{
+                \App\Models\Dossier::where('idUser', auth()->user()->id)
+                    ->where('statutDossier', 'rejete')
+                    ->count()
+                }}
+                </h5>
             </div>
         </div>
 
@@ -70,7 +82,13 @@
             <h6 class="text-white"> Dossiers en cours :</h6>
         </div>
         <div class="p-4  font-weight-bold text-center rounded-circle bg-warning" style="height: 75px; max-width: 75px;">
-            <h5 class="text-white">25</h5>
+            <h5 class="text-white">
+            {{
+                \App\Models\Dossier::where('idUser', auth()->user()->id)
+                    ->where('statutDossier', 'en_cours')
+                    ->count()
+                }}
+            </h5>
         </div>
 
     </div>

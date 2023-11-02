@@ -8,7 +8,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS</p>
                                 <h2 class="font-weight-bolder text-white">
-                                    286
+                                    {{ \App\Models\Dossier::count() }}
                                 </h2>
 
                             </div>
@@ -30,7 +30,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS VALIDES</p>
                                 <h2 class="font-weight-bolder text-white">
-                                    260
+                                    {{ \App\Models\Dossier::where('statutDossier', 'valide')->count() }}
                                 </h2>
 
                             </div>
@@ -52,7 +52,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS REJETES</p>
                                 <h2 class="font-weight-bolder text-white">
-                                    15
+                                    {{ \App\Models\Dossier::where('statutDossier', 'rejete')->count() }}
                                 </h2>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                             <div class="numbers">
                                 <p class="text-sm mb-0 text-uppercase font-weight-bolder">TOTAL DOSSIERS EN COURS</p>
                                 <h2 class="font-weight-bolder text-white">
-                                    11
+                                {{ \App\Models\Dossier::where('statutDossier', 'en_cours')->count() }}
                                 </h2>
                             </div>
                         </div>
