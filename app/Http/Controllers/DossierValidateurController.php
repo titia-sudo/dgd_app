@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 use Auth;
-use App\Notifications\DossierValideNotification;
 use App\Models\User;
-use App\Models\NiveauTraitement_TypeDossier;
 use App\Models\Annee;
 use App\Models\Dossier;
 use Illuminate\View\View;
@@ -12,8 +10,11 @@ use App\Models\Historique;
 use App\Models\TypeDossier;
 use Illuminate\Http\Request;
 use App\Models\NiveauTraitement;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Event;
+use App\Models\NiveauTraitement_TypeDossier;
+use App\Notifications\DossierValideNotification;
 
 class DossierValidateurController extends Controller
 {
@@ -54,15 +55,26 @@ class DossierValidateurController extends Controller
         }
 
         // Récupérer les dossiers dans le niveau de traitement de l'utilisateur connecté
-        $userNiveauTraitement = auth()->user()->niveauTraitement;
-        if ($userNiveauTraitement) {
-            $query->whereHas('historique', function ($query) use ($userNiveauTraitement) {
-                $query->where('idNiveauTraitement', $userNiveauTraitement->id);
-            });
-        }
+        $userNiveauTraitement = Auth::user()->niveauTraitements()->first();
 
-        // Exclure les dossiers validés
-        $query->where('statutDossier', '!=', 'validé');
+        if ($userNiveauTraitement) {
+            //dd($userNiveauTraitement, $query->with('typeDossier.niveauTraitement')->get());
+            $query->select('dossiers.id', 'dossiers.nomDossier')
+                ->join('historique', 'historique.idDossier', '=', 'dossiers.id')
+                ->join('users', 'users.id', '=', 'historique.idUser')
+                ->where('historique.idUser','!=', Auth::user()->id)
+                ->join('typeDossiers', 'typeDossiers.id', '=', 'dossiers.idTypeDossier')
+                ->join('niveautraitement_typedossier', 'niveautraitement_typedossier.idTypeDossier', '=', 'typeDossiers.id')
+                ->join('niveauTraitements', 'niveauTraitements.id', '=', 'niveautraitement_typedossier.idNiveauTraitement')
+                ->where('niveauTraitements.id', '=', $userNiveauTraitement->id)
+                ->groupBy('dossiers.id');
+            //dd(Auth::user()->id,$query->get());
+            // $query->whereHas('niveauTraitement', function ($query) use ($userNiveauTraitement) {
+            //     $query->where('id', $userNiveauTraitement->id);
+            // });
+            }
+    // Exclure les dossiers validés
+    $query->where('dossiers.statutDossier', '!=', 'valide');
 
         // Paginer les résultats
         $dossiers = $query->paginate(5);
@@ -267,8 +279,8 @@ class DossierValidateurController extends Controller
             $dossier->statutDossier = 'brouillon';
         } elseif ($request->input('action') === 'soumettre') {
 
-                // Définissez le statut du dossier pour indiquer qu'il est soumis
-                $dossier->statutDossier = 'soumis';
+            // Définissez le statut du dossier pour indiquer qu'il est soumis
+            $dossier->statutDossier = 'soumis';
         }
         // Enregistrez le dossier
         $dossier->save();
@@ -285,86 +297,89 @@ class DossierValidateurController extends Controller
         return redirect()->route('validateurs.index')->with('success','le dossier '.$dossier->nomDossier.' a été supprimé avec succès');
     }
 
-    public function dossiersEnAttente()
-    {
-        // Récupérez les dossiers en attente de validation pour l'utilisateur actuel
-        $dossiersEnAttente = Historique::where('idNiveauTraitement', auth()->user()->niveau_traitement_id)
-            ->where('statutHistorique', 'En attente de validation')
-            ->get();
-
-        // Retournez la vue avec les dossiers en attente
-        return view('dossiers.en-attente', compact('dossiersEnAttente'));
-    }
-
-    
-    public function rejeter(Historique $dossierHistorique)
-    {
-        // Mettez à jour le statut du dossier
-        $dossierHistorique->update(['statutHistorique' => 'Rejeté']);
-    }
-
 
     public function traiterDossier(Request $request, Dossier $dossier)
-    {
-        // Vérifiez si le dossier a atteint son dernier niveau de traitement
-    if ($dossier->statutFinal === 'Validé') {
+{
+    // Vérifiez si le dossier a atteint son dernier niveau de traitement
+    if ($dossier->statutDossier === 'valide') {
         return redirect()->route('validateurs.index')->with('error', 'Ce dossier a déjà été validé au dernier niveau de traitement.');
     }
-        
-        // Vérifiez si le dossier est associé à un type de dossier
-        if ($dossier->typeDossier) {
-            // Obtenez le niveau de traitement actuel à partir de la table Historique
-            // Récupération de l'ordre du niveau de traitement actuel depuis la table pivot
-            $ordreNiveauActuel = $dossier->typeDossier->niveauTraitement()
+
+    // Vérifiez si le dossier est associé à un type de dossier
+    if ($dossier->typeDossier) {
+        // Obtenez le niveau de traitement actuel à partir de la table Historique
+        // Récupération de l'ordre du niveau de traitement actuel depuis la table pivot
+        $ordreNiveauActuel = $dossier->typeDossier->niveauTraitement()
             ->where('idNiveauTraitement', $dossier->historique->sortByDesc('dateAction')->first()->niveauTraitement->id)
             ->first()->pivot->ordreNiveau;
 
-            // Récupération du niveau de traitement suivant depuis la table pivot
-            $niveauTraitementSuivant = $dossier->typeDossier->niveauTraitement()
-                ->where('ordreNiveau', '>', $ordreNiveauActuel)
-                ->orderBy('ordreNiveau', 'asc')
-                ->first();
+        // Récupération du niveau de traitement suivant depuis la table pivot
+        $niveauTraitementSuivant = $dossier->typeDossier->niveauTraitement()
+            ->where('ordreNiveau', '>', $ordreNiveauActuel)
+            ->orderBy('ordreNiveau', 'asc')
+            ->first();
 
-                // Vérifiez si le formulaire de validation a été soumis
-                if ($request->has('valider')) {
-                    $statutHistorique = 'Validé';
-                    $statutFinal = 'Validé';
-                } elseif ($request->has('rejeter')) {
-                    $statutHistorique = 'Rejeté';
-                    $statutFinal = 'Rejeté';
-                }
-            $commentaireAction = $request->input('commentaireAction');
-
-            if ($niveauTraitementSuivant) {
-                // Mettez à jour l'entrée dans la table Historique avec le nouveau niveau de traitement
-                Historique::create([
-                    'actionHistorique' => $dossier->nomDossier,
-                    'statutHistorique' => $statutHistorique,
-                    'commentaireAction' => $commentaireAction, 
-                    'dateAction' => now(),
-                    'idDossier' => $dossier->id,
-                    'idNiveauTraitement' => $niveauTraitementSuivant->id,
-                    'idUser' => auth()->user()->id,
-                ]);
-                // Si le dossier est validé au dernier niveau, mettez à jour le statut final du dossier
-                if ($niveauTraitementSuivant->ordreNiveau === $dossier->typeDossier->nombreNiveau) {
-                    $dossier->update(['statutFinal' => $statutFinal]);
-                    return redirect()->route('validateurs.index')->with('success', 'le dossier '. $dossier->nomDossier.' a été '.$statutHistorique.'validé avec succès.');
-                }
-
-                return redirect()->route('validateurs.index')->with('success', 'le dossier '. $dossier->nomDossier.' a été '.$statutHistorique.'validé avec succès.');
-            } else {
-                // Le dossier n'a pas de niveau de traitement suivant
-                return redirect()->route('validateurs.index')->with('error', 'Ce dossier n\'a pas de niveau de traitement suivant.');
-            }
-        } else {
-            // Le dossier n'est pas associé à un type de dossier
-            return redirect()->route('validateurs.index')->with('error', 'Ce dossier n\'est pas associé à un type de dossier.');
+        // Vérifiez si le formulaire de validation a été soumis
+        if ($request->has('valider')) {
+            $statutHistorique = 'valide';
+        } elseif ($request->has('rejeter')) {
+            $statutHistorique = 'Rejeté';
         }
 
-    }
+        $commentaireAction = $request->input('commentaireAction');
 
-    
+        if ($niveauTraitementSuivant) {
+            $dossier->update(['statutDossier' => 'en_cours']);
+            // Mettez à jour l'entrée dans la table Historique avec le nouveau niveau de traitement
+            Historique::create([
+                'actionHistorique' => $dossier->nomDossier,
+                'statutHistorique' => $statutHistorique,
+                'commentaireAction' => $commentaireAction,
+                'dateAction' => now(),
+                'idDossier' => $dossier->id,
+                'idNiveauTraitement' => $niveauTraitementSuivant->id,
+                'idUser' => auth()->user()->id,
+            ]);
+
+            // Si le dossier est validé au dernier niveau, mettez à jour le statut final du dossier
+            if ($niveauTraitementSuivant->pivot->ordreNiveau == $ordreNiveauActuel) {
+                if ($statutHistorique == 'valide') {
+                    $dossier->update(['statutDossier' => 'valide']);
+                } elseif ($statutHistorique == 'Rejeté') {
+                    $dossier->update(['statutDossier' => 'rejete']);
+                }
+
+                return redirect()->route('validateurs.index')->with('success', 'le dossier ' . $dossier->nomDossier . ' a été ' . $statutHistorique . ' validé avec succès.');
+            }
+
+            return redirect()->route('validateurs.index')->with('success', 'le dossier ' . $dossier->nomDossier . ' a été ' . $statutHistorique . ' validé avec succès.');
+        } elseif ($dossier->statutDossier == 'en_cours') {
+            Historique::create([
+                'actionHistorique' => $dossier->nomDossier,
+                'statutHistorique' => $statutHistorique,
+                'commentaireAction' => $commentaireAction,
+                'dateAction' => now(),
+                'idDossier' => $dossier->id,
+                'idNiveauTraitement' => Auth::user()->niveauTraitements()->first()->id,
+                'idUser' => auth()->user()->id,
+            ]);
+            if ($statutHistorique == 'valide') {
+                $dossier->update(['statutDossier' => 'valide']);
+            } elseif ($statutHistorique == 'Rejeté') {
+                $dossier->update(['statutDossier' => 'rejete']);
+            }
+
+            return redirect()->route('validateurs.index')->with('success', 'le dossier ' . $dossier->nomDossier . ' a été ' . $statutHistorique . ' validé avec succès.');
+        } else {
+            // Le dossier n'a pas de niveau de traitement suivant
+            return redirect()->route('validateurs.index')->with('error', 'Ce dossier n\'a pas de niveau de traitement suivant.');
+        }
+    } else {
+        // Le dossier n'est pas associé à un type de dossier
+        return redirect()->route('validateurs.index')->with('error', 'Ce dossier n\'est pas associé à un type de dossier.');
+    }
+}
+
 }
 
 

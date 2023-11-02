@@ -141,16 +141,20 @@ class NiveauTraitementController extends Controller
         ]);
         //$niveauTraitement->users()->sync($data['users']);
         //$niveauTraitement->users()->updateExistingPivot($data);
+        DB::table('users_niveautraitements')->where('idNiveauTraitement', '=', $niveauTraitement->id)->delete();
         foreach($request->input('users') as $user){
-            DB::table('users_niveautraitements')->update([
+            DB::table('users_niveautraitements')->insert([
                 'idNiveauTraitement'=>$niveauTraitement->id,
                 'idUser'=>$user,
             ]);
-            
+            // DB::table('users_niveautraitements')->update([
+            //     'idNiveauTraitement'=>$niveauTraitement->id,
+            //     'idUser'=>$user,
+            // ]);
         }
 
         return redirect()->route('niveauTraitements.index')
-        ->with('success','niveauTraitement a été mis à jour avec succès');
+        ->with('success','Le niveau de traitement a été mis à jour avec succès !');
     }
 
 

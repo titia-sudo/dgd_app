@@ -144,7 +144,8 @@ class DossierController extends Controller
             }
             // Si l'action est "Soumettre"
             elseif ($action === 'soumettre') {
-    
+                $dossier->statutDossier = 'soumis';
+                $dossier->save();
                 // Enregistrez l'historique avec le statut 'brouillon'
                 Historique::create([
                     'actionHistorique' => $dossier->nomDossier,

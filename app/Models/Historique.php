@@ -13,6 +13,7 @@ class Historique extends Model
     use HasFactory;
 
     protected $table = 'historique';
+    protected $foreignKey = 'idDossier';
     protected $guarded = [];
     public $timestamps = true;
 
@@ -30,7 +31,7 @@ class Historique extends Model
 
     public function dossier():BelongsTo
     {
-        return $this->belongsTo(Dossier::class, 'idDossier', 'id');
+        return $this->belongsTo(Dossier::class, 'idDossier');
     }
 
     public function user():BelongsTo
