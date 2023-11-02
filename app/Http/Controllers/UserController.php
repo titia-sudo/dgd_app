@@ -15,9 +15,10 @@ use Hash;
 use Illuminate\Support\Arr;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
-use App\Models\Role; 
-use App\Models\Permission; 
+use App\Models\Role;
+use App\Models\Permission;
 use Laratrust\LaratrustFacade as Laratrust;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UserController extends Controller
 {
@@ -27,7 +28,7 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     
+
     public function index(Request $request)
     {
         $dateCreation = $request->input('dateCreation', '');
@@ -40,12 +41,12 @@ class UserController extends Controller
         $services = Service::all();
         $directions = Direction::all();
         $query = User::query();
-    
+
         // Appliquez le filtre en fonction de la date de création
         if (!empty($dateCreation)) {
            $query->whereDate('users.created_at', '=', $dateCreation); // Précisez la table 'users'
        }
-    
+
        if (!empty($roleId)) {
             $query->whereHas('roles', function ($query) use ($roleId) {
                 $query->where('roles.id', $roleId);
@@ -66,7 +67,7 @@ class UserController extends Controller
        //dd($dateCreation, $roleId, $serviceId, $idDirection, $query->toSql());
         // Paginez les résultats
         $users = $query->paginate(7); // Vous pouvez ajuster le nombre d'utilisateurs par page
-    
+
         // Affichez la vue avec les utilisateurs filtrés
         return view('user.index', compact('dateCreation', 'roleId', 'users', 'roles', 'serviceId', 'idDirection', 'services', 'directions'))->with('i', ($request->input('page', 1) - 1) * 10);
     }
@@ -76,13 +77,36 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    //la fonction permetant de transformer les fichiers en pdf
+    public function UserPdf(Request $request){
+
+
+        // Commencez avec une requête de base pour les utilisateurs
+        $roles = Role::all();
+        $services = Service::all();
+        $directions = Direction::all();
+        $query = User::query();
+
+        // Paginez les résultats
+        $users = User::all();
+       $i=0;
+        $pdf = PDF::loadView('user.pdf',compact('i', 'users', 'roles', 'services', 'directions'))->setPaper('a4','landscape');
+        return $pdf->download('Liste_des_users.pdf');
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function create()
     {
         //Récupérez tous les rôles depuis la base de données.
-        $roles = Role::all(); 
+        $roles = Role::all();
 
         // Récupérez toutes les permissions depuis la base de données si nécessaire.
-        $permissions = Permission::all(); 
+        $permissions = Permission::all();
 
         //$profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
@@ -106,25 +130,25 @@ class UserController extends Controller
             'password' => 'required',
             'role' => 'required',
         ]);
-    
+
         $user = User::create($request->all());
 
         // Récupérez le nom du rôle à partir de la demande
         $roleName = $request->input('role');
-    
+
         // Recherchez le rôle en fonction de son nom
         $role = Role::where('name', $roleName)->first();
-    
+
         if ($role) {
             // Attachez le rôle à l'utilisateur
             $user->attachRole($role);
-    
+
             return redirect()->route('users.index')->with('success', 'Utilisateur créé avec succès.');
         } else {
             // Gérez le cas où le rôle n'est pas trouvé
             return redirect()->route('users.index')->with('error', 'Le rôle "' . $roleName . '" n\'a pas été trouvé.');
         }
-    
+
     }
 
     /**
@@ -135,7 +159,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $roles = Role::all(); 
+        $roles = Role::all();
         //$profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
         return view('user.show',compact('user', 'roles','services'));
@@ -149,7 +173,7 @@ class UserController extends Controller
      */
     public function edit( $id):View
     {
-        $roles = Role::all(); 
+        $roles = Role::all();
         $user = User::find($id);
         //$profils = Profil::orderBy('nomProfil', 'ASC')->get();
         $services = Service::orderBy('nomService', 'ASC')->get();
@@ -189,7 +213,7 @@ class UserController extends Controller
     {
         //
         $user->delete();
-  
+
         return redirect()->route('users.index')->with('success','user supprimé avec succès');
     }
 }
