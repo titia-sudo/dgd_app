@@ -2,8 +2,8 @@
 
 @section('content')
 @include('layouts.navbars.auth.topnav', ['title' => 'Dashboard'])
-<div class="container-fluid py-4">
-@include('layouts.topnavbande')
+<div class="container-fluid py-4 ">
+    @include('layouts.topnavbande')
     <!-- partie   alerte-->
     @if ($message = Session::get('success'))
     <div class="alert alert-success d-flex align-items-center" role="alert">
@@ -20,20 +20,16 @@
         <h4 class="m-0 font-weight-bold text-black">Liste des utilisateurs</h5>
     </div>
     <hr>
-    <!-- partie   alerte-->
-
     <form method="GET" action="{{ route('Filtrer') }}" id="filtrageUser">
-        <div class="row shadow mt-2 p-2 ">
+        <div class="row  ">
             <div class="col-md-2">
-                <div>
-                    <h5>FILTRE :</h5>
-                </div>
+                <h5>FILTRE : </h5>
             </div>
             <div class="col-md-2 ">
                 <label>
                     <h6>Date de Creation</h6>
-                    <input type="date" name="dateCreation" class="form-control" value="{{ request('dateCreation') }}">
                 </label>
+                <input type="date" name="dateCreation" class="form-control" value="{{ request('dateCreation') }}">
             </div>
             <div class="col-md-2 ">
                 <label>
@@ -69,16 +65,33 @@
                 </select>
             </div>
             <div class="col-md-2 mt-5">
+                <label>
+                    <h6></h6>
+                </label>
                 <button type="submit" class="btn btn-primary">Rechercher</button>
             </div>
         </div>
-
     </form>
+    <div class="card">
+        <div class="card-header">
+            <div class="container text-center">
+                <form method="post" action="{{ route('user.pdf') }}">
+                    @csrf
+                    <div class="row">
+                        <div class="col-auto me-auto">
+                            <h5>Liste</h5>
+                        </div>
+                        <div class="col-md-4 ms-auto">
+                            <button type="submit" class="btn btn-outline-primary me-2"><i class="fas fa-download"></i> Telecharger</button>
 
-    <!-- partie   contenu de l'administation-->
-    <div class="container-fluid">
+                            <a href="{{route('users.create')}}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
-        <div class="card-body shadow">
+        <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     <thead>
@@ -89,6 +102,7 @@
                             <th>Prenom</th>
                             <th>Email</th>
                             <th width="280px">Action</th>
+
                         </tr>
                     </thead>
                     <tfoot>
@@ -120,7 +134,7 @@
                                     @method('DELETE')
 
                                     @if(auth()->user()->hasRole('super-administrateur'))
-                                        <button type="submit" class="btn btn-danger">supprimer</button>
+                                    <button type="submit" class="btn btn-danger">supprimer</button>
                                     @endif
                                 </form>
                             </td>
@@ -132,9 +146,17 @@
             </div>
         </div>
     </div>
+    <!-- partie   contenu de l'administation-->
 
 </div>
 
 @include('layouts.footers.auth.footer')
 </div>
 @endsection
+
+<style>
+    body {
+
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+</style>

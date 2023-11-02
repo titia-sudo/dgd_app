@@ -86,6 +86,11 @@ Route::get('/validateurs/dossiers/delete', [DossierValidateurController::class,'
 Route::get('/validateurs/dossiers/edit/{dossier}', [DossierValidateurController::class,'edit'])->name('validateurs.edit');
 Route::get('/validateurs/dossiers/show/{dossier}', [DossierValidateurController::class,'show'])->name('validateurs.show');
 
+//routes gestion des pdf
+
+Route::post('/users/pdf', [UserController::class,'UserPdf'])->name('user.pdf');
+
+//routes gestion des validations
 Route::post('/dossiers/{dossier}/valider', 'DossierValidateurController@validerDossier')->name('dossiers.validerDossier');
 Route::post('/dossiers/{dossier}/traiterDossier', 'DossierValidateurController@traiterDossier')->name('dossiers.traiterDossier');
 Route::post('/dossiers/{dossier}/rejeter', 'DossierValidateurController@rejeterDossier')->name('dossiers.rejeterDossier');
